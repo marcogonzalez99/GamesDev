@@ -51,7 +51,7 @@ class Ball(Block):
             self.speed_y *= -1
 
         if pygame.sprite.spritecollide(self, self.paddles, False):
-            pygame.mixer.Sound.play(wall_sound)
+            pygame.mixer.Sound.play(pong_sound)
             collision_paddle = pygame.sprite.spritecollide(
                 self, self.paddles, False)[0].rect
             if abs(self.rect.right - collision_paddle.left) < 10 and self.speed_x > 0:

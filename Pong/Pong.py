@@ -10,18 +10,22 @@ def ball_animation():
 
     # Ball Border
     if ball.top <= 0 or ball.bottom >= screen_height:
+        pygame.mixer.Sound.play(wall_sound)
         ball_speed_y *= -1
 
     if ball.left <= 0:  # Player Scores
+        pygame.mixer.Sound.play(score_sound)
         player_score += 1
         score_time = pygame.time.get_ticks()
 
     if ball.right >= screen_width:  # Opponent Scores
+        pygame.mixer.Sound.play(score_sound)
         opponent_score += 1
         score_time = pygame.time.get_ticks()
 
     # Collisions
     if ball.colliderect(player) and ball_speed_x > 0:
+        pygame.mixer.Sound.play(pong_sound)
         if abs(ball.right - player.left) < 10:
             ball_speed_x *= -1
         elif abs(ball.bottom - player.top) < 10 and ball_speed_y > 0:
@@ -30,6 +34,7 @@ def ball_animation():
             ball_speed_y *= -1
 
     if ball.colliderect(opponent) and ball_speed_x < 0:
+        pygame.mixer.Sound.play(pong_sound)
         if abs(ball.left - opponent.right) < 10:
             ball_speed_x *= -1
         elif abs(ball.bottom - opponent.top) < 10 and ball_speed_y > 0:
@@ -65,13 +70,13 @@ def ball_start():
 
     if current_time - score_time < 700:
         number_three = game_font.render("3", False, light_grey)
-        screen.blit(number_three, (screen_width/2 - 10, screen_height/2 + 20))
+        screen.blit(number_three, (screen_width/2-5, screen_height/2 + 20))
     if 700 < current_time - score_time < 1400:
         number_two = game_font.render("2", False, light_grey)
-        screen.blit(number_two, (screen_width/2 - 10, screen_height/2 + 20))
+        screen.blit(number_two, (screen_width/2-5, screen_height/2 + 20))
     if 1400 < current_time - score_time < 2100:
         number_one = game_font.render("1", False, light_grey)
-        screen.blit(number_one, (screen_width/2 - 10, screen_height/2 + 20))
+        screen.blit(number_one, (screen_width/2-5, screen_height/2 + 20))
 
     if current_time - score_time < 2100:
         ball_speed_x, ball_speed_y = 0, 0
@@ -98,6 +103,7 @@ def game_end():
 
 
 # General Setup
+pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init()
 clock = pygame.time.Clock()
 
@@ -109,8 +115,7 @@ pygame.display.set_caption("Pong - Original")
 
 # Game Rectangles
 ball = pygame.Rect(screen_width/2 - 10, screen_height/2 - 10, 20, 20)
-player = pygame.Rect(screen_width - 20,
-                     screen_height/2 - 70, 10, 100)
+player = pygame.Rect(screen_width - 20, screen_height/2 - 70, 10, 100)
 opponent = pygame.Rect(10, screen_height/2 - 70, 10, 100)
 
 background = pygame.Color('grey12')
@@ -133,6 +138,7 @@ game_font = pygame.font.Font("freesansbold.ttf", 24)
 # Sound
 pong_sound = pygame.mixer.Sound("pong.ogg")
 score_sound = pygame.mixer.Sound('score.ogg')
+wall_sound = pygame.mixer.Sound('wall.ogg')
 
 # Score Timer
 score_time = True

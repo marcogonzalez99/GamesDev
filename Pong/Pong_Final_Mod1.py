@@ -26,6 +26,10 @@ class Player(Block):
     def update(self, ball_group):
         self.rect.y += self.movement
         self.screen_constrain()
+        
+    def paddleModPlayer(self):
+        self.image_scaled = pygame.image.load(self.image,str(15))
+        self.rect = self.image_scaled.get_rect()
 
 
 class Ball(Block):
@@ -73,13 +77,6 @@ class Ball(Block):
 
     def restart_counter(self):
         current_time = pygame.time.get_ticks()
-        
-        if current_time - self.score_time < 2100:
-            mod_message = game_font.render("Randomizing Paddles...", False, (accent_color))
-            screen.blit(mod_message, (200, 20))
-        
-        if current_time - self.score_time == 1400:
-            self.paddles.mod_paddles()
         countdown_number = 3
 
         if current_time - self.score_time <= 700:
@@ -122,7 +119,11 @@ class Opponent(Block):
         if self.rect.bottom > ball_group.sprite.rect.y:
             self.rect.y -= self.speed
         self.constrain()
-
+    
+    def paddleModOpponent(self):
+        print("Mod Activated")
+        print(self.rect.height)
+        print(paddle_group.sprites.rect.y)
 
 class GameManager:
     def __init__(self, ball_group, paddle_group):
@@ -222,6 +223,10 @@ while True:
                 player.movement -= player.speed
             if event.key == pygame.K_DOWN:
                 player.movement += player.speed
+            if event.key == pygame.K_1:
+                player.paddleModPlayer()
+            if event.key == pygame.K_2:
+                opponent.paddleModOpponent()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
                 player.movement += player.speed

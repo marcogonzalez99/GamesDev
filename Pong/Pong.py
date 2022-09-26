@@ -19,7 +19,7 @@ def ball_animation():
         score_time = pygame.time.get_ticks()
 
     if ball.right >= screen_width:  # Opponent Scores
-        pygame.mixer.Sound.play(score_sound)
+        pygame.mixer.Sound.play(other_score_sound)
         opponent_score += 1
         score_time = pygame.time.get_ticks()
 
@@ -52,9 +52,9 @@ def player_animation():
 
 
 def opponent_ai():
-    if opponent.top < ball.y - 50:  # This adjustment is for how strong the AI will be
+    if opponent.top < ball.y:  # This adjustment is for how strong the AI will be
         opponent.top += opponent_speed
-    if opponent.bottom > ball.y + 50:  # This adjustment is for how strong the AI will be
+    if opponent.bottom > ball.y:  # This adjustment is for how strong the AI will be
         opponent.bottom -= opponent_speed
     if opponent.top <= 0:
         opponent.top = 0 + 5
@@ -81,8 +81,8 @@ def ball_start():
     if current_time - score_time < 2100:
         ball_speed_x, ball_speed_y = 0, 0
     else:
-        ball_speed_y = 6 * random.choice((1, -1))
-        ball_speed_x = 6 * random.choice((1, -1))
+        ball_speed_y = 8 * random.choice((1, -1))
+        ball_speed_x = 8 * random.choice((1, -1))
         score_time = None
 
 
@@ -90,10 +90,12 @@ def score_logic():
     if (player_score == 5):
         msg = game_font.render("Player Won", False, light_grey)
         screen.blit(msg, (290, 300))
+        pygame.mixer.Sound.play(win_sound)
         game_end()
     if (opponent_score == 5):
         msg = game_font.render("CPU Won", False, light_grey)
         screen.blit(msg, (290, 300))
+        pygame.mixer.Sound.play(lose_sound)
         game_end()
 
 
@@ -125,10 +127,10 @@ opponent_color = (200, 200, 200)
 ball_color = (255, 255, 255)
 
 # Game Variabes
-ball_speed_x = 6
-ball_speed_y = 6
+ball_speed_x = 8
+ball_speed_y = 8
 player_speed = 0
-opponent_speed = 7
+opponent_speed = 8
 
 # Text Variables
 player_score = 0
@@ -139,7 +141,9 @@ game_font = pygame.font.Font("freesansbold.ttf", 24)
 pong_sound = pygame.mixer.Sound("pong.ogg")
 score_sound = pygame.mixer.Sound('score.ogg')
 wall_sound = pygame.mixer.Sound('wall.ogg')
-
+win_sound = pygame.mixer.Sound("win.ogg")
+lose_sound = pygame.mixer.Sound('lose.ogg')
+other_score_sound = pygame.mixer.Sound('other_score.ogg')
 # Score Timer
 score_time = True
 

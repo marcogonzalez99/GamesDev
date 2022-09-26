@@ -10,7 +10,6 @@ class Block(pygame.sprite.Sprite):
         self.image = pygame.image.load(path)
         self.rect = self.image.get_rect(center=(x_pos, y_pos))
 
-
 class Player(Block):
     def __init__(self, path, x_pos, y_pos, speed):
         super().__init__(path, x_pos, y_pos)
@@ -26,7 +25,6 @@ class Player(Block):
     def update(self, ball_group):
         self.rect.y += self.movement
         self.screen_constrain()
-
 
 class Ball(Block):
     def __init__(self, path, x_pos, y_pos, speed_x, speed_y, paddles):
@@ -116,7 +114,6 @@ class Opponent(Block):
             self.rect.y -= self.speed
         self.constrain()
 
-
 class GameManager:
     def __init__(self, ball_group, paddle_group):
         self.player_score = 0
@@ -168,8 +165,6 @@ class GameManager:
             screen.blit(msg, (305, 100))
             self.ball_group.sprite.stop_ball()
         
-
-
 # General Setup
 pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init()

@@ -95,7 +95,6 @@ def score_logic():
     if (opponent_score == 5):
         msg = game_font.render("CPU Won", False, light_grey)
         screen.blit(msg, (290, 300))
-        pygame.mixer.Sound.play(lose_sound)
         game_end()
 
 

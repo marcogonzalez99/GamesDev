@@ -159,7 +159,7 @@ class GameManager:
         screen.blit(opponent_score, opponent_score_rect)
     
     def end_game(self):
-        if self.player_score == 1:
+        if self.player_score == 5:
             msg = game_font.render("Player Won", False, accent_color)
             screen.blit(msg, (285, 100))
             self.ball_group.sprite.stop_ball()

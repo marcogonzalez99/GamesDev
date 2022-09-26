@@ -47,8 +47,7 @@ def ball_restart():
         mod_message = game_font.render("Randomizing Paddles...", False, (255,255,255))
         screen.blit(mod_message, (200, 20))
     if 1400 < current_time - score_time < 1420:
-        ballMod()
-        print("RANDOMIZING PADDLES")
+        paddleMod()
     if current_time - score_time < 700:
         number_three = game_font.render("3", False, (0,255,255))
         screen.blit(number_three, (355,100))
@@ -79,7 +78,7 @@ def score_logic():
         screen.blit(msg2,(290, 330))
         game_end()
 
-def ballMod():
+def paddleMod():
     global player,opponent
     player = pygame.Rect(screen_width - 20, screen_height/2 - 70,15,random.choice((75,125)))
     opponent = pygame.Rect(10, screen_height/2 - 70,15,random.choice((75,125)))

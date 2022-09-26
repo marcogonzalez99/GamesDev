@@ -73,6 +73,13 @@ class Ball(Block):
 
     def restart_counter(self):
         current_time = pygame.time.get_ticks()
+        
+        if current_time - self.score_time < 2100:
+            mod_message = game_font.render("Randomizing Paddles...", False, (accent_color))
+            screen.blit(mod_message, (200, 20))
+        
+        if current_time - self.score_time == 1400:
+            self.paddles.mod_paddles()
         countdown_number = 3
 
         if current_time - self.score_time <= 700:
@@ -159,7 +166,7 @@ class GameManager:
         screen.blit(opponent_score, opponent_score_rect)
     
     def end_game(self):
-        if self.player_score == 1:
+        if self.player_score == 5:
             msg = game_font.render("Player Won", False, accent_color)
             screen.blit(msg, (285, 100))
             self.ball_group.sprite.stop_ball()

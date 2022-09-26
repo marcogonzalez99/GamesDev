@@ -46,14 +46,15 @@ def ball_restart():
     if current_time - score_time < 2100:
         mod_message = game_font.render("Randomizing Paddles...", False, (255,255,255))
         screen.blit(mod_message, (200, 20))
-    
+    if 1400 < current_time - score_time < 1420:
+        ballMod()
+        print("RANDOMIZING PADDLES")
     if current_time - score_time < 700:
         number_three = game_font.render("3", False, (0,255,255))
         screen.blit(number_three, (355,50))
     if current_time - score_time < 1400 and current_time - score_time > 700:
         number_two = game_font.render("2", False, (0,255,255))
         screen.blit(number_two, (355,100))
-        ballMod()
     if current_time - score_time < 2100 and current_time - score_time > 1400:
         number_one = game_font.render("1", False, (0,255,255))
         screen.blit(number_one, (355,150))

@@ -81,8 +81,8 @@ def ball_start():
     if current_time - score_time < 2100:
         ball_speed_x, ball_speed_y = 0, 0
     else:
-        ball_speed_y = 8 * random.choice((1, -1))
-        ball_speed_x = 8 * random.choice((1, -1))
+        ball_speed_y = 7 * random.choice((1, -1))
+        ball_speed_x = 7 * random.choice((1, -1))
         score_time = None
 
 
@@ -120,17 +120,17 @@ ball = pygame.Rect(screen_width/2 - 10, screen_height/2 - 10, 20, 20)
 player = pygame.Rect(screen_width - 20, screen_height/2 - 70, 10, 100)
 opponent = pygame.Rect(10, screen_height/2 - 70, 10, 100)
 
-background = pygame.Color('grey12')
+background = pygame.Color('#2F373F')
 light_grey = (200, 200, 200)
 player_color = (175, 175, 175)
 opponent_color = (200, 200, 200)
 ball_color = (255, 255, 255)
 
 # Game Variabes
-ball_speed_x = 8
-ball_speed_y = 8
+ball_speed_x = 7
+ball_speed_y = 7
 player_speed = 0
-opponent_speed = 8
+opponent_speed = 7
 
 # Text Variables
 player_score = 0

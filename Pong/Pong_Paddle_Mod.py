@@ -51,13 +51,13 @@ def ball_restart():
         print("RANDOMIZING PADDLES")
     if current_time - score_time < 700:
         number_three = game_font.render("3", False, (0,255,255))
-        screen.blit(number_three, (355,50))
+        screen.blit(number_three, (355,100))
     if current_time - score_time < 1400 and current_time - score_time > 700:
         number_two = game_font.render("2", False, (0,255,255))
         screen.blit(number_two, (355,100))
     if current_time - score_time < 2100 and current_time - score_time > 1400:
         number_one = game_font.render("1", False, (0,255,255))
-        screen.blit(number_one, (355,150))
+        screen.blit(number_one, (355,100))
     
     if current_time - score_time < 2100:
         ball_speed_x,ball_speed_y = 0,0
@@ -68,11 +68,11 @@ def ball_restart():
         score_time = None            
         
 def score_logic():
-    if (player_score >= 7):
+    if (player_score == 7):
         msg = game_font.render("Player Won", False, light_grey)
         screen.blit(msg,(290, 300))
         game_end()
-    if (opponent_score >= 7):
+    if (opponent_score == 7):
         msg = game_font.render("CPU Won", False, light_grey)
         screen.blit(msg,(305, 300))
         msg2 = game_font.render("Game Over", False, light_grey)
@@ -81,8 +81,8 @@ def score_logic():
 
 def ballMod():
     global player,opponent
-    player = pygame.Rect(screen_width - 20, screen_height/2 - 70,15,random.choice((50,150)))
-    opponent = pygame.Rect(10, screen_height/2 - 70,15,random.choice((75,200)))
+    player = pygame.Rect(screen_width - 20, screen_height/2 - 70,15,random.choice((75,125)))
+    opponent = pygame.Rect(10, screen_height/2 - 70,15,random.choice((75,125)))
 
 def game_end():
     global ball_speed_x,ball_speed_y
@@ -103,7 +103,7 @@ ball = pygame.Rect(screen_width/2 - 10,screen_height/2 - 10,20,20)
 player = pygame.Rect(screen_width - 20, screen_height/2 - 70,15,100)
 opponent = pygame.Rect(10, screen_height/2 - 70,15,100)
 
-background = pygame.Color('grey12')
+background = pygame.Color('#2F373F')
 light_grey = (200,200,200)
 player_color = (175,175,175)
 opponent_color = (200,200,200)

@@ -27,9 +27,26 @@ class Target(pygame.sprite.Sprite):
 
 class GameState():
     def __init__(self):
-        self.state = "main_game"
+        self.state = "intro"
         
     def intro(self):    
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                self.state = "main_game"
+        #Drawing
+        screen.blit(background, (0, 0))
+        screen.blit(ready_text,(screen_width/2-115,screen_height/2))
+        
+        crosshair_group.draw(screen)
+        crosshair_group.update()
+            
+                
+        pygame.display.flip()
+    def main_game(self): 
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -44,23 +61,13 @@ class GameState():
             
                 
         pygame.display.flip()
-    def main_game(self): 
         
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            #if event.type == pygame.MOUSEBUTTONDOWN:
-                #crosshair.shoot()
-        #Drawing
-        screen.blit(background, (0, 0))
-        target_group.draw(screen)
-        crosshair_group.draw(screen)
-        crosshair_group.update()
-            
-                
-        pygame.display.flip()
-        
+    def state_manager(self):
+        if self.state == "intro":
+            self.intro()
+        if self.state == "main_game":
+            self.main_game()    
+    
         
 # General Setup
 pygame.init()
@@ -72,6 +79,7 @@ screen_width = 1280
 screen_height = 720
 screen = pygame.display.set_mode((screen_width, screen_height))
 background = pygame.image.load("bg.png")
+ready_text = pygame.image.load("text_ready.png")
 pygame.mouse.set_visible(False)
 
 # Crosshair
@@ -88,6 +96,5 @@ for target in range(20):
 
 
 while True:
-    game_state.intro()
-    #game_state.main_game()
+    game_state.state_manager()
     clock.tick(75)

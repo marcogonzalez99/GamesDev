@@ -4,8 +4,10 @@ import sys
 #General Setup
 pygame.init()
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode((500,500))
-pygame.display.set_caption(("Collisions"))
+
+screen_width,screen_height = 600,600
+screen = pygame.display.set_mode((screen_width,screen_height))
+pygame.display.set_caption(("Bullets"))
 
 # Game Loop
 while True:    

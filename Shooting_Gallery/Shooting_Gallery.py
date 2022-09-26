@@ -25,20 +25,57 @@ class Target(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = [pos_x, pos_y]
 
-
+class GameState():
+    def __init__(self):
+        self.state = "main_game"
+        
+    def intro(self):    
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                crosshair.shoot()
+        #Drawing
+        screen.blit(background, (0, 0))
+        target_group.draw(screen)
+        crosshair_group.draw(screen)
+        crosshair_group.update()
+            
+                
+        pygame.display.flip()
+    def main_game(self): 
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            #if event.type == pygame.MOUSEBUTTONDOWN:
+                #crosshair.shoot()
+        #Drawing
+        screen.blit(background, (0, 0))
+        target_group.draw(screen)
+        crosshair_group.draw(screen)
+        crosshair_group.update()
+            
+                
+        pygame.display.flip()
+        
+        
 # General Setup
 pygame.init()
 clock = pygame.time.Clock()
+game_state = GameState()
 
 # Game Screen
 screen_width = 1280
 screen_height = 720
 screen = pygame.display.set_mode((screen_width, screen_height))
-background = pygame.image.load("bg_green.png")
+background = pygame.image.load("bg.png")
 pygame.mouse.set_visible(False)
 
 # Crosshair
-crosshair = Crosshair("crosshair_red_large.png")
+crosshair = Crosshair("crosshair_red.png")
 crosshair_group = pygame.sprite.Group()
 crosshair_group.add(crosshair)
 
@@ -49,18 +86,8 @@ for target in range(20):
         0, screen_width), random.randrange(0, screen_height))
     target_group.add(new_target)
 
+
 while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-
-    if event.type == pygame.MOUSEBUTTONDOWN:
-        crosshair.shoot()
-
-    pygame.display.flip()
-    screen.blit(background, (0, 0))
-    target_group.draw(screen)
-    crosshair_group.draw(screen)
-    crosshair_group.update()
+    game_state.intro()
+    #game_state.main_game()
     clock.tick(75)

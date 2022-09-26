@@ -17,13 +17,19 @@ def ball_animation():
 
 def player_animation():
     player.y += player_speed
+    #Player Collision
+    if player.top <= 0:
+        player.top = 0
+    if player.bottom >= screen_height:
+        player.bottom = screen_height    
+    
 #General Setup
 pygame.init()
 clock = pygame.time.Clock()
 
 #Screen Sizes
-screen_width = 1366
-screen_height = 768
+screen_width = 720
+screen_height = 480
 screen = pygame.display.set_mode((screen_width,screen_height))
 pygame.display.set_caption(("Pong"))
 
@@ -60,6 +66,8 @@ while True:
             if event.key == pygame.K_UP:
                 player_speed += 7
                 
+    ball_animation()
+    player_animation()
     screen.fill(bg_color)        
     pygame.draw.ellipse(screen, light_grey, ball)
     pygame.draw.rect(screen, light_grey, opponent)

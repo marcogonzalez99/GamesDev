@@ -9,6 +9,10 @@ class Block(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(path)
         self.rect = self.image.get_rect(center=(x_pos, y_pos))
+    
+    def paddleMod(self):
+        print("Mod Clicked")
+        self.image = pygame.transform.scale(self.image,(10,random.choice((25,150))))
 
 
 class Player(Block):
@@ -23,15 +27,10 @@ class Player(Block):
         if self.rect.bottom >= screen_height:
             self.rect.bottom = screen_height
 
-    def update(self, ball_group):
+    def update(self,ball_group):
         self.rect.y += self.movement
         self.screen_constrain()
-        
-    def paddleModPlayer(self):
-        self.image_scaled = pygame.image.load(self.image,str(15))
-        self.rect = self.image_scaled.get_rect()
-
-
+    
 class Ball(Block):
     def __init__(self, path, x_pos, y_pos, speed_x, speed_y, paddles):
         super().__init__(path, x_pos, y_pos)
@@ -119,11 +118,6 @@ class Opponent(Block):
         if self.rect.bottom > ball_group.sprite.rect.y:
             self.rect.y -= self.speed
         self.constrain()
-    
-    def paddleModOpponent(self):
-        print("Mod Activated")
-        print(self.rect.height)
-        print(paddle_group.sprites.rect.y)
 
 class GameManager:
     def __init__(self, ball_group, paddle_group):
@@ -224,9 +218,7 @@ while True:
             if event.key == pygame.K_DOWN:
                 player.movement += player.speed
             if event.key == pygame.K_1:
-                player.paddleModPlayer()
-            if event.key == pygame.K_2:
-                opponent.paddleModOpponent()
+                player.paddleMod()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
                 player.movement += player.speed

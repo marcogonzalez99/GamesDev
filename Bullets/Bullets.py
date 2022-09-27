@@ -29,7 +29,7 @@ class Bullet(pygame.sprite.Sprite):
 #General Setup
 pygame.init()
 clock = pygame.time.Clock()
-screen_width,screen_height = 600,600
+screen_width,screen_height = 1000,600
 screen = pygame.display.set_mode((screen_width,screen_height))
 pygame.display.set_caption(("Bullets"))
 pygame.mouse.set_visible(False)

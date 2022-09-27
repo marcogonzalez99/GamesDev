@@ -1,7 +1,4 @@
-from cmath import rect
-import pygame
-import sys
-import random
+import pygame,sys,random
 
 
 class Block(pygame.sprite.Sprite):
@@ -12,7 +9,11 @@ class Block(pygame.sprite.Sprite):
     
     def paddleMod(self):
         print("Mod Clicked")
-        self.image = pygame.transform.scale(self.image,(10,random.choice((25,150))))
+        height = random.randint(25,150)
+        self.image = pygame.transform.scale(self.image,(10,height))
+        self.rect.height = height
+        print(f"Rect Height: {self.rect.height}")
+        print(f"Image Height: {self.image.get_size()[1]}")
 
 
 class Player(Block):
@@ -219,6 +220,8 @@ while True:
                 player.movement += player.speed
             if event.key == pygame.K_1:
                 player.paddleMod()
+            if event.key == pygame.K_2:
+                opponent.paddleMod()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
                 player.movement += player.speed

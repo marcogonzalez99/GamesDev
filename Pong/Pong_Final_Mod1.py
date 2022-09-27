@@ -1,4 +1,6 @@
-import pygame,sys,random
+import pygame
+import sys
+import random
 
 
 class Block(pygame.sprite.Sprite):
@@ -6,14 +8,12 @@ class Block(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(path)
         self.rect = self.image.get_rect(center=(x_pos, y_pos))
-    
+
+    # Paddle Mod - Changes the size of the paddle depending on what key was pressed
     def paddleMod(self):
-        print("Mod Clicked")
-        height = random.randint(25,150)
-        self.image = pygame.transform.scale(self.image,(10,height))
+        height = random.randint(25, 150)
+        self.image = pygame.transform.scale(self.image, (10, height))
         self.rect.height = height
-        print(f"Rect Height: {self.rect.height}")
-        print(f"Image Height: {self.image.get_size()[1]}")
 
 
 class Player(Block):
@@ -28,10 +28,11 @@ class Player(Block):
         if self.rect.bottom >= screen_height:
             self.rect.bottom = screen_height
 
-    def update(self,ball_group):
+    def update(self, ball_group):
         self.rect.y += self.movement
         self.screen_constrain()
-    
+
+
 class Ball(Block):
     def __init__(self, path, x_pos, y_pos, speed_x, speed_y, paddles):
         super().__init__(path, x_pos, y_pos)
@@ -59,21 +60,22 @@ class Ball(Block):
             collision_paddle = pygame.sprite.spritecollide(
                 self, self.paddles, False)[0].rect
             if abs(self.rect.right - collision_paddle.left) < 10 and self.speed_x > 0:
-                self.speed_x *= -1
+                self.speed_x *= -1.05
             if abs(self.rect.left - collision_paddle.right) < 10 and self.speed_x < 0:
-                self.speed_x *= -1
+                self.speed_x *= -1.05
             if abs(self.rect.top - collision_paddle.bottom) < 10 and self.speed_x < 0:
-                self.speed_y *= -1
+                self.speed_y *= -1.05
             if abs(self.rect.bottom - collision_paddle.top) < 10 and self.speed_x > 0:
-                self.speed_y *= -1
+                self.speed_y *= -1.05
 
     def reset_ball(self):
         self.active = False
+        self.speed_x = 3  # An Alternative Speed Mod
+        self.speed_y = 3  # An alternative Speed Mod
         self.speed_x *= random.choice((-1, 1))
         self.speed_y *= random.choice((-1, 1))
         self.score_time = pygame.time.get_ticks()
         self.rect.center = (screen_width/2, screen_height/2)
-        pygame.mixer.Sound.play(score_sound)
 
     def restart_counter(self):
         current_time = pygame.time.get_ticks()
@@ -94,12 +96,13 @@ class Ball(Block):
             center=(screen_width/2, screen_height/2 + 50))
         pygame.draw.rect(screen, background_color, time_counter_rect)
         screen.blit(time_counter, time_counter_rect)
-        
+
     def stop_ball(self):
         self.active = False
         self.speed_x *= 0
         self.speed_y *= 0
         self.rect.center = (screen_width/2, screen_height/2)
+
 
 class Opponent(Block):
     def __init__(self, path, x_pos, y_pos, speed):
@@ -114,11 +117,12 @@ class Opponent(Block):
             self.rect.bottom = screen_height
 
     def update(self, ball_group):
-        if self.rect.top < ball_group.sprite.rect.y:
+        if self.rect.top < ball_group.sprite.rect.y - 15:
             self.rect.y += self.speed
-        if self.rect.bottom > ball_group.sprite.rect.y:
+        if self.rect.bottom > ball_group.sprite.rect.y + 15:
             self.rect.y -= self.speed
         self.constrain()
+
 
 class GameManager:
     def __init__(self, ball_group, paddle_group):
@@ -138,14 +142,15 @@ class GameManager:
         self.end_game()
         self.reset_ball()
         self.draw_score()
-        
 
     def reset_ball(self):
         if self.ball_group.sprite.rect.right >= screen_width:
             self.opponent_score += 1
+            pygame.mixer.Sound.play(opponent_score)
             self.ball_group.sprite.reset_ball()
         if self.ball_group.sprite.rect.left <= 0:
             self.player_score += 1
+            pygame.mixer.Sound.play(score_sound)
             self.ball_group.sprite.reset_ball()
 
     def draw_score(self):
@@ -160,7 +165,7 @@ class GameManager:
             midright=(screen_width/2 - 40, screen_height/2))
         screen.blit(player_score, player_score_rect)
         screen.blit(opponent_score, opponent_score_rect)
-    
+
     def end_game(self):
         if self.player_score == 5:
             msg = game_font.render("Player Won", False, accent_color)
@@ -170,7 +175,6 @@ class GameManager:
             msg = game_font.render("CPU Won", False, accent_color)
             screen.blit(msg, (305, 100))
             self.ball_group.sprite.stop_ball()
-        
 
 
 # General Setup
@@ -194,15 +198,16 @@ middle_strip = pygame.Rect(screen_width/2-2, 0, 4, screen_height)
 pong_sound = pygame.mixer.Sound("pong.ogg")
 score_sound = pygame.mixer.Sound('score.ogg')
 wall_sound = pygame.mixer.Sound('wall.ogg')
+opponent_score = pygame.mixer.Sound('other_score.ogg')
 
 # Game Objects
-player = Player('Paddle.png', screen_width-20, screen_height/2, 5)
-opponent = Opponent('Paddle.png', 20, screen_width/2, 5)
+player = Player('Paddle.png', screen_width-20, screen_height/2, 6)
+opponent = Opponent('Paddle.png', 20, screen_width/2, 6)
 paddle_group = pygame.sprite.Group()
 paddle_group.add(player)
 paddle_group.add(opponent)
 
-ball = Ball('ball.png', screen_width/2, screen_height/2, 4, 4, paddle_group)
+ball = Ball('ball.png', screen_width/2, screen_height/2, 6, 6, paddle_group)
 ball_sprite = pygame.sprite.GroupSingle()
 ball_sprite.add(ball)
 

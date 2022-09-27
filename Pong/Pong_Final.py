@@ -22,7 +22,7 @@ class Player(Block):
         if self.rect.bottom >= screen_height:
             self.rect.bottom = screen_height
 
-    def update(self, ball_group):
+    def update(self):
         self.rect.y += self.movement
         self.screen_constrain()
 

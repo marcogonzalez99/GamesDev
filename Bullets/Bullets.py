@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = pygame.mouse.get_pos()
     
     def create_bullet(self):
-        return Bullet(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
+        return Bullet(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-3)
       
 class Bullet(pygame.sprite.Sprite):      
     def __init__(self, pos_x,pos_y):

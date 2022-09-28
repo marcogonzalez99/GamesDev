@@ -15,20 +15,21 @@ class Player(pygame.sprite.Sprite):
         self.health_ratio = self.maximum_health/self.health_bar_length
         self.health_change_speed = 5
 
-    def update(self):
-        self.advanced_health()
-
     def get_damage(self, amount):
         if self.target_health > 0:
             self.target_health -= amount
-        if self.target_health <= 0:
+        if self.target_health < 0:
             self.target_health = 0
 
     def get_health(self, amount):
         if self.target_health < self.maximum_health:
             self.target_health += amount
-        if self.target_health >= self.maximum_health:
+        if self.target_health > self.maximum_health:
             self.target_health = self.maximum_health
+
+    def update(self):
+        self.basic_health()
+        self.advanced_health()
 
     def basic_health(self):
         pygame.draw.rect(screen, (255, 0, 0),
@@ -52,12 +53,12 @@ class Player(pygame.sprite.Sprite):
                 (self.target_health - self.current_health) / self.health_ratio)
             transition_color = (255, 255, 0)
 
-        health_bar_width = int(self.current_health / self.health_ratio)
-        health_bar = pygame.Rect(10, 45, health_bar_width, 25)
+        health_bar_rect = pygame.Rect(
+            10, 45, self.current_health / self.health_ratio, 25)
         transition_bar = pygame.Rect(
-            health_bar.right, 45, transition_width, 25)
+            health_bar_rect.right, 45, transition_width, 25)
 
-        pygame.draw.rect(screen, (255, 0, 0), health_bar)
+        pygame.draw.rect(screen, (255, 0, 0), health_bar_rect)
         pygame.draw.rect(screen, transition_color, transition_bar)
         pygame.draw.rect(screen, (255, 255, 255),
                          (10, 45, self.health_bar_length, 25), 4)
@@ -88,5 +89,5 @@ while True:
     screen.fill((30, 30, 30))
     player.draw(screen)
     player.update()
-    pygame.display.update()
+    pygame.display.flip()
     clock.tick(75)

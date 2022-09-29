@@ -12,6 +12,9 @@ class SNAKE:
             block_rect = pygame.Rect(x_pos,y_pos,cell_size,cell_size) 
             pygame.draw.rect(screen,(183,111,122),block_rect)
 
+    def move_snake(self):
+        body_copy = self.body[:-1]
+
 class FRUIT:
     def __init__(self):
         self.x = random.randint(0,cell_number-1)

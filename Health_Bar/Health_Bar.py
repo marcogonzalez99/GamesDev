@@ -7,7 +7,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.Surface((40, 40))
         self.image.fill((240, 240, 240))
-        self.rect = self.image.get_rect(center=(400, 400))
+        self.rect = self.image.get_rect(center=(screen_width/2,screen_height/2))
         self.current_health = 200
         self.target_health = 500
         self.maximum_health = 1000
@@ -69,8 +69,8 @@ pygame.init()
 clock = pygame.time.Clock()
 
 # Game Screen
-screen_width = 800
-screen_height = 800
+screen_width = 600
+screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Player

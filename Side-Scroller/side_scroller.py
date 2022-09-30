@@ -36,8 +36,13 @@ ground_surface = pygame.image.load("ground.png").convert_alpha()
 go_surface = test_font.render("Game Over", False, (64, 64, 64))
 go_rect = go_surface.get_rect(center=(400, 50))
 
+# Snail Image
 snail_surface = pygame.image.load("snail1.png").convert_alpha()
 snail_rect = snail_surface.get_rect(bottomright=(600, 300))
+
+#Fly Image
+fly_surface = pygame.image.load("Fly1.png").convert_alpha()
+fly_rect = fly_surface.get_rect(bottomright = (600,200))
 
 player_surface = pygame.image.load("player_walk_1.png").convert_alpha()
 player_rect = player_surface.get_rect(midbottom=(80, 300))
@@ -84,10 +89,15 @@ while True:
         # screen.blit(score_surface, score_rect)
         score = display_score()
 
-        snail_rect.x -= 4
+        snail_rect.x -= 5
         if snail_rect.right <= 0:
             snail_rect.left = 800
         screen.blit(snail_surface, snail_rect)
+        
+        fly_rect.x -=5
+        if fly_rect.right <= 0:
+            fly_rect.left = 800
+        screen.blit(fly_surface,fly_rect)
 
         player_gravity += 1
         player_rect.y += player_gravity
@@ -96,6 +106,8 @@ while True:
         screen.blit(player_surface, player_rect)
 
         if snail_rect.colliderect(player_rect):
+            game_active = False
+        if fly_rect.colliderect(player_rect):
             game_active = False
     else:
         screen.fill((94, 129, 162))

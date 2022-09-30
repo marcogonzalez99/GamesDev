@@ -78,6 +78,7 @@ class Ball(Block):
         self.rect.center = (screen_width/2, screen_height/2)
 
     def restart_counter(self):
+        global current_time
         current_time = pygame.time.get_ticks()
         countdown_number = 3
 
@@ -193,7 +194,7 @@ background_color = pygame.Color('#2F373F')
 accent_color = (0, 0, 0)
 game_font = pygame.font.Font("freesansbold.ttf", 24)
 middle_strip = pygame.Rect(screen_width/2-2, 0, 4, screen_height)
-
+game_active = False
 # Sound
 pong_sound = pygame.mixer.Sound("pong.ogg")
 score_sound = pygame.mixer.Sound('score.ogg')
@@ -211,6 +212,10 @@ ball = Ball('ball.png', screen_width/2, screen_height/2, 6, 6, paddle_group)
 ball_sprite = pygame.sprite.GroupSingle()
 ball_sprite.add(ball)
 
+# Game Logo
+game_logo = pygame.image.load("pong_logo.png")
+game_logo_rect = game_logo.get_rect(center = (360,240))
+
 game_manager = GameManager(ball_sprite, paddle_group)
 
 while True:
@@ -218,26 +223,45 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                player.movement -= player.speed
-            if event.key == pygame.K_DOWN:
-                player.movement += player.speed
-            if event.key == pygame.K_1:
-                player.paddleMod()
-            if event.key == pygame.K_2:
-                opponent.paddleMod()
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_UP:
-                player.movement += player.speed
-            if event.key == pygame.K_DOWN:
-                player.movement -= player.speed
-    # Background Stuff
-    screen.fill(background_color)
-    pygame.draw.rect(screen, accent_color, middle_strip)
+        if game_active:   
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    player.movement -= player.speed
+                if event.key == pygame.K_DOWN:
+                    player.movement += player.speed
+                if event.key == pygame.K_1:
+                    player.paddleMod()
+                if event.key == pygame.K_2:
+                    opponent.paddleMod()
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_UP:
+                    player.movement += player.speed
+                if event.key == pygame.K_DOWN:
+                    player.movement -= player.speed
+        else:
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                ball.reset_ball()
+                ball.restart_counter()
+                game_active = True
+        
+    if game_active:
+        # Background Stuff
+        screen.fill(background_color)
+        pygame.draw.rect(screen, accent_color, middle_strip)
 
-    # Run the Game
-    game_manager.run_game()
+        # Run the Game
+        game_manager.run_game()
+    else:
+        screen.fill(background_color)
+        intro_message = game_font.render(f"Welcome to", False, accent_color)
+        intro_message_rect = intro_message.get_rect(center=(360, 120))
+        screen.blit(intro_message, intro_message_rect)
+            
+        start_message = game_font.render(f"Press Space to Start", False, accent_color)
+        start_message_rect = start_message.get_rect(center=(360, 360))
+        screen.blit(start_message, start_message_rect)
+            
+        screen.blit(game_logo,game_logo_rect)
 
     # Rendering
     pygame.display.flip()

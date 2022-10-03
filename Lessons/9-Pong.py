@@ -24,10 +24,10 @@ light_grey = (200,200,200)
 bg_color = pygame.Color('grey12')
 
 # Game Variables
-ball_speed_x = 9
-ball_speed_y = 9
+ball_speed_x = 12
+ball_speed_y = 12
 player_speed = 0
-opponent_speed = 5
+opponent_speed = 8
 
 # Score Varaibles
 player_score = 0
@@ -97,14 +97,14 @@ if __name__ == "__main__":
             
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
-                    player_speed += 9
+                    player_speed += 12
                 if event.key == pygame.K_UP:
-                    player_speed -= 9
+                    player_speed -= 12
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_DOWN:
-                    player_speed -= 9
+                    player_speed -= 12
                 if event.key == pygame.K_UP:
-                    player_speed += 9
+                    player_speed += 12
                     
         ball_animation()
         player_animation()

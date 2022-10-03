@@ -134,7 +134,7 @@ opponent_speed = 7
 # Text Variables
 player_score = 0
 opponent_score = 0
-game_font = pygame.font.Font("freesansbold.ttf", 24)
+game_font = pygame.font.Font("Pixeltype.ttf", 48)
 
 # Sound
 pong_sound = pygame.mixer.Sound("pong.ogg")

@@ -1,6 +1,7 @@
 # Lesson 3
 import pygame
 import sys
+import random
 
 def ball_animation():
     global ball_speed_x,ball_speed_y
@@ -12,8 +13,12 @@ def ball_animation():
     if ball.top <= 0 or ball.bottom >= screen_height:
         ball_speed_y *= -1
         
-    if ball.left <= 0 or ball.right >= screen_width:       
+    if ball.left <= 0 or ball.right >= screen_width:
+        ball_restart()
+    
+    if ball.colliderect(player) or ball.colliderect(opponent):
         ball_speed_x *= -1
+        
 
 def player_animation():
     player.y += player_speed
@@ -32,16 +37,22 @@ def opponent_ai():
         opponent.top = 0 + 5
     if opponent.bottom >= screen_height:
         opponent.bottom = screen_height - 5
+        
+def ball_restart():
+    global ball_speed_x,ball_speed_y
+    ball_speed_x *= random.choice((-1,1))
+    ball_speed_y *= random.choice((-1,1))
+    ball.center = (screen_width/2, screen_height/2)
     
 #General Setup
 pygame.init()
 clock = pygame.time.Clock()
 
 #Screen Sizes
-screen_width = 720
-screen_height = 480
+screen_width = 1280
+screen_height = 720
 screen = pygame.display.set_mode((screen_width,screen_height))
-pygame.display.set_caption(("Pong"))
+pygame.display.set_caption(("Pong - Lesson 6"))
 
 #Game Rectanbgles
 ball = pygame.Rect(screen_width/2 - 15,screen_height/2-15,30,30) #This places the ball in the middle of the screen

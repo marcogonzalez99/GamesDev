@@ -4,7 +4,7 @@ import sys
 import random
 
 def ball_animation():
-    global ball_speed_x,ball_speed_y
+    global ball_speed_x,ball_speed_y,player_score,opponent_score
     
     ball.x += ball_speed_x
     ball.y += ball_speed_y 
@@ -13,7 +13,11 @@ def ball_animation():
     if ball.top <= 0 or ball.bottom >= screen_height:
         ball_speed_y *= -1
         
-    if ball.left <= 0 or ball.right >= screen_width:
+    if ball.left <= 0:
+        player_score += 1
+        ball_restart()
+    if ball.right >= screen_width:
+        opponent_score += 1
         ball_restart()
     
     if ball.colliderect(player) or ball.colliderect(opponent):
@@ -29,9 +33,9 @@ def player_animation():
         player.bottom = screen_height    
     
 def opponent_ai():
-    if opponent.top + 40 < ball.y:  # This adjustment is for how strong the AI will be
+    if opponent.top < ball.y:  # This adjustment is for how strong the AI will be
         opponent.top += opponent_speed
-    if opponent.bottom - 40 > ball.y:  # This adjustment is for how strong the AI will be
+    if opponent.bottom > ball.y:  # This adjustment is for how strong the AI will be
         opponent.bottom -= opponent_speed
     if opponent.top <= 0:
         opponent.top = 0 + 5
@@ -43,6 +47,7 @@ def ball_restart():
     ball_speed_x *= random.choice((-1,1))
     ball_speed_y *= random.choice((-1,1))
     ball.center = (screen_width/2, screen_height/2)
+    
     
 #General Setup
 pygame.init()
@@ -64,10 +69,15 @@ light_grey = (200,200,200)
 bg_color = pygame.Color('grey12')
 
 # Game Variables
-ball_speed_x = 7
-ball_speed_y = 7
+ball_speed_x = 9
+ball_speed_y = 9
 player_speed = 0
-opponent_speed = 7
+opponent_speed = 5
+
+# Score Varaibles
+player_score = 0
+opponent_score = 0
+game_font = pygame.font.Font(None,44)
 
 # Game Loop
 while True:
@@ -79,14 +89,14 @@ while True:
         
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_DOWN:
-                player_speed += 7
+                player_speed += 9
             if event.key == pygame.K_UP:
-                player_speed -= 7
+                player_speed -= 9
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_DOWN:
-                player_speed -= 7
+                player_speed -= 9
             if event.key == pygame.K_UP:
-                player_speed += 7
+                player_speed += 9
                 
     ball_animation()
     player_animation()
@@ -98,6 +108,9 @@ while True:
     pygame.draw.rect(screen, light_grey, player)
     pygame.draw.aaline(screen, light_grey, (screen_width/2,0), (screen_width/2,screen_height))
     
+    # Surface for scoreboard
+    player_test = game_font.render(f"{opponent_score} : {player_score}",False,('white'))
+    screen.blit(player_test,(screen_width/2 - 30,screen_height/2))
     
     pygame.display.flip()
     clock.tick(60)

@@ -1,5 +1,5 @@
 import pygame
-from support import import_folder
+from oldsupport import import_folder
 
 
 class Player(pygame.sprite.Sprite):

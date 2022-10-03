@@ -33,7 +33,7 @@ class Player(pygame.sprite.Sprite):
         self.on_right = False
 
     def import_character_assets(self):
-        character_path = 'character/'
+        character_path = 'graphics/character/'
         self.animations = {'idle': [], 'run': [], 'jump': [], 'fall': []}
 
         for animation in self.animations.keys():  # Get access to folders
@@ -41,7 +41,7 @@ class Player(pygame.sprite.Sprite):
             self.animations[animation] = import_folder(full_path)
 
     def import_dust_run_particles(self):
-        self.dust_run_particles = import_folder('character/dust_particles/run')
+        self.dust_run_particles = import_folder('graphics/character/dust_particles/run')
 
     def run_dust_animation(self):
         if self.status == 'run' and self.on_ground:

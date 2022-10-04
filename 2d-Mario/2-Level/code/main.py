@@ -15,7 +15,7 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-    screen.fill((64,64,64))
+    screen.fill('lightgrey')
     level.run()
     
     pygame.display.update()

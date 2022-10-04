@@ -1,5 +1,5 @@
 import pygame
-from tiles import Tile
+from oldtiles import Tile
 from settings import tile_size
 from particles import ParticleEffect
 from player import Player

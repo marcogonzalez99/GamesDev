@@ -65,7 +65,7 @@ class Clouds:
         for cloud in range(cloud_number):
             cloud = choice(cloud_surface_list)
             x = randint(min_x, max_x)
-            y = randint(min_y, max_x)
+            y = randint(min_y, max_y)
             sprite = StaticTile(0, x, y, cloud)
             self.cloud_sprites.add(sprite)
 

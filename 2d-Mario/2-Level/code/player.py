@@ -101,7 +101,7 @@ class Player(pygame.sprite.Sprite):
         else:
             self.direction.x = 0
 
-        if keys[pygame.K_SPACE] and self.on_ground:
+        if keys[pygame.K_w] and self.on_ground:
             self.jump()
             self.create_jump_particles(self.rect.midbottom)
 

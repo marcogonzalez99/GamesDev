@@ -1,6 +1,7 @@
 import pygame
 from game_data import levels
 from support import import_folder
+from decoration import Sky
 
 
 class Node(pygame.sprite.Sprite):
@@ -12,7 +13,7 @@ class Node(pygame.sprite.Sprite):
         self.image = self.frames[self.frame_index]
         #Creating the image
         if status == 'available':
-            self.status = 'avaialable'
+            self.status = 'available'
         else:
             self.status = 'locked'
         self.rect = self.image.get_rect(center=pos)
@@ -30,7 +31,7 @@ class Node(pygame.sprite.Sprite):
             self.animate()
         else:
             tint_surface = self.image.copy()
-            tint_surface.fill('black')
+            tint_surface.fill('black',None,pygame.BLEND_RGB_MULT)
             self.image.blit(tint_surface,(0,0))
 
 
@@ -59,6 +60,7 @@ class Overworld():
         # Sprites
         self.setup_stages()
         self.setup_icon()
+        self.sky = Sky(8,'overworld')  
 
     def setup_stages(self):
         self.nodes = pygame.sprite.Group()
@@ -77,10 +79,11 @@ class Overworld():
         self.icon.add(icon_sprite)
 
     def draw_paths(self):
-        points = [node['node_pos'] for index, node in enumerate(
-            levels.values()) if index <= self.max_level]
+        if self.max_level > 0:
+            points = [node['node_pos'] for index, node in enumerate(
+                levels.values()) if index <= self.max_level]
 
-        pygame.draw.lines(self.display_surface,'#a04f45', False, points, 6)
+            pygame.draw.lines(self.display_surface,'#a04f45', False, points, 6)
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -118,8 +121,11 @@ class Overworld():
         self.update_icon_pos()
         self.icon.update()
         self.nodes.update()
+        self.sky.draw(self.display_surface)
         
         self.draw_paths()
         self.nodes.draw(self.display_surface)
         self.icon.draw(self.display_surface)
+        
+       
         

@@ -10,7 +10,7 @@ from game_data import levels
 
 
 class Level:
-    def __init__(self, current_level,surface,create_overworld):
+    def __init__(self, current_level,surface,create_overworld,change_coins):
         # General Setup
         self.display_surface = surface
         self.world_shift = 0
@@ -26,6 +26,8 @@ class Level:
         self.player = pygame.sprite.GroupSingle()
         self.goal = pygame.sprite.GroupSingle()
         self.create_player(player_layout)
+        # User Interface
+        self.change_coins = change_coins
         # Dust
         self.dust_sprite = pygame.sprite.GroupSingle()
         self.player_on_ground = False
@@ -89,10 +91,10 @@ class Level:
                     if type == 'coins':
                         if val == '0':
                             sprite = Coin(tile_size, x, y,
-                                          '../graphics/coins/gold')
+                                          '../graphics/coins/gold',5)
                         if val == '1':
                             sprite = Coin(tile_size, x, y,
-                                          '../graphics/coins/silver')
+                                          '../graphics/coins/silver',1)
                     if type == 'fg palms':
                         if val == '0':
                             sprite = Palm(tile_size, x, y,
@@ -219,6 +221,12 @@ class Level:
         if pygame.sprite.spritecollide(self.player.sprite,self.goal,False):
             self.create_overworld(self.current_level,self.new_max_level)
 
+    def check_coin_collisions(self):
+        collided_coins = pygame.sprite.spritecollide(self.player.sprite,self.coin_sprites,True)
+        if collided_coins:
+            for coin in collided_coins:
+                self.change_coins(coin.value)
+        
     def run(self):
         # Run the whole game
         # Decoration
@@ -268,5 +276,7 @@ class Level:
         self.check_death()
         self.check_win()
 
+        # Coins
+        self.check_coin_collisions()
         # Water
         self.water.draw(self.display_surface, self.world_shift)

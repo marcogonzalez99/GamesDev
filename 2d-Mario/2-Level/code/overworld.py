@@ -2,6 +2,7 @@ import pygame
 from game_data import levels
 from support import import_folder
 from decoration import Sky
+from settings import *
 
 
 class Node(pygame.sprite.Sprite):
@@ -56,19 +57,20 @@ class Overworld():
         #Movement Logic
         self.moving = False
         self.move_direction = pygame.math.Vector2(0,0)
-        self.speed = 6
+        self.speed = 3
         # Sprites
         self.setup_stages()
         self.setup_icon()
-        self.sky = Sky(8,'overworld')  
+        self.sky = Sky(8,'overworld')
+
 
     def setup_stages(self):
         self.nodes = pygame.sprite.Group()
         for index, node_data in enumerate(levels.values()):
             if index <= self.max_level:
-                node_sprite = Node(node_data['node_pos'], 'available',self.speed,node_data['graphics'])
+                node_sprite = Node(node_data['node_pos'], 'available',self.speed + 2,node_data['graphics'])
             else:
-                node_sprite = Node(node_data['node_pos'], 'locked',self.speed,node_data['graphics'])
+                node_sprite = Node(node_data['node_pos'], 'locked',self.speed + 2,node_data['graphics'])
 
             self.nodes.add(node_sprite)
 
@@ -126,6 +128,3 @@ class Overworld():
         self.draw_paths()
         self.nodes.draw(self.display_surface)
         self.icon.draw(self.display_surface)
-        
-       
-        

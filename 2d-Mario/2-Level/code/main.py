@@ -52,7 +52,7 @@ class Game:
         
     def check_game_over(self):
         if self.current_health <= 0:
-            self.current_health = 0
+            self.current_health = 100
             self.coins = 0
             self.max_level = 0
             self.overworld = Overworld(0, self.max_level, screen,self.create_level)

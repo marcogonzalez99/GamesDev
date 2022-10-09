@@ -28,8 +28,6 @@ class Game:
         # User interface
         self.ui = UI(screen)
         
-        
-
     def create_level(self,current_level):
         self.level = Level(current_level,screen,self.create_overworld,self.change_coins,self.change_health)
         self.status = 'level'

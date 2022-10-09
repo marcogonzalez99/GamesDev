@@ -60,7 +60,6 @@ class Sky:
             for cloud in self.clouds:
                 surface.blit(cloud[0],cloud[1])
 
-
 class Water:
     def __init__(self, top, level_width):
         water_start = -screen_width
@@ -78,7 +77,6 @@ class Water:
     def draw(self, surface, shift):
         self.water_sprites.update(shift)
         self.water_sprites.draw(surface)
-
 
 class Clouds:
     def __init__(self, horizon, level_width, cloud_number):

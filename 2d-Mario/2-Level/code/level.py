@@ -245,8 +245,7 @@ class Level:
                     enemy.kill()
                 else:
                     self.player.sprite.get_damage()
-                    
-        
+                            
     def run(self):
         # Run the whole game
         # Decoration

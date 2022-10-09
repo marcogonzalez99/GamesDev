@@ -35,7 +35,6 @@ class Node(pygame.sprite.Sprite):
             tint_surface.fill('black',None,pygame.BLEND_RGB_MULT)
             self.image.blit(tint_surface,(0,0))
 
-
 class Icon(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
@@ -66,7 +65,6 @@ class Overworld():
         self.start_time = pygame.time.get_ticks()
         self.allow_input = False
         self.time_length = 400
-
 
     def setup_stages(self):
         self.nodes = pygame.sprite.Group()

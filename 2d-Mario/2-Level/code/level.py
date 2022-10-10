@@ -45,30 +45,42 @@ class Level:
         terrain_layout = import_csv_layout(level_data['terrain'])
         self.terrain_sprites = self.create_tile_group(
             terrain_layout, 'terrain')
+        
         # Grass Setup
         grass_layout = import_csv_layout(level_data['grass'])
         self.grass_sprites = self.create_tile_group(grass_layout, 'grass')
+        
         # Crates Setup
         crate_layout = import_csv_layout(level_data['crates'])
         self.crates_sprites = self.create_tile_group(crate_layout, 'crates')
+        
         # Coins
         coin_layout = import_csv_layout(level_data['coins'])
         self.coin_sprites = self.create_tile_group(coin_layout, 'coins')
+        
         # Foreground Palms
         fg_palms_layout = import_csv_layout(level_data['fg palms'])
         self.fg_palm_sprites = self.create_tile_group(
             fg_palms_layout, 'fg palms')
+        
         # Background Palms
         bg_palms_layout = import_csv_layout(level_data['bg palms'])
         self.bg_palm_sprites = self.create_tile_group(
             bg_palms_layout, 'bg palms')
+        
         # Enemies
         enemy_layout = import_csv_layout(level_data['enemies'])
         self.enemies_sprites = self.create_tile_group(enemy_layout, 'enemies')
+        
         # Constraint
         constraint_layout = import_csv_layout(level_data['constraints'])
         self.constraint_sprites = self.create_tile_group(
             constraint_layout, 'constraints')
+        
+        # Sprite Groups
+        self.visible_sprites = pygame.sprite.Group()
+        self.active_sprites = pygame.sprite.Group()
+        self.collision_sprites = pygame.sprite.Group()
 
         # Decorations
         self.sky = Sky(8)

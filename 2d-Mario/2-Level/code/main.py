@@ -44,6 +44,11 @@ class Game:
         
     def change_coins(self,amount):
         self.coins += amount
+    
+    def extra_health(self):
+        if self.coins >= 25:
+            self.current_health += 20
+            self.coins = 0
 
     def change_health(self,amount):
         self.current_health += amount
@@ -63,6 +68,7 @@ class Game:
             self.overworld.run()
         else:
             self.level.run()
+            self.extra_health()
             self.ui.show_health(self.current_health,self.max_health)
             self.ui.show_coins(self.coins)
             self.check_game_over()

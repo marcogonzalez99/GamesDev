@@ -1,7 +1,7 @@
 import pygame
 from support import import_csv_layout, import_cut_graphics
 from settings import tile_size, screen_height, screen_width
-from tiles import Tile, StaticTile, Crate, AnimatedTile, Coin, Palm
+from tiles import Tile, StaticTile, Crate, AnimatedTile, Coin, Palm, Diamond
 from enemy import Enemy
 from decoration import Sky, Water, Clouds
 from player import Player
@@ -10,12 +10,12 @@ from game_data import levels
 
 
 class Level:
-    def __init__(self, current_level,surface,create_overworld,change_coins,change_health):
+    def __init__(self, current_level, surface, create_overworld, change_coins, change_health, change_diamond):
         # General Setup
         self.display_surface = surface
         self.world_shift = 0
         self.current_x = None
-        
+
         # Overworld Connection
         self.create_overworld = create_overworld
         self.current_level = current_level
@@ -25,16 +25,17 @@ class Level:
         player_layout = import_csv_layout(level_data['player'])
         self.player = pygame.sprite.GroupSingle()
         self.goal = pygame.sprite.GroupSingle()
-        self.create_player(player_layout,change_health)
-        
+        self.create_player(player_layout, change_health)
+
         # User Interface
         self.change_coins = change_coins
+        self.change_diamond = change_diamond
         # Dust
         self.dust_sprite = pygame.sprite.GroupSingle()
         self.player_on_ground = False
         # Explosion Particle
         self.explosion_sprite = pygame.sprite.Group()
-        
+
         # Sound Effects
         self.coin_sound = pygame.mixer.Sound('../audio/effects/coin.wav')
         self.coin_sound.set_volume(0.2)
@@ -45,38 +46,43 @@ class Level:
         terrain_layout = import_csv_layout(level_data['terrain'])
         self.terrain_sprites = self.create_tile_group(
             terrain_layout, 'terrain')
-        
+
         # Grass Setup
         grass_layout = import_csv_layout(level_data['grass'])
         self.grass_sprites = self.create_tile_group(grass_layout, 'grass')
-        
+
         # Crates Setup
         crate_layout = import_csv_layout(level_data['crates'])
         self.crates_sprites = self.create_tile_group(crate_layout, 'crates')
-        
+
         # Coins
         coin_layout = import_csv_layout(level_data['coins'])
         self.coin_sprites = self.create_tile_group(coin_layout, 'coins')
-        
+
+        # Diamonds
+        diamond_layout = import_csv_layout(level_data['diamond'])
+        self.diamond_sprites = self.create_tile_group(
+            diamond_layout, 'diamond')
+
         # Foreground Palms
         fg_palms_layout = import_csv_layout(level_data['fg palms'])
         self.fg_palm_sprites = self.create_tile_group(
             fg_palms_layout, 'fg palms')
-        
+
         # Background Palms
         bg_palms_layout = import_csv_layout(level_data['bg palms'])
         self.bg_palm_sprites = self.create_tile_group(
             bg_palms_layout, 'bg palms')
-        
+
         # Enemies
         enemy_layout = import_csv_layout(level_data['enemies'])
         self.enemies_sprites = self.create_tile_group(enemy_layout, 'enemies')
-        
+
         # Constraint
         constraint_layout = import_csv_layout(level_data['constraints'])
         self.constraint_sprites = self.create_tile_group(
             constraint_layout, 'constraints')
-        
+
         # Sprite Groups
         self.visible_sprites = pygame.sprite.Group()
         self.active_sprites = pygame.sprite.Group()
@@ -112,10 +118,14 @@ class Level:
                     if type == 'coins':
                         if val == '0':
                             sprite = Coin(tile_size, x, y,
-                                          '../graphics/coins/gold',5)
+                                          '../graphics/coins/gold', 5)
                         if val == '1':
                             sprite = Coin(tile_size, x, y,
-                                          '../graphics/coins/silver',1)
+                                          '../graphics/coins/silver', 1)
+                    if type == 'diamond':
+                        if val == '0':
+                            sprite = Diamond(
+                                tile_size, x, y, '../graphics/coins/diamond', 1)
                     if type == 'fg palms':
                         if val == '0':
                             sprite = Palm(tile_size, x, y,
@@ -133,14 +143,14 @@ class Level:
                     sprite_group.add(sprite)
         return sprite_group
 
-    def create_player(self, layout,change_health):
+    def create_player(self, layout, change_health):
         for row_index, row in enumerate(layout):
             for col_index, val in enumerate(row):
                 x = col_index * tile_size
                 y = row_index * tile_size
                 if val == '0':
                     sprite = Player((x, y), self.display_surface,
-                                    self.create_jump_particles,change_health)
+                                    self.create_jump_particles, change_health)
                     self.player.add(sprite)
                 if val == '1':
                     hat_surface = pygame.image.load(
@@ -230,22 +240,32 @@ class Level:
     def check_death(self):
         if self.player.sprite.rect.top > screen_height:
             self.player.sprite.get_damage()
-            self.create_overworld(self.current_level,0)
+            self.create_overworld(self.current_level, 0)
 
     def check_win(self):
-        if pygame.sprite.spritecollide(self.player.sprite,self.goal,False):
+        if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
             self.player.sprite.get_health()
-            self.create_overworld(self.current_level,self.new_max_level)
+            self.create_overworld(self.current_level, self.new_max_level)
 
     def check_coin_collisions(self):
-        collided_coins = pygame.sprite.spritecollide(self.player.sprite,self.coin_sprites,True)
+        collided_coins = pygame.sprite.spritecollide(
+            self.player.sprite, self.coin_sprites, True)
         if collided_coins:
             self.coin_sound.play()
             for coin in collided_coins:
                 self.change_coins(coin.value)
-     
+
+    def check_diamond_collisions(self):
+        collided_diamond = pygame.sprite.spritecollide(
+            self.player.sprite, self.diamond_sprites, True)
+        if collided_diamond:
+            self.coin_sound.play()
+            for diamond in collided_diamond:
+                self.change_diamond(diamond.count)
+
     def check_enemy_collisions(self):
-        enemy_collisions = pygame.sprite.spritecollide(self.player.sprite,self.enemies_sprites,False)
+        enemy_collisions = pygame.sprite.spritecollide(
+            self.player.sprite, self.enemies_sprites, False)
         if enemy_collisions:
             for enemy in enemy_collisions:
                 enemy_center = enemy.rect.centery
@@ -253,13 +273,14 @@ class Level:
                 player_bottom = self.player.sprite.rect.bottom
                 if enemy_top < player_bottom < enemy_center and self.player.sprite.direction.y >= 0:
                     self.player.sprite.direction.y = -20
-                    explosion_sprite = ParticleEffect(enemy.rect.center,'explosion')
+                    explosion_sprite = ParticleEffect(
+                        enemy.rect.center, 'explosion')
                     self.explosion_sprite.add(explosion_sprite)
                     self.stomp_sound.play()
                     enemy.kill()
                 else:
                     self.player.sprite.get_damage()
-                            
+
     def run(self):
         # Run the whole game
         # Decoration
@@ -290,10 +311,13 @@ class Level:
         # Coins
         self.coin_sprites.update(self.world_shift)
         self.coin_sprites.draw(self.display_surface)
+        # Diamonds
+        self.diamond_sprites.update(self.world_shift)
+        self.diamond_sprites.draw(self.display_surface)
         # FG Palms
         self.fg_palm_sprites.update(self.world_shift)
         self.fg_palm_sprites.draw(self.display_surface)
-        
+
         # Player Sprite
         self.player.update()
         self.horizontal_movement_collision()
@@ -307,13 +331,14 @@ class Level:
         # Player Goal
         self.goal.update(self.world_shift)
         self.goal.draw(self.display_surface)
-        
+
         # Overworld Checks
         self.check_death()
         self.check_win()
 
         # Coins
         self.check_coin_collisions()
+        self.check_diamond_collisions()
         self.check_enemy_collisions()
         # Water
         self.water.draw(self.display_surface, self.world_shift)

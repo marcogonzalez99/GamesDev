@@ -10,7 +10,7 @@ from ui import UI
 class Game:
     def __init__(self):
         # Game Attributes
-        self.max_level = 2
+        self.max_level = 4
         # PLayer Attributes
         self.current_health = 500
         self.max_health = 500

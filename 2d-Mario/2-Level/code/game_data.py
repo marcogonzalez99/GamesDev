@@ -278,7 +278,7 @@ level_18 = {
     'player': '../levels/2/level_2_player.csv',
     'grass': '../levels/2/level_2_grass.csv',
     'diamond': '../levels/2/level_2_diamond.csv',
-    'node_pos': (800, 900),
+    'node_pos': (1400, 900),
     'unlock': 15,
     'graphics': '../graphics/overworld/0',
     'music': '../audio/level_4.wav'}
@@ -293,7 +293,7 @@ level_19 = {
     'player': '../levels/2/level_2_player.csv',
     'grass': '../levels/2/level_2_grass.csv',
     'diamond': '../levels/2/level_2_diamond.csv',
-    'node_pos': (1400, 900),
+    'node_pos': (800, 900),
     'unlock': 15,
     'graphics': '../graphics/overworld/1',
     'music': '../audio/level_4.wav'}

@@ -38,14 +38,14 @@ class Level:
 
         # Sound Effects
         self.coin_sound = pygame.mixer.Sound('../audio/effects/coin.wav')
-        self.coin_sound.set_volume(0.2)
+        self.coin_sound.set_volume(0.1)
         self.stomp_sound = pygame.mixer.Sound('../audio/effects/stomp.wav')
         self.stomp_sound.set_volume(0.2)
 
         # Music
         self.level_music = pygame.mixer.Sound(level_data['music'])
         self.level_music.play()
-        self.level_music.set_volume(0.4)
+        self.level_music.set_volume(0.3)
 
         # Terrain setup
         terrain_layout = import_csv_layout(level_data['terrain'])
@@ -239,11 +239,13 @@ class Level:
 
     def check_death(self):
         if self.player.sprite.rect.top > screen_height:
+            self.level_music.stop()
             self.player.sprite.get_damage()
             self.create_overworld(self.current_level, 0)
 
     def check_win(self):
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
+            self.level_music.stop()
             self.player.sprite.get_health()
             self.create_overworld(self.current_level, self.new_max_level)
 

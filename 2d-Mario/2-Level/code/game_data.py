@@ -11,7 +11,8 @@ level_0 = {
     'diamond': '../levels/0/level_0_Diamond.csv',
     'node_pos': (110, 300),
     'unlock': 1,
-    'graphics': '../graphics/overworld/0'}
+    'graphics': '../graphics/overworld/0',
+    'music': '../audio/level_0.wav'}
 level_1 = {
     'terrain': '../levels/1/level_1_Terrain.csv',
     'coins': '../levels/1/level_1_Coins.csv',
@@ -25,7 +26,8 @@ level_1 = {
     'diamond': '../levels/1/level_1_Diamond.csv',
     'node_pos': (300, 120),
     'unlock': 2,
-    'graphics': '../graphics/overworld/1'}
+    'graphics': '../graphics/overworld/1',
+    'music': '../audio/level_1.wav'}
 level_2 = {
     'terrain': '../levels/2/level_2_terrain.csv',
     'coins': '../levels/2/level_2_coins.csv',

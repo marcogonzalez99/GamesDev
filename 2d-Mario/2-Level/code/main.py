@@ -10,7 +10,7 @@ from ui import UI
 class Game:
     def __init__(self):
         # Game Attributes
-        self.max_level = 4
+        self.max_level = 1
         # PLayer Attributes
         self.current_health = 500
         self.max_health = 500
@@ -83,6 +83,7 @@ class Game:
 
 
 # Pygame setup
+pygame.mixer.pre_init(44100, -16, 2, 4096)
 pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Pirates")

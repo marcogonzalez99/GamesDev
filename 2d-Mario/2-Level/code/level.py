@@ -44,7 +44,7 @@ class Level:
 
         # Music
         self.level_music = pygame.mixer.Sound(level_data['music'])
-        self.level_music.play()
+        self.level_music.play(loops=-1)
         self.level_music.set_volume(0.3)
 
         # Terrain setup

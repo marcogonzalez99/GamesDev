@@ -83,11 +83,6 @@ class Level:
         self.constraint_sprites = self.create_tile_group(
             constraint_layout, 'constraints')
 
-        # Sprite Groups
-        self.visible_sprites = pygame.sprite.Group()
-        self.active_sprites = pygame.sprite.Group()
-        self.collision_sprites = pygame.sprite.Group()
-
         # Decorations
         self.sky = Sky(8)
         level_width = len(terrain_layout[0]) * tile_size

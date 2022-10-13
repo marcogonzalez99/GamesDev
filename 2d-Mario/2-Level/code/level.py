@@ -42,6 +42,11 @@ class Level:
         self.stomp_sound = pygame.mixer.Sound('../audio/effects/stomp.wav')
         self.stomp_sound.set_volume(0.2)
 
+        # Music
+        self.level_music = pygame.mixer.Sound(level_data['music'])
+        self.level_music.play()
+        self.level_music.set_volume(0.4)
+
         # Terrain setup
         terrain_layout = import_csv_layout(level_data['terrain'])
         self.terrain_sprites = self.create_tile_group(

@@ -33,21 +33,21 @@ class UI:
 
     def show_coins(self, amount):
         self.display_surface.blit(self.coin, self.coin_rect)
-        coin_amount_surface = self.font.render(str(amount), False, ('white'))
+        coin_amount_surface = self.font.render(str(amount), False, ('black'))
         coin_amount_rect = coin_amount_surface.get_rect(topleft=(85, 60))
         self.display_surface.blit(coin_amount_surface, coin_amount_rect)
 
     def show_diamonds(self, amount):
         self.display_surface.blit(self.diamond, self.diamond_rect)
         diamond_amount_surface = self.font.render(
-            str(amount), False, ('white'))
+            str(amount), False, ('black'))
         diamond_amount_rect = diamond_amount_surface.get_rect(
-            topleft=(100, 90))
+            topleft=(105, 90))
         self.display_surface.blit(diamond_amount_surface, diamond_amount_rect)
 
     def show_score(self, amount):
         score_amount_surface = self.font.render(
-            f"Score: " + str(amount), False, ('white'))
+            f"Score:" + str(amount), False, ('black'))
         score_amount_rect = score_amount_surface.get_rect(
             topleft=(1600, 50))
         self.display_surface.blit(score_amount_surface, score_amount_rect)

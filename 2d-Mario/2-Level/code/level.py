@@ -48,10 +48,14 @@ class Level:
         self.level_music.set_volume(0.3)
 
         # Terrain setup
-        terrain_layout = import_csv_layout(level_data['terrain'])
-        self.terrain_sprites = self.create_tile_group(
-            terrain_layout, 'terrain')
-
+        if 0 <= self.current_level and self.current_level <= 5:
+            terrain_layout = import_csv_layout(level_data['terrain'])
+            self.terrain_sprites = self.create_tile_group(
+                terrain_layout, 'terrain')
+        elif 6 <= self.current_level and self.current_level <= 11:
+            terrain_layout = import_csv_layout(level_data['sand_terrain'])
+            self.terrain_sprites = self.create_tile_group(
+                terrain_layout, 'sand_terrain')
         # Grass Setup
         grass_layout = import_csv_layout(level_data['grass'])
         self.grass_sprites = self.create_tile_group(grass_layout, 'grass')
@@ -106,6 +110,11 @@ class Level:
                     if type == 'terrain':
                         terrain_tile_list = import_cut_graphics(
                             "../graphics/terrain/terrain_tiles.png")
+                        tile_surface = (terrain_tile_list[int(val)])
+                        sprite = StaticTile(tile_size, x, y, tile_surface)
+                    if type == 'sand_terrain':
+                        terrain_tile_list = import_cut_graphics(
+                            "../graphics/terrain/rock_sand_tiles.png")
                         tile_surface = (terrain_tile_list[int(val)])
                         sprite = StaticTile(tile_size, x, y, tile_surface)
                     if type == 'grass':

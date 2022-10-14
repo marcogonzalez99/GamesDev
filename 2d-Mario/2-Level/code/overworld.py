@@ -70,19 +70,19 @@ class Overworld():
         self.allow_input = False
         self.time_length = 400
         # World Images
-        self.world_1 = pygame.image.load("../graphics/overworld/World_1.png")
+        self.world_1 = pygame.image.load("../graphics/overworld/World_1.png").convert_alpha()
         self.world_1_rect = self.world_1.get_rect(
             center=(200, 225))
 
-        self.world_2 = pygame.image.load("../graphics/overworld/World_2.png")
+        self.world_2 = pygame.image.load("../graphics/overworld/World_2.png").convert_alpha()
         self.world_2_rect = self.world_2.get_rect(
             center=(1700, 525))
 
-        self.world_3 = pygame.image.load("../graphics/overworld/World_3.png")
+        self.world_3 = pygame.image.load("../graphics/overworld/World_3.png").convert_alpha()
         self.world_3_rect = self.world_3.get_rect(
             center=(200, 830))
 
-        self.world_4 = pygame.image.load("../graphics/overworld/World_4.png")
+        self.world_4 = pygame.image.load("../graphics/overworld/World_4.png").convert_alpha()
         self.world_4_rect = self.world_4.get_rect(
             center=(1550, 925))
 

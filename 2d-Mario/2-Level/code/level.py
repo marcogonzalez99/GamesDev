@@ -163,7 +163,7 @@ class Level:
                     self.player.add(sprite)
                 if val == '1':
                     hat_surface = pygame.image.load(
-                        "../graphics/character/hat.png")
+                        "../graphics/character/hat.png").convert_alpha()
                     sprite = StaticTile(tile_size, x, y, hat_surface)
                     self.goal.add(sprite)
 

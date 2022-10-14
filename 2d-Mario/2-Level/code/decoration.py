@@ -8,11 +8,11 @@ from random import choice, randint
 class Sky:
     def __init__(self, horizon, style='level'):
         self.top = pygame.image.load(
-            '../graphics/decoration/sky/sky_top.png').convert()
+            '../graphics/decoration/sky/sky_top.png').convert_alpha()
         self.bottom = pygame.image.load(
-            '../graphics/decoration/sky/sky_bottom.png').convert()
+            '../graphics/decoration/sky/sky_bottom.png').convert_alpha()
         self.middle = pygame.image.load(
-            '../graphics/decoration/sky/sky_middle.png').convert()
+            '../graphics/decoration/sky/sky_middle.png').convert_alpha()
 
         self.horizon = horizon
 

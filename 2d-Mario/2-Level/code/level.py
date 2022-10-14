@@ -48,15 +48,23 @@ class Level:
         self.level_music.play(loops=-1)
         self.level_music.set_volume(0.3)
 
-        # Terrain setup
+        # Terrain setup for World 1
         if 0 <= self.current_level and self.current_level <= 5:
             terrain_layout = import_csv_layout(level_data['terrain'])
             self.terrain_sprites = self.create_tile_group(
                 terrain_layout, 'terrain')
+        # Terrtain setup for World 2
         elif 6 <= self.current_level and self.current_level <= 11:
             terrain_layout = import_csv_layout(level_data['sand_terrain'])
             self.terrain_sprites = self.create_tile_group(
                 terrain_layout, 'sand_terrain')
+        # Terrain setup for World 3
+        elif 12 <= self.current_level and self.current_level <= 17:
+            terrain_layout = import_csv_layout(level_data['soft_terrain'])
+            self.terrain_sprites = self.create_tile_group(
+                terrain_layout, 'soft_terrain')
+        # Terrain setup for World x
+
         # Grass Setup
         grass_layout = import_csv_layout(level_data['grass'])
         self.grass_sprites = self.create_tile_group(grass_layout, 'grass')

@@ -10,7 +10,7 @@ from game_data import levels
 
 
 class Level:
-    def __init__(self, current_level, surface, create_overworld, change_coins, change_health, change_diamond):
+    def __init__(self, current_level, surface, create_overworld, change_coins, change_health, change_diamond, change_score):
         # General Setup
         self.display_surface = surface
         self.world_shift = 0
@@ -30,6 +30,7 @@ class Level:
         # User Interface
         self.change_coins = change_coins
         self.change_diamond = change_diamond
+        self.change_score = change_score
         # Dust
         self.dust_sprite = pygame.sprite.GroupSingle()
         self.player_on_ground = False
@@ -256,6 +257,7 @@ class Level:
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
             self.level_music.stop()
             self.player.sprite.get_health()
+            self.change_score(10000)
             self.create_overworld(self.current_level, self.new_max_level)
 
     def check_coin_collisions(self):
@@ -265,6 +267,7 @@ class Level:
             self.coin_sound.play()
             for coin in collided_coins:
                 self.change_coins(coin.value)
+                self.change_score(coin.value * 200)
 
     def check_diamond_collisions(self):
         collided_diamond = pygame.sprite.spritecollide(
@@ -273,6 +276,7 @@ class Level:
             self.coin_sound.play()
             for diamond in collided_diamond:
                 self.change_diamond(diamond.count)
+                self.change_score(diamond.count * 5000)
 
     def check_enemy_collisions(self):
         enemy_collisions = pygame.sprite.spritecollide(
@@ -288,6 +292,7 @@ class Level:
                         enemy.rect.center, 'explosion')
                     self.explosion_sprite.add(explosion_sprite)
                     self.stomp_sound.play()
+                    self.change_score(1000)
                     enemy.kill()
                 else:
                     self.player.sprite.get_damage()

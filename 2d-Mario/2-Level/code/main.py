@@ -16,6 +16,7 @@ class Game:
         self.max_health = 500
         self.coins = 0
         self.diamonds = 0
+        self.score = 0
 
         # Audio
         self.overworld_music = pygame.mixer.Sound(
@@ -32,7 +33,7 @@ class Game:
 
     def create_level(self, current_level):
         self.level = Level(current_level, screen, self.create_overworld,
-                           self.change_coins, self.change_health, self.change_diamond)
+                           self.change_coins, self.change_health, self.change_diamond, self.change_score)
         self.status = 'level'
         self.overworld_music.stop()
 
@@ -50,6 +51,9 @@ class Game:
     def change_diamond(self, count):
         self.diamonds += count
 
+    def change_score(self, count):
+        self.score += count
+
     def extra_health(self):
         if self.coins >= 25:
             self.current_health += 20
@@ -63,6 +67,7 @@ class Game:
             self.current_health = 100
             self.coins = 0
             self.diamonds = 0
+            self.score = 0
             self.max_level = 0
             self.overworld = Overworld(
                 0, self.max_level, screen, self.create_level)
@@ -77,6 +82,7 @@ class Game:
             self.level.run()
             self.extra_health()
             self.ui.show_health(self.current_health, self.max_health)
+            self.ui.show_score(self.score)
             self.ui.show_coins(self.coins)
             self.ui.show_diamonds(self.diamonds)
             self.check_game_over()

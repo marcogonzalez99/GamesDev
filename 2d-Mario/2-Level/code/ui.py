@@ -49,5 +49,5 @@ class UI:
         score_amount_surface = self.font.render(
             f"Score: " + str(amount), False, ('white'))
         score_amount_rect = score_amount_surface.get_rect(
-            topleft=(1700, 50))
+            topleft=(1600, 50))
         self.display_surface.blit(score_amount_surface, score_amount_rect)

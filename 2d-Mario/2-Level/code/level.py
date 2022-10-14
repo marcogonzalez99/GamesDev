@@ -10,7 +10,7 @@ from game_data import levels
 
 
 class Level:
-    def __init__(self, current_level, surface, create_overworld, change_coins, change_health, change_diamond, change_score):
+    def __init__(self, current_level, surface, create_overworld, change_coins, change_health, change_diamond, change_score, change_lives):
         # General Setup
         self.display_surface = surface
         self.world_shift = 0
@@ -31,6 +31,7 @@ class Level:
         self.change_coins = change_coins
         self.change_diamond = change_diamond
         self.change_score = change_score
+        self.change_lives = change_lives
         # Dust
         self.dust_sprite = pygame.sprite.GroupSingle()
         self.player_on_ground = False
@@ -258,7 +259,7 @@ class Level:
     def check_death(self):
         if self.player.sprite.rect.top > screen_height:
             self.level_music.stop()
-            self.player.sprite.get_damage()
+            self.change_lives(-1)
             self.create_overworld(self.current_level, 0)
 
     def check_win(self):
@@ -266,6 +267,7 @@ class Level:
             self.level_music.stop()
             self.player.sprite.get_health()
             self.change_score(10000)
+            self.change_coins(25)
             self.create_overworld(self.current_level, self.new_max_level)
 
     def check_coin_collisions(self):

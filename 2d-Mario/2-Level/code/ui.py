@@ -1,8 +1,9 @@
 import pygame
+from settings import screen_width
 
 
 class UI:
-    def __init__(self, surface):
+    def __init__(self, surface, lives):
         # Setup
         self.display_surface = surface
 
@@ -12,6 +13,12 @@ class UI:
         self.health_bar_topleft = (54, 39)
         self.bar_max_width = 152
         self.bar_height = 4
+        # Lives
+        self.lives = lives
+        self.life_surface = pygame.image.load(
+            "../graphics/character/hat.png").convert_alpha()
+        self.life_x_start_pos = 350 - \
+            (self.life_surface.get_size()[0] * 2 + 20)
         # Coins
         self.coin = pygame.image.load(
             '../graphics/ui/coin.png').convert_alpha()
@@ -51,3 +58,9 @@ class UI:
         score_amount_rect = score_amount_surface.get_rect(
             topleft=(1600, 50))
         self.display_surface.blit(score_amount_surface, score_amount_rect)
+
+    def display_lives(self, count):
+        for live in range(count - 1):
+            x = self.life_x_start_pos + \
+                (live * self.life_surface.get_size()[0] + 10)
+            self.display_surface.blit(self.life_surface, (x, 25))

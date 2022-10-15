@@ -1,9 +1,9 @@
 import pygame
 from oldtiles import Tile
-from settings import tile_size
-from particles import ParticleEffect
+from oldsettings import tile_size
+# from particles import ParticleEffect
 from player import Player
-from settings import screen_width
+from oldsettings import screen_width
 
 
 class Level:

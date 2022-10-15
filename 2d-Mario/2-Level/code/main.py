@@ -17,20 +17,29 @@ class Game:
         self.coins = 0
         self.diamonds = 0
         self.score = 0
-        self.lives = 4
+        self.lives = 1
 
         # Audio
         self.overworld_music = pygame.mixer.Sound(
             '../audio/main_overworld.wav')
         self.overworld_music.set_volume(0.4)
+        
+        self.game_over_music = pygame.mixer.Sound('../audio/game_over.wav')
+        self.game_over_music.set_volume(1)
+        
+        self.main_menu_music = pygame.mixer.Sound('../audio/main.wav')
+        self.main_menu_music.set_volume(0.5)
 
         # Overworld Creation
         self.overworld = Overworld(
             0, self.max_level, screen, self.create_level)
-        self.status = 'overworld'
-        self.overworld_music.play(loops=-1)
+        self.status = 'main-menu'
+        self.main_menu_music.play(loops=-1)
         # User interface
         self.ui = UI(screen, self.lives)
+        # Game Over Stuff
+        self.game_over_font = pygame.font.Font('../graphics/Pixeltype.ttf',45)
+        
 
     def create_level(self, current_level):
         self.level = Level(current_level, screen, self.create_overworld,
@@ -68,15 +77,15 @@ class Game:
 
     def check_game_over(self):
         if self.lives == 0:
-            self.current_health = 100
-            self.coins = 0
-            self.diamonds = 0
-            self.score = 0
-            self.lives = 5
-            self.max_level = 0
-            self.overworld = Overworld(
-                0, self.max_level, screen, self.create_level)
-            self.status = 'overworld'
+            self.status = 'gameover'
+            self.overworld_music.stop()
+            self.game_over_music.play()
+            self.game_over()     
+        elif self.lives == 0 and self.current_health <= 0:
+            self.status = 'gameover'
+            self.overworld_music.stop()
+            self.game_over_music.play()
+            self.game_over()         
         elif self.current_health <= 0:
             self.level.level_music.stop()
             self.change_lives(-1)
@@ -85,10 +94,55 @@ class Game:
                 0, self.max_level, screen, self.create_level)
             self.status = 'overworld'
             self.overworld_music.play(loops=-1)
+            
+    def restart_game(self):
+        self.current_health = 100
+        self.coins = 0
+        self.diamonds = 0
+        self.score = 0
+        self.lives = 5
+        self.max_level = 0
+        self.overworld_music.play(loops=-1)
+        self.overworld = Overworld(
+                0, self.max_level, screen, self.create_level)
+        self.status = 'overworld'
+    
+    def game_over(self):
+            bg = pygame.image.load('../graphics/overworld/menu.png').convert_alpha()
+            screen.blit(bg,(0,0))
+            game_over_message = self.game_over_font.render(f"Game Over, Press Space to Start Fresh",False,'black')
+            game_over_message_rect = game_over_message.get_rect(center = (screen_width/2,screen_height/2))
+            screen.blit(game_over_message,game_over_message_rect)
+            
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_SPACE]:
+                self.game_over_music.stop()
+                self.restart_game()   
+            
+    def main_menu(self):
+            bg = pygame.image.load('../graphics/overworld/menu.png').convert_alpha()
+            screen.blit(bg,(0,0))
+            
+            main_menu_message = self.game_over_font.render(f"Pirate Journey",False,'black')
+            main_menu_message_rect = main_menu_message.get_rect(center = (screen_width/2,screen_height/2))
+            screen.blit(main_menu_message,main_menu_message_rect)
+            
+            menu_message = self.game_over_font.render(f"Press Space to Start",False,'black')
+            menu_message_rect = menu_message.get_rect(center = (screen_width/2,screen_height/2 + 50))
+            screen.blit(menu_message,menu_message_rect)
+            
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_SPACE]:
+                self.main_menu_music.stop()
+                self.restart_game() 
 
     def run(self):
         if self.status == 'overworld':
             self.overworld.run()
+        elif self.status == 'gameover':
+            self.game_over()
+        elif self.status == 'main-menu':
+            self.main_menu()
         else:
             self.level.run()
             self.extra_health()

@@ -14,10 +14,10 @@ class Game:
         # PLayer Attributes
         self.current_health = 100
         self.max_health = 100
-        self.coins = 99
+        self.coins = 0
         self.diamonds = 0
         self.score = 0
-        self.lives = 5
+        self.lives = 4
 
         # Audio
         self.overworld_music = pygame.mixer.Sound(

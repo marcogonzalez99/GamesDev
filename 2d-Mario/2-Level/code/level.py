@@ -265,7 +265,6 @@ class Level:
     def check_win(self):
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
             self.level_music.stop()
-            self.player.sprite.get_health()
             self.change_score(10000)
             self.change_coins(25)
             self.create_overworld(self.current_level, self.new_max_level)

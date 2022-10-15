@@ -28,7 +28,7 @@ class Game:
         self.game_over_music.set_volume(1)
         
         self.main_menu_music = pygame.mixer.Sound('../audio/main.wav')
-        self.main_menu_music.set_volume(0.5)
+        self.main_menu_music.set_volume(0.7)
 
         # Overworld Creation
         self.overworld = Overworld(

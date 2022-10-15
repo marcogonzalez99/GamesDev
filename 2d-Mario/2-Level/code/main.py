@@ -10,14 +10,14 @@ from ui import UI
 class Game:
     def __init__(self):
         # Game Attributes
-        self.max_level = 19
+        self.max_level = 5
         # PLayer Attributes
         self.current_health = 100
         self.max_health = 100
         self.coins = 0
         self.diamonds = 0
         self.score = 0
-        self.lives = 1
+        self.lives = 5
 
         # Audio
         self.overworld_music = pygame.mixer.Sound(
@@ -91,7 +91,7 @@ class Game:
             self.change_lives(-1)
             self.current_health = 100
             self.overworld = Overworld(
-                0, self.max_level, screen, self.create_level)
+                self.max_level, self.max_level, screen, self.create_level)
             self.status = 'overworld'
             self.overworld_music.play(loops=-1)
             
@@ -101,10 +101,17 @@ class Game:
         self.diamonds = 0
         self.score = 0
         self.lives = 5
-        self.max_level = 0
+        if self.max_level < 6:
+            self.max_level = 0
+        elif 6 < self.max_level < 11:
+            self.max_level = 6
+        elif 12 < self.max_level < 17:
+            self.max_level = 12
+        elif 18 < self.max_level:
+            self.max_level = 18
         self.overworld_music.play(loops=-1)
         self.overworld = Overworld(
-                0, self.max_level, screen, self.create_level)
+                self.max_level, self.max_level, screen, self.create_level)
         self.status = 'overworld'
     
     def game_over(self):

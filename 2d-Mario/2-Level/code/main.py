@@ -134,17 +134,19 @@ class Game:
             '../graphics/overworld/menu.png').convert_alpha()
         screen.blit(bg, (0, 0))
 
-        main_menu_message = self.game_over_font.render(
-            f"Pirate Journey", False, 'black')
-        main_menu_message_rect = main_menu_message.get_rect(
-            center=(screen_width/2, screen_height/2))
-        screen.blit(main_menu_message, main_menu_message_rect)
+        intro_photo_1 = pygame.image.load(
+            '../graphics/overworld/Intro_1.png').convert_alpha()
 
-        menu_message = self.game_over_font.render(
-            f"Press Space to Start", False, 'black')
-        menu_message_rect = menu_message.get_rect(
-            center=(screen_width/2, screen_height/2 + 50))
-        screen.blit(menu_message, menu_message_rect)
+        intro_photo_2 = pygame.image.load(
+            '../graphics/overworld/Intro_2.png').convert_alpha()
+
+        intro_1_rect = intro_photo_1.get_rect(
+            center=(screen_width/2 + 17, screen_height/2 - 75))
+        screen.blit(intro_photo_1, intro_1_rect)
+
+        intro_2_rect = intro_photo_2.get_rect(
+            center=(screen_width/2 - 17, screen_height/2 + 125))
+        screen.blit(intro_photo_2, intro_2_rect)
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:

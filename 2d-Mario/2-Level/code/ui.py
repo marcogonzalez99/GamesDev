@@ -28,7 +28,6 @@ class UI:
         self.diamond = pygame.image.load(
             '../graphics/coins/diamond.png').convert_alpha()
         self.diamond_rect = self.diamond.get_rect(topleft=(50, 75))
-        self.timer = 105
 
     def show_health(self, current, full):
         self.display_surface.blit(self.health_bar, (20, 10))
@@ -64,10 +63,11 @@ class UI:
             x = self.life_x_start_pos + \
                 (live * self.life_surface.get_size()[0] + 10)
             self.display_surface.blit(self.life_surface, (x, 25))
-    
-    def show_timer(self,timer):
+
+    def show_timer(self, timer):
         self.timer = timer
         self.time_passed = pygame.time.get_ticks()
-        timer_surface = self.font.render(f"Time: {self.timer - int(self.time_passed/1000)}",False,('black'))
-        timer_surface_rect = timer_surface.get_rect(topleft = (1600,100))
-        self.display_surface.blit(timer_surface,timer_surface_rect)
+        timer_surface = self.font.render(
+            f"Time: {self.timer - int(self.time_passed/1000)}", False, ('black'))
+        timer_surface_rect = timer_surface.get_rect(topleft=(1600, 100))
+        self.display_surface.blit(timer_surface, timer_surface_rect)

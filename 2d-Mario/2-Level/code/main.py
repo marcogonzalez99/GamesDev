@@ -18,16 +18,16 @@ class Game:
         self.diamonds = 0
         self.score = 0
         self.lives = 5
-        self.timer = 100
+        self.timer = 105
 
         # Audio
         self.overworld_music = pygame.mixer.Sound(
             '../audio/main_overworld.wav')
         self.overworld_music.set_volume(0.4)
-        
+
         self.game_over_music = pygame.mixer.Sound('../audio/game_over.wav')
         self.game_over_music.set_volume(1)
-        
+
         self.main_menu_music = pygame.mixer.Sound('../audio/main.wav')
         self.main_menu_music.set_volume(0.7)
 
@@ -39,8 +39,7 @@ class Game:
         # User interface
         self.ui = UI(screen, self.lives)
         # Game Over Stuff
-        self.game_over_font = pygame.font.Font('../graphics/Pixeltype.ttf',45)
-        
+        self.game_over_font = pygame.font.Font('../graphics/Pixeltype.ttf', 45)
 
     def create_level(self, current_level):
         self.level = Level(current_level, screen, self.create_overworld,
@@ -76,6 +75,9 @@ class Game:
     def change_health(self, amount):
         self.current_health += amount
 
+    def set_timer(self):
+        self.timer = 105
+
     def check_game_over(self):
         timer = pygame.time.get_ticks() / 1000
         if self.timer - timer <= 0:
@@ -85,17 +87,17 @@ class Game:
             self.overworld = Overworld(
                 self.max_level, self.max_level, screen, self.create_level)
             self.status = 'overworld'
-            self.overworld_music.play(loops=-1) 
+            self.overworld_music.play(loops=-1)
         if self.lives == 0:
             self.status = 'gameover'
             self.overworld_music.stop()
             self.game_over_music.play()
-            self.game_over()     
+            self.game_over()
         elif self.lives == 0 and self.current_health <= 0:
             self.status = 'gameover'
             self.overworld_music.stop()
             self.game_over_music.play()
-            self.game_over()         
+            self.game_over()
         elif self.current_health <= 0:
             self.level.level_music.stop()
             self.change_lives(-1)
@@ -104,7 +106,7 @@ class Game:
                 self.max_level, self.max_level, screen, self.create_level)
             self.status = 'overworld'
             self.overworld_music.play(loops=-1)
-            
+
     def restart_game(self):
         self.current_health = 100
         self.coins = 0
@@ -121,37 +123,45 @@ class Game:
             self.max_level = 18
         self.overworld_music.play(loops=-1)
         self.overworld = Overworld(
-                self.max_level, self.max_level, screen, self.create_level)
+            self.max_level, self.max_level, screen, self.create_level)
         self.status = 'overworld'
-    
+
     def game_over(self):
-            bg = pygame.image.load('../graphics/overworld/menu.png').convert_alpha()
-            screen.blit(bg,(0,0))
-            game_over_message = self.game_over_font.render(f"Game Over, Press Space to Start Fresh",False,'black')
-            game_over_message_rect = game_over_message.get_rect(center = (screen_width/2,screen_height/2))
-            screen.blit(game_over_message,game_over_message_rect)
-            
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_SPACE]:
-                self.game_over_music.stop()
-                self.restart_game()   
-            
+        bg = pygame.image.load(
+            '../graphics/overworld/menu.png').convert_alpha()
+        screen.blit(bg, (0, 0))
+        game_over_message = self.game_over_font.render(
+            f"Game Over, Press Space to Start Fresh", False, 'black')
+        game_over_message_rect = game_over_message.get_rect(
+            center=(screen_width/2, screen_height/2))
+        screen.blit(game_over_message, game_over_message_rect)
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            self.game_over_music.stop()
+            self.restart_game()
+
     def main_menu(self):
-            bg = pygame.image.load('../graphics/overworld/menu.png').convert_alpha()
-            screen.blit(bg,(0,0))
-            
-            main_menu_message = self.game_over_font.render(f"Pirate Journey",False,'black')
-            main_menu_message_rect = main_menu_message.get_rect(center = (screen_width/2,screen_height/2))
-            screen.blit(main_menu_message,main_menu_message_rect)
-            
-            menu_message = self.game_over_font.render(f"Press Space to Start",False,'black')
-            menu_message_rect = menu_message.get_rect(center = (screen_width/2,screen_height/2 + 50))
-            screen.blit(menu_message,menu_message_rect)
-            
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_SPACE]:
-                self.main_menu_music.stop()
-                self.restart_game() 
+        bg = pygame.image.load(
+            '../graphics/overworld/menu.png').convert_alpha()
+        screen.blit(bg, (0, 0))
+
+        main_menu_message = self.game_over_font.render(
+            f"Pirate Journey", False, 'black')
+        main_menu_message_rect = main_menu_message.get_rect(
+            center=(screen_width/2, screen_height/2))
+        screen.blit(main_menu_message, main_menu_message_rect)
+
+        menu_message = self.game_over_font.render(
+            f"Press Space to Start", False, 'black')
+        menu_message_rect = menu_message.get_rect(
+            center=(screen_width/2, screen_height/2 + 50))
+        screen.blit(menu_message, menu_message_rect)
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            self.main_menu_music.stop()
+            self.restart_game()
 
     def run(self):
         if self.status == 'overworld':
@@ -162,6 +172,7 @@ class Game:
             self.main_menu()
         else:
             self.level.run()
+            self.set_timer()
             self.extra_health()
             self.check_game_over()
             self.ui.show_health(self.current_health, self.max_health)
@@ -170,6 +181,9 @@ class Game:
             self.ui.show_coins(self.coins)
             self.ui.show_diamonds(self.diamonds)
             self.ui.show_timer(self.timer)
+
+
+pygame.mixer.pre_init(44100, -16, 2, 4096)
 pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Pirates")

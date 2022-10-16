@@ -75,19 +75,7 @@ class Game:
     def change_health(self, amount):
         self.current_health += amount
 
-    def set_timer(self):
-        self.timer = 105
-
     def check_game_over(self):
-        timer = pygame.time.get_ticks() / 1000
-        if self.timer - timer <= 0:
-            self.level.level_music.stop()
-            self.change_lives(-1)
-            self.current_health = 100
-            self.overworld = Overworld(
-                self.max_level, self.max_level, screen, self.create_level)
-            self.status = 'overworld'
-            self.overworld_music.play(loops=-1)
         if self.lives == 0:
             self.status = 'gameover'
             self.overworld_music.stop()

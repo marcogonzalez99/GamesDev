@@ -18,6 +18,7 @@ class Game:
         self.diamonds = 0
         self.score = 0
         self.lives = 5
+        self.timer = 100
 
         # Audio
         self.overworld_music = pygame.mixer.Sound(
@@ -76,6 +77,15 @@ class Game:
         self.current_health += amount
 
     def check_game_over(self):
+        timer = pygame.time.get_ticks() / 1000
+        if self.timer - timer <= 0:
+            self.level.level_music.stop()
+            self.change_lives(-1)
+            self.current_health = 100
+            self.overworld = Overworld(
+                self.max_level, self.max_level, screen, self.create_level)
+            self.status = 'overworld'
+            self.overworld_music.play(loops=-1) 
         if self.lives == 0:
             self.status = 'gameover'
             self.overworld_music.stop()
@@ -153,16 +163,13 @@ class Game:
         else:
             self.level.run()
             self.extra_health()
+            self.check_game_over()
             self.ui.show_health(self.current_health, self.max_health)
             self.ui.show_score(self.score)
             self.ui.display_lives(self.lives)
             self.ui.show_coins(self.coins)
             self.ui.show_diamonds(self.diamonds)
-            self.check_game_over()
-
-
-# Pygame setup
-pygame.mixer.pre_init(44100, -16, 2, 4096)
+            self.ui.show_timer(self.timer)
 pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Pirates")

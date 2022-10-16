@@ -160,7 +160,6 @@ class Game:
             self.main_menu()
         else:
             self.level.run()
-            self.set_timer()
             self.extra_health()
             self.check_game_over()
             self.ui.show_health(self.current_health, self.max_health)
@@ -168,7 +167,6 @@ class Game:
             self.ui.display_lives(self.lives)
             self.ui.show_coins(self.coins)
             self.ui.show_diamonds(self.diamonds)
-            self.ui.show_timer(self.timer)
 
 
 pygame.mixer.pre_init(44100, -16, 2, 4096)

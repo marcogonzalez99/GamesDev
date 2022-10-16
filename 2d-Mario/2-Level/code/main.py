@@ -118,11 +118,20 @@ class Game:
         bg = pygame.image.load(
             '../graphics/overworld/menu.png').convert_alpha()
         screen.blit(bg, (0, 0))
-        game_over_message = self.game_over_font.render(
-            f"Game Over, Press Space to Start Fresh", False, 'black')
-        game_over_message_rect = game_over_message.get_rect(
-            center=(screen_width/2, screen_height/2))
-        screen.blit(game_over_message, game_over_message_rect)
+
+        game_over_photo_1 = pygame.image.load(
+            '../graphics/overworld/game_over_1.png').convert_alpha()
+
+        game_over_photo_2 = pygame.image.load(
+            '../graphics/overworld/game_over_2.png').convert_alpha()
+
+        game_over_1_rect = game_over_photo_1.get_rect(
+            center=(screen_width/2 + 17, screen_height/2 - 75))
+        screen.blit(game_over_photo_1, game_over_1_rect)
+
+        game_over_2_rect = game_over_photo_2.get_rect(
+            center=(screen_width/2 - 17, screen_height/2 + 125))
+        screen.blit(game_over_photo_2, game_over_2_rect)
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:

@@ -40,14 +40,14 @@ class Level:
 
         # Sound Effects
         self.coin_sound = pygame.mixer.Sound('../audio/effects/coin.wav')
-        self.coin_sound.set_volume(0.1)
+        self.coin_sound.set_volume(0.3)
         self.stomp_sound = pygame.mixer.Sound('../audio/effects/stomp.wav')
-        self.stomp_sound.set_volume(0.2)
+        self.stomp_sound.set_volume(0.5)
 
         # Music
         self.level_music = pygame.mixer.Sound(level_data['music'])
         self.level_music.play(loops=-1)
-        self.level_music.set_volume(0.3)
+        self.level_music.set_volume(0.5)
 
         # Terrain setup for World 1
         if 0 <= self.current_level and self.current_level <= 5:

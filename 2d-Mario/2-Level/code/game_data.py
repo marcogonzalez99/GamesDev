@@ -100,7 +100,7 @@ level_6 = {
     'grass': '../levels/6/level_6_grass.csv',
     'diamond': '../levels/6/level_6_diamond.csv',
     'node_pos': (1700, 400),
-    'unlock': 6,
+    'unlock': 7,
     'graphics': '../graphics/overworld/0',
     'music': '../audio/level_6.wav'}
 level_7 = {
@@ -115,22 +115,22 @@ level_7 = {
     'grass': '../levels/7/level_7_grass.csv',
     'diamond': '../levels/7/level_7_diamond.csv',
     'node_pos': (1400, 400),
-    'unlock': 7,
+    'unlock': 8,
     'graphics': '../graphics/overworld/1',
     'music': '../audio/level_7.wav'}
 level_8 = {
-    'sand_terrain': '../levels/2/level_2_terrain.csv',
-    'coins': '../levels/2/level_2_coins.csv',
-    'fg palms': '../levels/2/level_2_fg_Palms.csv',
-    'bg palms': '../levels/2/level_2_bg_Palms.csv',
-    'crates': '../levels/2/level_2_crates.csv',
-    'enemies': '../levels/2/level_2_enemies.csv',
-    'constraints': '../levels/2/level_2_constraints.csv',
-    'player': '../levels/2/level_2_player.csv',
-    'grass': '../levels/2/level_2_grass.csv',
-    'diamond': '../levels/2/level_2_diamond.csv',
+    'sand_terrain': '../levels/8/level_8_terrain.csv',
+    'coins': '../levels/8/level_8_coins.csv',
+    'fg palms': '../levels/8/level_8_fg_Palms.csv',
+    'bg palms': '../levels/8/level_8_bg_Palms.csv',
+    'crates': '../levels/8/level_8_crates.csv',
+    'enemies': '../levels/8/level_8_enemies.csv',
+    'constraints': '../levels/8/level_8_constraints.csv',
+    'player': '../levels/8/level_8_player.csv',
+    'grass': '../levels/8/level_8_grass.csv',
+    'diamond': '../levels/8/level_8_diamond.csv',
     'node_pos': (1100, 400),
-    'unlock': 8,
+    'unlock': 9,
     'graphics': '../graphics/overworld/2',
     'music': '../audio/level_8.wav'}
 level_9 = {
@@ -145,7 +145,7 @@ level_9 = {
     'grass': '../levels/2/level_2_grass.csv',
     'diamond': '../levels/2/level_2_diamond.csv',
     'node_pos': (800, 400),
-    'unlock': 9,
+    'unlock': 10,
     'graphics': '../graphics/overworld/3',
     'music': '../audio/level_9.wav'}
 level_10 = {
@@ -160,7 +160,7 @@ level_10 = {
     'grass': '../levels/2/level_2_grass.csv',
     'diamond': '../levels/2/level_2_diamond.csv',
     'node_pos': (500, 400),
-    'unlock': 10,
+    'unlock': 11,
     'graphics': '../graphics/overworld/4',
     'music': '../audio/level_10.wav'}
 level_11 = {
@@ -175,7 +175,7 @@ level_11 = {
     'grass': '../levels/2/level_2_grass.csv',
     'diamond': '../levels/2/level_2_diamond.csv',
     'node_pos': (200, 400),
-    'unlock': 11,
+    'unlock': 12,
     'graphics': '../graphics/overworld/5',
     'music': '../audio/level_11.wav'}
 level_12 = {
@@ -190,7 +190,7 @@ level_12 = {
     'grass': '../levels/2/level_2_grass.csv',
     'diamond': '../levels/2/level_2_diamond.csv',
     'node_pos': (200, 700),
-    'unlock': 12,
+    'unlock': 13,
     'graphics': '../graphics/overworld/0',
     'music': '../audio/level_12.wav'}
 level_13 = {
@@ -205,7 +205,7 @@ level_13 = {
     'grass': '../levels/2/level_2_grass.csv',
     'diamond': '../levels/2/level_2_diamond.csv',
     'node_pos': (500, 700),
-    'unlock': 13,
+    'unlock': 14,
     'graphics': '../graphics/overworld/1',
     'music': '../audio/level_13.wav'}
 level_14 = {
@@ -220,7 +220,7 @@ level_14 = {
     'grass': '../levels/2/level_2_grass.csv',
     'diamond': '../levels/2/level_2_diamond.csv',
     'node_pos': (800, 700),
-    'unlock': 14,
+    'unlock': 15,
     'graphics': '../graphics/overworld/2',
     'music': '../audio/level_14.wav'}
 level_15 = {
@@ -235,7 +235,7 @@ level_15 = {
     'grass': '../levels/2/level_2_grass.csv',
     'diamond': '../levels/2/level_2_diamond.csv',
     'node_pos': (1100, 700),
-    'unlock': 15,
+    'unlock': 16,
     'graphics': '../graphics/overworld/3',
     'music': '../audio/level_15.wav'}
 level_16 = {
@@ -250,7 +250,7 @@ level_16 = {
     'grass': '../levels/2/level_2_grass.csv',
     'diamond': '../levels/2/level_2_diamond.csv',
     'node_pos': (1400, 700),
-    'unlock': 15,
+    'unlock': 17,
     'graphics': '../graphics/overworld/4',
     'music': '../audio/level_16.wav'}
 level_17 = {
@@ -265,7 +265,7 @@ level_17 = {
     'grass': '../levels/2/level_2_grass.csv',
     'diamond': '../levels/2/level_2_diamond.csv',
     'node_pos': (1700, 700),
-    'unlock': 15,
+    'unlock': 18,
     'graphics': '../graphics/overworld/5'}
 level_18 = {
     'terrain': '../levels/2/level_2_terrain.csv',
@@ -279,7 +279,7 @@ level_18 = {
     'grass': '../levels/2/level_2_grass.csv',
     'diamond': '../levels/2/level_2_diamond.csv',
     'node_pos': (1400, 900),
-    'unlock': 15,
+    'unlock': 19,
     'graphics': '../graphics/overworld/0',
     'music': '../audio/level_4.wav'}
 level_19 = {
@@ -294,7 +294,7 @@ level_19 = {
     'grass': '../levels/2/level_2_grass.csv',
     'diamond': '../levels/2/level_2_diamond.csv',
     'node_pos': (800, 900),
-    'unlock': 15,
+    'unlock': 20,
     'graphics': '../graphics/overworld/1',
     'music': '../audio/level_4.wav'}
 

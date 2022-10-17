@@ -126,11 +126,11 @@ class Game:
             '../graphics/overworld/game_over_2.png').convert_alpha()
 
         game_over_1_rect = game_over_photo_1.get_rect(
-            center=(screen_width/2 + 17, screen_height/2 - 75))
+            center=(screen_width/2, screen_height/2 - 75))
         screen.blit(game_over_photo_1, game_over_1_rect)
 
         game_over_2_rect = game_over_photo_2.get_rect(
-            center=(screen_width/2 - 17, screen_height/2 + 125))
+            center=(screen_width/2- 13, screen_height/2 + 100))
         screen.blit(game_over_photo_2, game_over_2_rect)
 
         keys = pygame.key.get_pressed()
@@ -196,4 +196,4 @@ while True:
     game.run()
 
     pygame.display.update()
-    clock.tick(75)
+    clock.tick(60)

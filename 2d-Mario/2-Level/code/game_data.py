@@ -119,7 +119,7 @@ level_7 = {
     'graphics': '../graphics/overworld/1',
     'music': '../audio/level_7.wav'}
 level_8 = {
-    'terrain': '../levels/2/level_2_terrain.csv',
+    'sand_terrain': '../levels/2/level_2_terrain.csv',
     'coins': '../levels/2/level_2_coins.csv',
     'fg palms': '../levels/2/level_2_fg_Palms.csv',
     'bg palms': '../levels/2/level_2_bg_Palms.csv',
@@ -134,7 +134,7 @@ level_8 = {
     'graphics': '../graphics/overworld/2',
     'music': '../audio/level_8.wav'}
 level_9 = {
-    'terrain': '../levels/2/level_2_terrain.csv',
+    'sand_terrain': '../levels/2/level_2_terrain.csv',
     'coins': '../levels/2/level_2_coins.csv',
     'fg palms': '../levels/2/level_2_fg_Palms.csv',
     'bg palms': '../levels/2/level_2_bg_Palms.csv',
@@ -149,7 +149,7 @@ level_9 = {
     'graphics': '../graphics/overworld/3',
     'music': '../audio/level_9.wav'}
 level_10 = {
-    'terrain': '../levels/2/level_2_terrain.csv',
+    'sand_terrain': '../levels/2/level_2_terrain.csv',
     'coins': '../levels/2/level_2_coins.csv',
     'fg palms': '../levels/2/level_2_fg_Palms.csv',
     'bg palms': '../levels/2/level_2_bg_Palms.csv',
@@ -164,7 +164,7 @@ level_10 = {
     'graphics': '../graphics/overworld/4',
     'music': '../audio/level_10.wav'}
 level_11 = {
-    'terrain': '../levels/2/level_2_terrain.csv',
+    'sand_terrain': '../levels/2/level_2_terrain.csv',
     'coins': '../levels/2/level_2_coins.csv',
     'fg palms': '../levels/2/level_2_fg_Palms.csv',
     'bg palms': '../levels/2/level_2_bg_Palms.csv',
@@ -179,7 +179,7 @@ level_11 = {
     'graphics': '../graphics/overworld/5',
     'music': '../audio/level_11.wav'}
 level_12 = {
-    'terrain': '../levels/2/level_2_terrain.csv',
+    'soft_terrain': '../levels/2/level_2_terrain.csv',
     'coins': '../levels/2/level_2_coins.csv',
     'fg palms': '../levels/2/level_2_fg_Palms.csv',
     'bg palms': '../levels/2/level_2_bg_Palms.csv',
@@ -194,7 +194,7 @@ level_12 = {
     'graphics': '../graphics/overworld/0',
     'music': '../audio/level_12.wav'}
 level_13 = {
-    'terrain': '../levels/2/level_2_terrain.csv',
+    'soft_terrain': '../levels/2/level_2_terrain.csv',
     'coins': '../levels/2/level_2_coins.csv',
     'fg palms': '../levels/2/level_2_fg_Palms.csv',
     'bg palms': '../levels/2/level_2_bg_Palms.csv',
@@ -209,7 +209,7 @@ level_13 = {
     'graphics': '../graphics/overworld/1',
     'music': '../audio/level_13.wav'}
 level_14 = {
-    'terrain': '../levels/2/level_2_terrain.csv',
+    'soft_terrain': '../levels/2/level_2_terrain.csv',
     'coins': '../levels/2/level_2_coins.csv',
     'fg palms': '../levels/2/level_2_fg_Palms.csv',
     'bg palms': '../levels/2/level_2_bg_Palms.csv',
@@ -224,7 +224,7 @@ level_14 = {
     'graphics': '../graphics/overworld/2',
     'music': '../audio/level_14.wav'}
 level_15 = {
-    'terrain': '../levels/2/level_2_terrain.csv',
+    'soft_terrain': '../levels/2/level_2_terrain.csv',
     'coins': '../levels/2/level_2_coins.csv',
     'fg palms': '../levels/2/level_2_fg_Palms.csv',
     'bg palms': '../levels/2/level_2_bg_Palms.csv',
@@ -239,7 +239,7 @@ level_15 = {
     'graphics': '../graphics/overworld/3',
     'music': '../audio/level_15.wav'}
 level_16 = {
-    'terrain': '../levels/2/level_2_terrain.csv',
+    'soft_terrain': '../levels/2/level_2_terrain.csv',
     'coins': '../levels/2/level_2_coins.csv',
     'fg palms': '../levels/2/level_2_fg_Palms.csv',
     'bg palms': '../levels/2/level_2_bg_Palms.csv',
@@ -254,7 +254,7 @@ level_16 = {
     'graphics': '../graphics/overworld/4',
     'music': '../audio/level_16.wav'}
 level_17 = {
-    'terrain': '../levels/2/level_2_terrain.csv',
+    'soft_terrain': '../levels/2/level_2_terrain.csv',
     'coins': '../levels/2/level_2_coins.csv',
     'fg palms': '../levels/2/level_2_fg_Palms.csv',
     'bg palms': '../levels/2/level_2_bg_Palms.csv',

@@ -128,6 +128,11 @@ class Level:
                             "../graphics/terrain/rock_sand_tiles.png")
                         tile_surface = (terrain_tile_list[int(val)])
                         sprite = StaticTile(tile_size, x, y, tile_surface)
+                    if type == 'soft_terrain':
+                        terrain_tile_list = import_cut_graphics(
+                            "../graphics/terrain/soft_sand_tiles.png")
+                        tile_surface = (terrain_tile_list[int(val)])
+                        sprite = StaticTile(tile_size, x, y, tile_surface)
                     if type == 'grass':
                         grass_tile_list = import_cut_graphics(
                             "../graphics/decoration/grass/grass.png")

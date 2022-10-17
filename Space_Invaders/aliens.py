@@ -13,6 +13,8 @@ class Alien(pygame.sprite.Sprite):
             self.value = 200
         elif color == 'yellow':
             self.value = 300
+        elif color == 'white':
+            self.value = 400
 
     def update(self, direction):
         self.rect.x += direction

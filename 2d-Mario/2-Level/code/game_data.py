@@ -27,7 +27,7 @@ level_1 = {
     'node_pos': (500, 100),
     'unlock': 2,
     'graphics': '../graphics/overworld/1',
-    'music': '../audio/level_1.wav'}
+    'music': '../audio/level_1.ogg'}
 level_2 = {
     'terrain': '../levels/2/level_2_terrain.csv',
     'coins': '../levels/2/level_2_coins.csv',

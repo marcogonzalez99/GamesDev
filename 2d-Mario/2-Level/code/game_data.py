@@ -241,8 +241,8 @@ level_15 = {
 level_16 = {
     'soft_terrain': '../levels/16/level_16_terrain.csv',
     'coins': '../levels/16/level_16_coins.csv',
-    'fg palms': '../levels/16/level_16_fg_Palms.csv',
-    'bg palms': '../levels/16/level_16_bg_Palms.csv',
+    'fg palms': '../levels/16/level_16_fg_Palm.csv',
+    'bg palms': '../levels/16/level_16_bg_Palm.csv',
     'crates': '../levels/16/level_16_crates.csv',
     'enemies': '../levels/16/level_16_enemies.csv',
     'constraints': '../levels/16/level_16_constraints.csv',

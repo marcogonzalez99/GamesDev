@@ -10,7 +10,7 @@ from ui import UI
 class Game:
     def __init__(self):
         # Game Attributes
-        self.max_level = 5
+        self.max_level = 0
         # PLayer Attributes
         self.current_health = 100
         self.max_health = 100
@@ -102,7 +102,7 @@ class Game:
         self.score = 0
         self.lives = 5
         if self.max_level < 6:
-            self.max_level = 12
+            self.max_level = 0
         elif 6 < self.max_level < 11:
             self.max_level = 6
         elif 12 < self.max_level < 17:

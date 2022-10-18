@@ -111,10 +111,12 @@ class Level:
         # Different Skies
         if self.current_level < 6:
             self.sky = Sky(8, 0)
-        elif 6 <= self.current_level or self.current_level < 11:
+        elif 6 <= self.current_level <= 11:
             self.sky = Sky(8, 1)
-        else:
+        elif 12 <= self.current_level <= 17:
             self.sky = Sky(8, 2)
+        else:
+            self.sky = Sky(8, 0)
 
     def create_tile_group(self, layout, type):
         sprite_group = pygame.sprite.Group()

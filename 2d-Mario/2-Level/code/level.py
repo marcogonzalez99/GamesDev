@@ -32,6 +32,7 @@ class Level:
         self.change_diamond = change_diamond
         self.change_score = change_score
         self.change_lives = change_lives
+        self.change_health = change_health
         # Dust
         self.dust_sprite = pygame.sprite.GroupSingle()
         self.player_on_ground = False
@@ -125,6 +126,11 @@ class Level:
                     if type == 'sand_terrain':
                         terrain_tile_list = import_cut_graphics(
                             "../graphics/terrain/rock_sand_tiles.png")
+                        tile_surface = (terrain_tile_list[int(val)])
+                        sprite = StaticTile(tile_size, x, y, tile_surface)
+                    if type == 'soft_terrain':
+                        terrain_tile_list = import_cut_graphics(
+                            "../graphics/terrain/soft_sand_tiles.png")
                         tile_surface = (terrain_tile_list[int(val)])
                         sprite = StaticTile(tile_size, x, y, tile_surface)
                     if type == 'grass':
@@ -267,6 +273,7 @@ class Level:
             self.level_music.stop()
             self.change_score(10000)
             self.change_coins(25)
+            self.change_health(20)
             self.create_overworld(self.current_level, self.new_max_level)
 
     def check_coin_collisions(self):

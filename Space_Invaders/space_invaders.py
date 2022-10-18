@@ -73,8 +73,10 @@ class Game:
                 y = row_index * y_distance + y_offset
 
                 if row_index == 0:
+                    alien_sprite = Alien('white', x, y)
+                elif 1 <= row_index <= 1:
                     alien_sprite = Alien('yellow', x, y)
-                elif 1 <= row_index <= 3:
+                elif 2 <= row_index <= 3:
                     alien_sprite = Alien('green', x, y)
                 else:
                     alien_sprite = Alien('red', x, y)

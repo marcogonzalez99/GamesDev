@@ -41,9 +41,9 @@ class Level:
 
         # Sound Effects
         self.coin_sound = pygame.mixer.Sound('../audio/effects/coin.wav')
-        self.coin_sound.set_volume(0.3)
+        self.coin_sound.set_volume(0.1)
         self.stomp_sound = pygame.mixer.Sound('../audio/effects/stomp.wav')
-        self.stomp_sound.set_volume(0.5)
+        self.stomp_sound.set_volume(0.3)
 
         # Music
         self.level_music = pygame.mixer.Sound(level_data['music'])

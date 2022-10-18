@@ -51,7 +51,6 @@ class Icon(pygame.sprite.Sprite):
 
 class Overworld():
     def __init__(self, start_level, max_level, surface, create_level):
-        pass
         # Setup
         self.display_surface = surface
         self.max_level = max_level
@@ -61,28 +60,41 @@ class Overworld():
         self.moving = False
         self.move_direction = pygame.math.Vector2(0, 0)
         self.speed = 3
+        # Sky Setup
+        if self.max_level < 6:
+            self.sky = Sky(8, 0, 'overworld')
+        elif 6 <= self.max_level < 11:
+            self.sky = Sky(8, 1, 'overworld')
+        elif 12 <= self.max_level < 17:
+            self.sky = Sky(8, 2, 'overworld')
+        else:
+            self.sky = Sky(8, 2, 'overworld')
         # Sprites
         self.setup_stages()
         self.setup_icon()
-        self.sky = Sky(8, 'overworld')
+
         # Time
         self.start_time = pygame.time.get_ticks()
         self.allow_input = False
         self.time_length = 400
         # World Images
-        self.world_1 = pygame.image.load("../graphics/overworld/World_1.png").convert_alpha()
+        self.world_1 = pygame.image.load(
+            "../graphics/overworld/World_1.png").convert_alpha()
         self.world_1_rect = self.world_1.get_rect(
             center=(200, 225))
 
-        self.world_2 = pygame.image.load("../graphics/overworld/World_2.png").convert_alpha()
+        self.world_2 = pygame.image.load(
+            "../graphics/overworld/World_2.png").convert_alpha()
         self.world_2_rect = self.world_2.get_rect(
             center=(1700, 525))
 
-        self.world_3 = pygame.image.load("../graphics/overworld/World_3.png").convert_alpha()
+        self.world_3 = pygame.image.load(
+            "../graphics/overworld/World_3.png").convert_alpha()
         self.world_3_rect = self.world_3.get_rect(
             center=(200, 830))
 
-        self.world_4 = pygame.image.load("../graphics/overworld/World_4.png").convert_alpha()
+        self.world_4 = pygame.image.load(
+            "../graphics/overworld/World_4.png").convert_alpha()
         self.world_4_rect = self.world_4.get_rect(
             center=(1550, 925))
 

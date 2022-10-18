@@ -102,7 +102,7 @@ class Game:
         self.score = 0
         self.lives = 5
         if self.max_level < 6:
-            self.max_level = 17
+            self.max_level = 0
         elif 6 < self.max_level < 11:
             self.max_level = 6
         elif 12 < self.max_level < 17:
@@ -130,7 +130,7 @@ class Game:
         screen.blit(game_over_photo_1, game_over_1_rect)
 
         game_over_2_rect = game_over_photo_2.get_rect(
-            center=(screen_width/2- 13, screen_height/2 + 100))
+            center=(screen_width/2 - 13, screen_height/2 + 100))
         screen.blit(game_over_photo_2, game_over_2_rect)
 
         keys = pygame.key.get_pressed()

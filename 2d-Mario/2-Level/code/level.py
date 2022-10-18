@@ -104,10 +104,17 @@ class Level:
             constraint_layout, 'constraints')
 
         # Decorations
-        self.sky = Sky(8)
         level_width = len(terrain_layout[0]) * tile_size
         self.water = Water(screen_height - 40, level_width)
         self.clouds = Clouds(400, level_width, 20)
+
+        # Different Skies
+        if self.current_level < 6:
+            self.sky = Sky(8, 0)
+        elif 6 <= self.current_level or self.current_level < 11:
+            self.sky = Sky(8, 1)
+        else:
+            self.sky = Sky(8, 2)
 
     def create_tile_group(self, layout, type):
         sprite_group = pygame.sprite.Group()

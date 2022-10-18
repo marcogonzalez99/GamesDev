@@ -6,13 +6,29 @@ from random import choice, randint
 
 
 class Sky:
-    def __init__(self, horizon, style='level'):
-        self.top = pygame.image.load(
-            '../graphics/decoration/sky/sky_top.png').convert_alpha()
-        self.bottom = pygame.image.load(
-            '../graphics/decoration/sky/sky_bottom.png').convert_alpha()
-        self.middle = pygame.image.load(
-            '../graphics/decoration/sky/sky_middle.png').convert_alpha()
+    def __init__(self, horizon, world, style='level'):
+        self.world = world
+        if world == 0:
+            self.top = pygame.image.load(
+                '../graphics/decoration/sky/world_1_sky_top.png').convert_alpha()
+            self.bottom = pygame.image.load(
+                '../graphics/decoration/sky/world_1_sky_bottom.png').convert_alpha()
+            self.middle = pygame.image.load(
+                '../graphics/decoration/sky/world_1_sky_middle.png').convert_alpha()
+        if world == 1:
+            self.top = pygame.image.load(
+                '../graphics/decoration/sky/world_2_sky_top.png').convert_alpha()
+            self.bottom = pygame.image.load(
+                '../graphics/decoration/sky/world_2_sky_bottom.png').convert_alpha()
+            self.middle = pygame.image.load(
+                '../graphics/decoration/sky/world_2_sky_middle.png').convert_alpha()
+        if world == 2:
+            self.top = pygame.image.load(
+                '../graphics/decoration/sky/world_3_sky_top.png').convert_alpha()
+            self.bottom = pygame.image.load(
+                '../graphics/decoration/sky/world_3_sky_bottom.png').convert_alpha()
+            self.middle = pygame.image.load(
+                '../graphics/decoration/sky/world_3_sky_middle.png').convert_alpha()
 
         self.horizon = horizon
 
@@ -26,23 +42,66 @@ class Sky:
         self.style = style
         # Setting the sky for the overworld
         if self.style == 'overworld':
-            palm_surface = import_folder('../graphics/overworld/palms')
-            self.palms = []
+            if self.world == 0:
+                palm_surface = import_folder(
+                    '../graphics/overworld/palms/world_1')
+                self.palms = []
 
-            for surface in [choice(palm_surface) for image in range(10)]:
-                x = randint(0, screen_width)
-                y = (self.horizon * tile_size) + randint(50, 100)
-                rect = surface.get_rect(midbottom=(x, y))
-                self.palms.append((surface, rect))
+                for surface in [choice(palm_surface) for image in range(10)]:
+                    x = randint(0, screen_width)
+                    y = (self.horizon * tile_size) + randint(50, 100)
+                    rect = surface.get_rect(midbottom=(x, y))
+                    self.palms.append((surface, rect))
 
-            clouds_surface = import_folder('../graphics/overworld/clouds')
-            self.clouds = []
+                clouds_surface = import_folder(
+                    '../graphics/overworld/clouds/world_1')
+                self.clouds = []
 
-            for surface in [choice(clouds_surface) for image in range(10)]:
-                x = randint(0, screen_width)
-                y = randint(0, (self.horizon * tile_size) - 100)
-                rect = surface.get_rect(midbottom=(x, y))
-                self.clouds.append((surface, rect))
+                for surface in [choice(clouds_surface) for image in range(10)]:
+                    x = randint(0, screen_width)
+                    y = randint(0, (self.horizon * tile_size) - 100)
+                    rect = surface.get_rect(midbottom=(x, y))
+                    self.clouds.append((surface, rect))
+            if self.world == 1:
+                palm_surface = import_folder(
+                    '../graphics/overworld/palms/world_2')
+                self.palms = []
+
+                for surface in [choice(palm_surface) for image in range(10)]:
+                    x = randint(0, screen_width)
+                    y = (self.horizon * tile_size) + randint(50, 100)
+                    rect = surface.get_rect(midbottom=(x, y))
+                    self.palms.append((surface, rect))
+
+                clouds_surface = import_folder(
+                    '../graphics/overworld/clouds/world_2')
+                self.clouds = []
+
+                for surface in [choice(clouds_surface) for image in range(10)]:
+                    x = randint(0, screen_width)
+                    y = randint(0, (self.horizon * tile_size) - 100)
+                    rect = surface.get_rect(midbottom=(x, y))
+                    self.clouds.append((surface, rect))
+            if self.world == 2:
+                palm_surface = import_folder(
+                    '../graphics/overworld/palms/world_3')
+                self.palms = []
+
+                for surface in [choice(palm_surface) for image in range(10)]:
+                    x = randint(0, screen_width)
+                    y = (self.horizon * tile_size) + randint(50, 100)
+                    rect = surface.get_rect(midbottom=(x, y))
+                    self.palms.append((surface, rect))
+
+                clouds_surface = import_folder(
+                    '../graphics/overworld/clouds/world_3')
+                self.clouds = []
+
+                for surface in [choice(clouds_surface) for image in range(10)]:
+                    x = randint(0, screen_width)
+                    y = randint(0, (self.horizon * tile_size) - 100)
+                    rect = surface.get_rect(midbottom=(x, y))
+                    self.clouds.append((surface, rect))
 
     def draw(self, surface):
         for row in range(vertical_tile_number):
@@ -54,10 +113,21 @@ class Sky:
             else:
                 surface.blit(self.bottom, (0, y))
         if self.style == 'overworld':
-            for palm in self.palms:
-                surface.blit(palm[0], palm[1])
-            for cloud in self.clouds:
-                surface.blit(cloud[0], cloud[1])
+            if self.world == 0:
+                for palm in self.palms:
+                    surface.blit(palm[0], palm[1])
+                for cloud in self.clouds:
+                    surface.blit(cloud[0], cloud[1])
+            if self.world == 1:
+                for palm in self.palms:
+                    surface.blit(palm[0], palm[1])
+                for cloud in self.clouds:
+                    surface.blit(cloud[0], cloud[1])
+            if self.world == 2:
+                for palm in self.palms:
+                    surface.blit(palm[0], palm[1])
+                for cloud in self.clouds:
+                    surface.blit(cloud[0], cloud[1])
 
 
 class Water:

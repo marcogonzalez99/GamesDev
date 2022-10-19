@@ -266,7 +266,8 @@ level_17 = {
     'diamond': '../levels/17/level_17_diamond.csv',
     'node_pos': (1700, 700),
     'unlock': 18,
-    'graphics': '../graphics/overworld/5'}
+    'graphics': '../graphics/overworld/5',
+    'music': '../audio/level_16.wav'}
 level_18 = {
     'terrain': '../levels/18/level_18_terrain.csv',
     'coins': '../levels/18/level_18_coins.csv',

@@ -59,7 +59,7 @@ class Overworld():
         # Movement Logic
         self.moving = False
         self.move_direction = pygame.math.Vector2(0, 0)
-        self.speed = 3
+        self.speed = 5
         # Sky Setup
         if self.max_level < 6:
             self.sky = Sky(8, 0, 'overworld')

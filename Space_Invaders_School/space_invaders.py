@@ -9,6 +9,8 @@ from laser import Laser
 
 class Game:
     def __init__(self):
+        # Grab the state of the game and switch it to level 1
+        self.state = "level_1"
         # Player Setup
         player_sprite = Player(
             (screen_width/2, screen_height), screen_width, 5)
@@ -52,6 +54,11 @@ class Game:
         self.explosion_sound = pygame.mixer.Sound('Sounds/audio_explosion.wav')
         self.explosion_sound.set_volume(0.1)
 
+        # Win Conditions
+        self.win = False
+        self.win_time = 0
+        self.win_cooldown = 1000
+
     def create_obstacle(self, x_start, y_start, offset_x):
         for row_index, row in enumerate(self.shape):
             for col_index, col in enumerate(row):
@@ -72,12 +79,27 @@ class Game:
                 x = col_index * x_distance + x_offset
                 y = row_index * y_distance + y_offset
 
-                if row_index == 0:
-                    alien_sprite = Alien('yellow', x, y)
-                elif 1 <= row_index <= 3:
-                    alien_sprite = Alien('green', x, y)
-                else:
-                    alien_sprite = Alien('red', x, y)
+                if self.state == "level_1":
+                    if 0 <= row_index <= 3:
+                        alien_sprite = Alien('green', x, y)
+                    else:
+                        alien_sprite = Alien('red', x, y)
+                elif self.state == "level_2":
+                    if row_index == 0:
+                        alien_sprite = Alien('yellow', x, y)
+                    elif 1 <= row_index <= 3:
+                        alien_sprite = Alien('green', x, y)
+                    else:
+                        alien_sprite = Alien('red', x, y)
+                elif self.state == "level_3":
+                    if row_index == 0:
+                        alien_sprite = Alien('white', x, y)
+                    elif 1 <= row_index <= 3:
+                        alien_sprite = Alien('yellow', x, y)
+                    elif 4 <= row_index <= 6:
+                        alien_sprite = Alien('green', x, y)
+                    else:
+                        alien_sprite = Alien('red', x, y)
                 self.aliens.add(alien_sprite)
 
     def alien_position_checker(self):
@@ -163,8 +185,30 @@ class Game:
         score_rect = score_message.get_rect(topleft=(10, 10))
         screen.blit(score_message, score_rect)
 
+    def win_timer(self):
+        if self.win:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.win_time >= self.win_cooldown:
+                self.next_round()
+                self.win = False
+                current_time = 0
+
+    def next_round(self):
+        if self.state == "level_1":
+            game_state.state = "level_2"
+            self.state = "level_2"
+            self.alien_setup(rows=7, cols=9)
+        elif self.state == "level_2":
+            game_state.state = "level_3"
+            self.state = "level_3"
+            self.alien_setup(rows=8, cols=10)
+        elif self.state == "level_3":
+            game_state.state = "outro"
+            self.state = "outro"
+
     def victory_message(self):
         if not self.aliens.sprites():
+            self.win = True
             victory_surface = self.font.render('You Won', False, 'white')
             victory_rect = victory_surface.get_rect(
                 center=(screen_width/2, screen_height/2))
@@ -175,6 +219,7 @@ class Game:
         self.player.update()
         self.extra.update()
         self.alien_lasers.update()
+        self.win_timer()
 
         self.aliens.update(self.alien_direction)
         self.alien_position_checker()
@@ -223,7 +268,7 @@ class GameState():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                self.state = "main_game"
+                self.state = "level_1"
 
         # Intro text
         intro_message = game_font.render(
@@ -238,17 +283,62 @@ class GameState():
         crt.draw()
         pygame.display.flip()
 
-    def main_game(self):
+    def level_1(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             if event.type == ALIENLASER:
                 game.alien_shoot()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                self.state = "outro"
+
+        # Level text
+        level_message = game_font.render(
+            "Level 1", False, 'white')
+        level_rect = level_message.get_rect(
+            center=(screen_width/2, 25))
 
         screen.fill((30, 30, 30))
+        screen.blit(level_message, level_rect)
+        game.run()
+        crt.draw()
+        pygame.display.flip()
+
+    def level_2(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == ALIENLASER:
+                game.alien_shoot()
+
+        # Level text
+        level_message = game_font.render(
+            "Level 2", False, 'white')
+        level_rect = level_message.get_rect(
+            center=(screen_width/2, 25))
+
+        screen.fill((30, 30, 30))
+        screen.blit(level_message, level_rect)
+        game.run()
+        crt.draw()
+        pygame.display.flip()
+
+    def level_3(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == ALIENLASER:
+                game.alien_shoot()
+
+        # Level text
+        level_message = game_font.render(
+            "Level 3", False, 'white')
+        level_rect = level_message.get_rect(
+            center=(screen_width/2, 25))
+
+        screen.fill((30, 30, 30))
+        screen.blit(level_message, level_rect)
         game.run()
         crt.draw()
         pygame.display.flip()
@@ -259,17 +349,16 @@ class GameState():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                game.alien_setup(rows=6, cols=8)
                 self.state = "intro"
 
         # Outro text
         outro_message = game_font.render(
-            "Game Over", False, 'white')
+            "Game End", False, 'white')
         outro_rect = outro_message.get_rect(
             center=(screen_width/2, screen_height/2 + 50))
 
         outro_message_1 = game_font.render(
-            "Click To Try Again", False, 'white')
+            f"Final Score: {game.score}", False, 'white')
         outro_rect_1 = outro_message_1.get_rect(
             center=(screen_width/2, screen_height/2 + 100))
 
@@ -282,8 +371,12 @@ class GameState():
     def state_manager(self):
         if self.state == "intro":
             self.intro()
-        if self.state == "main_game":
-            self.main_game()
+        if self.state == "level_1":
+            self.level_1()
+        if self.state == "level_2":
+            self.level_2()
+        if self.state == "level_3":
+            self.level_3()
         if self.state == "outro":
             self.outro()
 

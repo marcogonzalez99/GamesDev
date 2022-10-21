@@ -161,8 +161,8 @@ class Game:
                     laser.kill()
                     self.lives -= 1
                     if self.lives <= 0:
-                        pygame.quit()
-                        sys.exit()
+                        self.state = "outro"
+                        game_state.state = "outro"
 
         # Aliens Hitting Obstacle
         if self.aliens:
@@ -170,8 +170,8 @@ class Game:
                 pygame.sprite.spritecollide(alien, self.blocks, True)
 
                 if pygame.sprite.spritecollide(alien, self.player, False):
-                    pygame.quit()
-                    sys.exit()
+                    self.state = "outro"
+                    game_state.state = "outro"
 
     def display_lives(self):
         for live in range(self.lives - 1):

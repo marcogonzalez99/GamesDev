@@ -165,7 +165,6 @@ class Game:
 
     def victory_message(self):
         if not self.aliens.sprites():
-            game_state.state = "outro"
             victory_surface = self.font.render('You Won', False, 'white')
             victory_rect = victory_surface.get_rect(
                 center=(screen_width/2, screen_height/2))
@@ -260,6 +259,7 @@ class GameState():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
+                game.alien_setup(rows=6, cols=8)
                 self.state = "intro"
 
         # Outro text

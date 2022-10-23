@@ -222,7 +222,7 @@ class Game:
             self.player = pygame.sprite.GroupSingle(level_2_sprite)
             self.alien_setup(rows=7, cols=9)
             # Add points for winning
-            self.score += 20000
+            self.score += 5000
         elif self.state == "level_2":
             game_state.state = "level_3"
             self.state = "level_3"
@@ -233,10 +233,10 @@ class Game:
             self.player = pygame.sprite.GroupSingle(level_3_sprite)
             self.alien_setup(rows=8, cols=10)
             # Add points for winning
-            self.score += 20000
+            self.score += 5000
         elif self.state == "level_3":
             # Add points for winning
-            self.score += 20000
+            self.score += 5000
             game_state.state = "outro"
             self.state = "outro"
 

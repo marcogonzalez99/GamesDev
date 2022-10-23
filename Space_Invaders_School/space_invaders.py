@@ -10,17 +10,11 @@ from laser import Laser
 class Game:
     def __init__(self):
         # Grab the state of the game and switch it to level 1
-        self.state = "level_1"
-        if self.state == "level_1":    
-            # Player Setup
-            player_sprite = Player(
+        self.state = "level_1"   
+        # Player Setup
+        self.player_sprite = Player(
                 (screen_width/2, screen_height), screen_width, 5,1)
-            self.player = pygame.sprite.GroupSingle(player_sprite)
-        elif self.state == "level_2":    
-            # Player Setup
-            player_sprite = Player(
-                (screen_width/2, screen_height), screen_width, 5,2)
-            self.player = pygame.sprite.GroupSingle(player_sprite)
+        self.player = pygame.sprite.GroupSingle(self.player_sprite)
 
         # Health and Score setup
         self.lives = 3
@@ -203,6 +197,10 @@ class Game:
         if self.state == "level_1":
             game_state.state = "level_2"
             self.state = "level_2"
+            self.player.remove(self.player_sprite)
+            new_player_sprite = Player(
+                (screen_width/2, screen_height), screen_width, 5,2)
+            self.player = pygame.sprite.GroupSingle(new_player_sprite)
             self.alien_setup(rows=7, cols=9)
         elif self.state == "level_2":
             game_state.state = "level_3"

@@ -81,25 +81,25 @@ class Game:
 
                 if self.state == "level_1":
                     if 0 <= row_index <= 3:
-                        alien_sprite = Alien('green', x, y)
+                        alien_sprite = Alien('green', x, y,1)
                     else:
-                        alien_sprite = Alien('red', x, y)
+                        alien_sprite = Alien('red', x, y,1)
                 elif self.state == "level_2":
                     if row_index == 0:
-                        alien_sprite = Alien('yellow', x, y)
+                        alien_sprite = Alien('yellow', x, y,2)
                     elif 1 <= row_index <= 3:
-                        alien_sprite = Alien('green', x, y)
+                        alien_sprite = Alien('green', x, y,2)
                     else:
-                        alien_sprite = Alien('red', x, y)
+                        alien_sprite = Alien('red', x, y,2)
                 elif self.state == "level_3":
                     if row_index == 0:
-                        alien_sprite = Alien('white', x, y)
+                        alien_sprite = Alien('white', x, y,3)
                     elif 1 <= row_index <= 3:
-                        alien_sprite = Alien('yellow', x, y)
+                        alien_sprite = Alien('yellow', x, y,3)
                     elif 4 <= row_index <= 6:
-                        alien_sprite = Alien('green', x, y)
+                        alien_sprite = Alien('green', x, y,3)
                     else:
-                        alien_sprite = Alien('red', x, y)
+                        alien_sprite = Alien('red', x, y,3)
                 self.aliens.add(alien_sprite)
 
     def alien_position_checker(self):
@@ -348,21 +348,20 @@ class GameState():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                self.state = "intro"
 
         # Outro text
         outro_message = game_font.render(
             "Game End", False, 'white')
         outro_rect = outro_message.get_rect(
-            center=(screen_width/2, screen_height/2 + 50))
+            center=(screen_width/2, screen_height/2 + 100))
 
         outro_message_1 = game_font.render(
             f"Final Score: {game.score}", False, 'white')
         outro_rect_1 = outro_message_1.get_rect(
-            center=(screen_width/2, screen_height/2 + 100))
+            center=(screen_width/2, screen_height/2 + 125))
 
         screen.fill((30, 30, 30))
+        screen.blit(game_logo,game_logo_rect)
         screen.blit(outro_message, outro_rect)
         screen.blit(outro_message_1, outro_rect_1)
         crt.draw()

@@ -3,9 +3,13 @@ from laser import Laser
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, constraint, speed):
+    def __init__(self, pos, constraint, speed,level):
         super().__init__()
-        self.image = pygame.image.load("Images/player.png")
+        self.level = level
+        if self.level == 1:
+            self.image = pygame.image.load("Images/player_2.png")
+        elif self.level == 2:
+            self.image = pygame.image.load("Images/player_2.png")
         self.rect = self.image.get_rect(midbottom=pos)
         self.speed = speed
         self.max_x = constraint

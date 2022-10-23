@@ -11,10 +11,16 @@ class Game:
     def __init__(self):
         # Grab the state of the game and switch it to level 1
         self.state = "level_1"
-        # Player Setup
-        player_sprite = Player(
-            (screen_width/2, screen_height), screen_width, 5)
-        self.player = pygame.sprite.GroupSingle(player_sprite)
+        if self.state == "level_1":    
+            # Player Setup
+            player_sprite = Player(
+                (screen_width/2, screen_height), screen_width, 5,1)
+            self.player = pygame.sprite.GroupSingle(player_sprite)
+        elif self.state == "level_2":    
+            # Player Setup
+            player_sprite = Player(
+                (screen_width/2, screen_height), screen_width, 5,2)
+            self.player = pygame.sprite.GroupSingle(player_sprite)
 
         # Health and Score setup
         self.lives = 3

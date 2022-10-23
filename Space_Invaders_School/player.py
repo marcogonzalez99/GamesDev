@@ -10,6 +10,8 @@ class Player(pygame.sprite.Sprite):
             self.image = pygame.image.load("Images/player.png")
         elif self.level == 2:
             self.image = pygame.image.load("Images/player_2.png")
+        elif self.level == 3:
+            self.image = pygame.image.load("Images/player_3.png")
         self.rect = self.image.get_rect(midbottom=pos)
         self.speed = speed
         self.max_x = constraint

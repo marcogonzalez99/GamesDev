@@ -197,14 +197,20 @@ class Game:
         if self.state == "level_1":
             game_state.state = "level_2"
             self.state = "level_2"
+            # Remove the old sprite and add the new one
             self.player.remove(self.player_sprite)
-            new_player_sprite = Player(
+            level_2_sprite = Player(
                 (screen_width/2, screen_height), screen_width, 5,2)
-            self.player = pygame.sprite.GroupSingle(new_player_sprite)
+            self.player = pygame.sprite.GroupSingle(level_2_sprite)
             self.alien_setup(rows=7, cols=9)
         elif self.state == "level_2":
             game_state.state = "level_3"
             self.state = "level_3"
+            # Remove the old sprite and add the new one
+            self.player.remove(self.player_sprite)
+            level_3_sprite = Player(
+                (screen_width/2, screen_height), screen_width, 5,3)
+            self.player = pygame.sprite.GroupSingle(level_3_sprite)
             self.alien_setup(rows=8, cols=10)
         elif self.state == "level_3":
             game_state.state = "outro"

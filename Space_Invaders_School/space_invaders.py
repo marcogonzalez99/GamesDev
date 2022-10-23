@@ -297,7 +297,7 @@ class GameState():
         level_rect = level_message.get_rect(
             center=(screen_width/2, 25))
 
-        screen.fill((30, 30, 30))
+        screen.blit(level_1_map,(0,0))
         screen.blit(level_message, level_rect)
         game.run()
         crt.draw()
@@ -317,7 +317,7 @@ class GameState():
         level_rect = level_message.get_rect(
             center=(screen_width/2, 25))
 
-        screen.fill((30, 30, 30))
+        screen.blit(level_2_map,(0,0))
         screen.blit(level_message, level_rect)
         game.run()
         crt.draw()
@@ -337,7 +337,7 @@ class GameState():
         level_rect = level_message.get_rect(
             center=(screen_width/2, 25))
 
-        screen.fill((30, 30, 30))
+        screen.blit(level_3_map,(0,0))
         screen.blit(level_message, level_rect)
         game.run()
         crt.draw()
@@ -396,6 +396,10 @@ if __name__ == '__main__':
     game_logo = pygame.image.load('Images/game_logo.png')
     game_logo_rect = game_logo.get_rect(
         center=(screen_width/2, screen_height/2 - 100))
+    
+    level_1_map = pygame.image.load("Images/level_1_image.png")
+    level_2_map = pygame.image.load("Images/level_2_image.png")
+    level_3_map = pygame.image.load("Images/level_3_image.png")
 
     # Font
     game_font = pygame.font.Font('Pixeltype.ttf', 40)

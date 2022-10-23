@@ -102,15 +102,33 @@ class Game:
                         alien_sprite = Alien('red', x, y,3)
                 self.aliens.add(alien_sprite)
 
-    def alien_position_checker(self):
+    def alien_position_checker(self,lvl):
         all_aliens = self.aliens.sprites()
-        for alien in all_aliens:
-            if alien.rect.right >= screen_width:
-                self.alien_direction = -2
-                self.alien_move_down(2)
-            elif alien.rect.left <= 0:
-                self.alien_direction = 2
-                self.alien_move_down(2)
+        if lvl == 1:
+            for alien in all_aliens:
+                if alien.rect.right >= screen_width:
+                    self.alien_direction = -1
+                    self.alien_move_down(1)
+                elif alien.rect.left <= 0:
+                    self.alien_direction = 1
+                    self.alien_move_down(1)
+        if lvl == 2:
+            for alien in all_aliens:
+                if alien.rect.right >= screen_width:
+                    self.alien_direction = -2
+                    self.alien_move_down(1)
+                elif alien.rect.left <= 0:
+                    self.alien_direction = 2
+                    self.alien_move_down(1)
+        if lvl == 3:
+            for alien in all_aliens:
+                if alien.rect.right >= screen_width:
+                    self.alien_direction = -3
+                    self.alien_move_down(1)
+                elif alien.rect.left <= 0:
+                    self.alien_direction = 3
+                    self.alien_move_down(1)
+        
 
     def alien_move_down(self, distance):
         if self.aliens:
@@ -203,6 +221,8 @@ class Game:
                 (screen_width/2, screen_height), screen_width, 5,2)
             self.player = pygame.sprite.GroupSingle(level_2_sprite)
             self.alien_setup(rows=7, cols=9)
+            # Add points for winning
+            self.score += 20000
         elif self.state == "level_2":
             game_state.state = "level_3"
             self.state = "level_3"
@@ -212,7 +232,11 @@ class Game:
                 (screen_width/2, screen_height), screen_width, 5,3)
             self.player = pygame.sprite.GroupSingle(level_3_sprite)
             self.alien_setup(rows=8, cols=10)
+            # Add points for winning
+            self.score += 20000
         elif self.state == "level_3":
+            # Add points for winning
+            self.score += 20000
             game_state.state = "outro"
             self.state = "outro"
 
@@ -232,7 +256,12 @@ class Game:
         self.win_timer()
 
         self.aliens.update(self.alien_direction)
-        self.alien_position_checker()
+        if self.state == "level_1":
+            self.alien_position_checker(1)
+        if self.state == "level_2":
+            self.alien_position_checker(2)
+        if self.state == "level_3":
+            self.alien_position_checker(3)
         self.extra_alien_timer()
         self.collision_checks()
         # Drawings

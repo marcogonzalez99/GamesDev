@@ -103,7 +103,7 @@ class Game:
         self.coins = 0
         self.diamonds = 0
         self.score = 0
-        self.lives = 1
+        self.lives = 10
         if self.max_level < 6:
             self.max_level = 0
         elif 6 < self.max_level < 11:

@@ -68,7 +68,7 @@ class Overworld():
         elif 12 <= self.max_level < 17:
             self.sky = Sky(8, 2, 'overworld')
         else:
-            self.sky = Sky(8, 2, 'overworld')
+            self.sky = Sky(8, 3, 'overworld')
         # Sprites
         self.setup_stages()
         self.setup_icon()

@@ -45,28 +45,32 @@ class Level:
         self.stomp_sound = pygame.mixer.Sound('../audio/effects/stomp.wav')
         self.stomp_sound.set_volume(0.3)
 
-        # Music
+        # Music - Initialized from Game_Data
         self.level_music = pygame.mixer.Sound(level_data['music'])
         self.level_music.play(loops=-1)
         self.level_music.set_volume(0.5)
 
         # Terrain setup for World 1
-        if 0 <= self.current_level and self.current_level <= 5:
+        if 0 <= self.current_level <= 5:
             terrain_layout = import_csv_layout(level_data['terrain'])
             self.terrain_sprites = self.create_tile_group(
                 terrain_layout, 'terrain')
         # Terrtain setup for World 2
-        elif 6 <= self.current_level and self.current_level <= 11:
+        elif 6 <= self.current_level <= 11:
             terrain_layout = import_csv_layout(level_data['sand_terrain'])
             self.terrain_sprites = self.create_tile_group(
                 terrain_layout, 'sand_terrain')
         # Terrain setup for World 3
-        elif 12 <= self.current_level and self.current_level <= 17:
+        elif 12 <= self.current_level <= 17:
             terrain_layout = import_csv_layout(level_data['soft_terrain'])
             self.terrain_sprites = self.create_tile_group(
                 terrain_layout, 'soft_terrain')
         # Terrain setup for World x
-
+        if 17 < self.current_level < 20:
+            terrain_layout = import_csv_layout(level_data['terrain'])
+            self.terrain_sprites = self.create_tile_group(
+                terrain_layout, 'terrain')
+            
         # Grass Setup
         grass_layout = import_csv_layout(level_data['grass'])
         self.grass_sprites = self.create_tile_group(grass_layout, 'grass')
@@ -116,7 +120,7 @@ class Level:
         elif 12 <= self.current_level <= 17:
             self.sky = Sky(8, 2)
         else:
-            self.sky = Sky(8, 0)
+            self.sky = Sky(8, 3)
 
     def create_tile_group(self, layout, type):
         sprite_group = pygame.sprite.Group()

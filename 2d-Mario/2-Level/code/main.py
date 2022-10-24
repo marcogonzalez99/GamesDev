@@ -18,7 +18,6 @@ class Game:
         self.diamonds = 0
         self.score = 0
         self.lives = 5
-        self.timer = 105
 
         # Audio
         self.overworld_music = pygame.mixer.Sound(
@@ -103,7 +102,7 @@ class Game:
         self.score = 0
         self.lives = 1
         if self.max_level < 6:
-            self.max_level = 0
+            self.max_level = 19
         elif 6 < self.max_level < 11:
             self.max_level = 6
         elif 12 < self.max_level < 17:

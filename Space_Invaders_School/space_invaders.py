@@ -93,8 +93,10 @@ class Game:
                         alien_sprite = Alien('red', x, y,2)
                 elif self.state == "level_3":
                     if row_index == 0:
+                        alien_sprite = Alien('orange', x, y,3)
+                    elif 1 <= row_index <= 1:
                         alien_sprite = Alien('white', x, y,3)
-                    elif 1 <= row_index <= 3:
+                    elif 2 <= row_index <= 3:
                         alien_sprite = Alien('yellow', x, y,3)
                     elif 4 <= row_index <= 6:
                         alien_sprite = Alien('green', x, y,3)
@@ -390,7 +392,7 @@ class GameState():
 
         # Outro text
         outro_message = game_font.render(
-            "Game End", False, 'white')
+            "Game Over", False, 'white')
         outro_rect = outro_message.get_rect(
             center=(screen_width/2, screen_height/2 + 100))
 

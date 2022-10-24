@@ -13,10 +13,6 @@ class Alien(pygame.sprite.Sprite):
                 self.value = 50
             elif color == 'green':
                 self.value = 100
-            elif color == 'yellow':
-                self.value = 200
-            elif color == 'white':
-                self.value = 300
         if self.level == 2:
             if color == 'red':
                 self.value = 100
@@ -24,8 +20,6 @@ class Alien(pygame.sprite.Sprite):
                 self.value = 200
             elif color == 'yellow':
                 self.value = 300
-            elif color == 'white':
-                self.value = 400
         if self.level == 3:
             if color == 'red':
                 self.value = 250
@@ -35,6 +29,8 @@ class Alien(pygame.sprite.Sprite):
                 self.value = 600
             elif color == 'white':
                 self.value = 1000
+            elif color == 'orange':
+                self.value = 2500
 
     def update(self, direction):
         self.rect.x += direction

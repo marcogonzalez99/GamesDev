@@ -72,7 +72,10 @@ class Game:
             self.coins = 0
 
     def change_health(self, amount):
-        if self.current_health <= self.max_health - 20:
+        if amount > 0:
+            if self.current_health <= self.max_health - 20:
+                self.current_health += amount
+        else:
             self.current_health += amount
 
     def check_game_over(self):
@@ -102,7 +105,7 @@ class Game:
         self.score = 0
         self.lives = 1
         if self.max_level < 6:
-            self.max_level = 19
+            self.max_level = 0
         elif 6 < self.max_level < 11:
             self.max_level = 6
         elif 12 < self.max_level < 17:

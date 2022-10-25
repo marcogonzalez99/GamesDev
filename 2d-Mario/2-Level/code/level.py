@@ -308,14 +308,11 @@ class Level:
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
             self.player.sprite.level_won = True
             self.level_music.stop()
-            self.level_clear_sound.play()
+            self.level_clear_sound.play(loops=1)
             self.win_timer += 1
-            print(self.win_timer)
-            if self.win_timer > 300:
+            if self.win_timer > 250:
                 self.level_clear_sound.stop()
             if self.win_timer > 350:
-                print(self.new_max_level)
-                print(levels['unlock'])
                 self.win_timer = 0
                 self.change_score(10000)
                 self.change_health(20)

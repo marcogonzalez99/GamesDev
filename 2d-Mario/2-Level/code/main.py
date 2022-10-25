@@ -42,10 +42,10 @@ class Game:
         self.game_font = pygame.font.Font('../graphics/Pixeltype.ttf', 45)
 
     def create_level(self, current_level):
+        self.overworld_music.stop()
         self.level = Level(current_level, screen, self.create_overworld,
                            self.change_coins, self.change_health, self.change_diamond, self.change_score, self.change_lives)
         self.status = 'level'
-        self.overworld_music.stop()
 
     def create_overworld(self, current_level, new_max_level):
         if new_max_level > self.max_level:
@@ -113,7 +113,7 @@ class Game:
         self.score = 0
         self.lives = 5
         if self.max_level < 6:
-            self.max_level = 0
+            self.max_level = 19
         elif 6 < self.max_level < 11:
             self.max_level = 6
         elif 12 < self.max_level <= 17:

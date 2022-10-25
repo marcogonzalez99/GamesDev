@@ -107,7 +107,7 @@ class Game:
             self.overworld_music.play(loops=-1)
 
     def restart_game(self):
-        self.current_health = 100
+        self.current_health = 1000
         self.coins = 0
         self.diamonds = 0
         self.score = 0
@@ -179,26 +179,28 @@ class Game:
 
     def end_game(self):
         screen.fill((30, 30, 30))
-        end_text = self.game_font.render("Thank You for Playing")
+        end_text = self.game_font.render(
+            "Thank You for Playing", False, 'white')
         end_text_rect = end_text.get_rect(
-            center=(screen_width/2, screen_height/2))
+            center=(screen_width/2, screen_height/2 - 150))
         screen.blit(end_text, end_text_rect)
 
-        score_text = self.game_font.render(f"Total Score: {self.score}")
+        score_text = self.game_font.render(
+            f"Total Score: {self.score}", False, 'white')
         score_text_rect = score_text.get_rect(
-            center=(screen_width/2, screen_height/2 + 50))
+            center=(screen_width/2, screen_height/2 - 100))
         screen.blit(score_text, score_text_rect)
 
         coin_text = self.game_font.render(
-            f"Total Coins Collected: {self.total_coins}")
+            f"Total Coins Collected: {self.total_coins}", False, 'white')
         coin_text_rect = coin_text.get_rect(
-            center=(screen_width/2, screen_height/2 + 100))
+            center=(screen_width/2, screen_height/2 - 50))
         screen.blit(coin_text, coin_text_rect)
 
         self.end_text = self.game_font.render(
-            f"Total Diamonds Collected: {self.diamonds}")
+            f"Total Diamonds Collected: {self.diamonds}", False, 'white')
         self.end_text_rect = self.end_text.get_rect(
-            center=(screen_width/2, screen_height/2 + 150))
+            center=(screen_width/2, screen_height/2))
         screen.blit(self.end_text, self.end_text_rect)
 
     def run(self):

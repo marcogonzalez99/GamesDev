@@ -34,6 +34,7 @@ class Player(pygame.sprite.Sprite):
         self.on_ceiling = False
         self.on_left = False
         self.on_right = False
+        self.level_won = False
 
         # Health Management
         self.change_health = change_health
@@ -101,19 +102,22 @@ class Player(pygame.sprite.Sprite):
 
     def get_input(self):
         keys = pygame.key.get_pressed()
+        if not self.level_won:
+            if keys[pygame.K_d]:
+                self.direction.x = 1
+                self.facing_right = True
+            elif keys[pygame.K_a]:
+                self.direction.x = -1
+                self.facing_right = False
+            else:
+                self.direction.x = 0
 
-        if keys[pygame.K_d]:
-            self.direction.x = 1
-            self.facing_right = True
-        elif keys[pygame.K_a]:
-            self.direction.x = -1
-            self.facing_right = False
+            if keys[pygame.K_w] and self.on_ground:
+                self.jump()
+                self.create_jump_particles(self.rect.midbottom)
         else:
+            self.speed = 0
             self.direction.x = 0
-
-        if keys[pygame.K_w] and self.on_ground:
-            self.jump()
-            self.create_jump_particles(self.rect.midbottom)
 
     def get_status(self):
         if self.direction.y < 0:

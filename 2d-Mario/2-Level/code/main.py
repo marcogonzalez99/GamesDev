@@ -235,4 +235,4 @@ while True:
     game.run()
 
     pygame.display.update()
-    clock.tick(75)
+    clock.tick(74)

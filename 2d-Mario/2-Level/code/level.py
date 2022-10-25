@@ -47,6 +47,9 @@ class Level:
         self.death_sound = pygame.mixer.Sound(
             '../audio/effects/player_death.wav')
         self.death_sound.set_volume(0.3)
+        self.level_clear_sound = pygame.mixer.Sound(
+            '../audio/effects/level_clear.wav')
+        self.level_clear_sound.set_volume(0.3)
 
         # Death Timer
         self.death_timer = 0
@@ -196,9 +199,9 @@ class Level:
                 x = col_index * tile_size
                 y = row_index * tile_size
                 if val == '0':
-                    sprite = Player((x, y), self.display_surface,
-                                    self.create_jump_particles, change_health)
-                    self.player.add(sprite)
+                    self.player_sprite = Player((x, y), self.display_surface,
+                                                self.create_jump_particles, change_health)
+                    self.player.add(self.player_sprite)
                 if val == '1':
                     hat_surface = pygame.image.load(
                         "../graphics/character/hat.png").convert_alpha()
@@ -285,24 +288,26 @@ class Level:
             self.dust_sprite.add(fall_dust_particle)
 
     def check_death(self):
-        if self.player.sprite.rect.top > screen_height:
+        if self.player.sprite.rect.top > screen_height - 5:
             self.death_sound.play()
             self.level_music.stop()
             self.death_timer += 1
-            if self.death_timer > 240:
+            if self.death_timer > 260:
                 self.death_sound.stop()
-            if self.death_timer > 750:
+            if self.death_timer > 350:
                 self.death_timer = 0
                 self.change_lives(-1)
                 self.create_overworld(self.current_level, 0)
 
     def check_win(self):
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
+            self.player.sprite.level_won = True
             self.level_music.stop()
+            self.level_clear_sound.play()
             self.win_timer += 1
-            print(self.win_timer)
-            if self.win_timer > 100:
-                self.player.sprite.speed = 0
+            if self.win_timer > 300:
+                self.level_clear_sound.stop()
+            if self.win_timer > 350:
                 self.win_timer = 0
                 self.change_score(10000)
                 self.change_health(20)

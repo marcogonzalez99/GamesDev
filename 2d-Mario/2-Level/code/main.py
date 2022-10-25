@@ -31,6 +31,9 @@ class Game:
         self.main_menu_music = pygame.mixer.Sound('../audio/main.wav')
         self.main_menu_music.set_volume(0.7)
 
+        self.credits_music = pygame.mixer.Sound('../audio/credits.wav')
+        self.credits_music.set_volume(0.7)
+
         # Overworld Creation
         self.overworld = Overworld(
             0, self.max_level, screen, self.create_level)
@@ -128,6 +131,7 @@ class Game:
     def check_completion(self):
         if self.max_level == 20:
             self.status = "end_game"
+            self.credits_music.play(loops=-1)
 
     def game_over(self):
         bg = pygame.image.load(
@@ -211,6 +215,7 @@ class Game:
         elif self.status == 'main-menu':
             self.main_menu()
         elif self.status == 'end_game':
+            self.overworld_music.stop()
             self.end_game()
         else:
             self.level.run()
@@ -236,7 +241,6 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-    screen.fill('lightgrey')
     game.run()
 
     pygame.display.update()

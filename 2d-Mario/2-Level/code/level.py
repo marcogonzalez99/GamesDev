@@ -226,7 +226,7 @@ class Level:
         player = self.player.sprite
         player.collision_rect.x += player.direction.x * player.speed
         collidable_sprites = self.terrain_sprites.sprites(
-        ) + self.crates_sprites.sprites() + self.fg_palm_sprites.sprites()
+        ) + self.crate_sprites.sprites() + self.fg_palm_sprites.sprites()
         for sprite in collidable_sprites:
             if sprite.rect.colliderect(player.collision_rect):
                 if player.direction.x < 0:
@@ -242,7 +242,8 @@ class Level:
         player = self.player.sprite
         player.apply_gravity()
         collidable_sprites = self.terrain_sprites.sprites(
-        ) + self.crates_sprites.sprites() + self.fg_palm_sprites.sprites()
+        ) + self.crate_sprites.sprites() + self.fg_palm_sprites.sprites()
+
         for sprite in collidable_sprites:
             if sprite.rect.colliderect(player.collision_rect):
                 if player.direction.y > 0:

@@ -50,7 +50,7 @@ class Level:
         self.death_sound.set_volume(0.3)
         self.level_clear_sound = pygame.mixer.Sound(
             '../audio/effects/level_clear.wav')
-        self.level_clear_sound.set_volume(0.3)
+        self.level_clear_sound.set_volume(0.15)
 
         # Death Timer
         self.death_timer = 0
@@ -360,6 +360,7 @@ class Level:
     def exit_level(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
+            self.level_music.stop()
             self.create_overworld(self.current_level, 0)
 
     def run(self):

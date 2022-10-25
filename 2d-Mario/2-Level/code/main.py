@@ -89,7 +89,7 @@ class Game:
             self.current_health += amount
             
     def total_money_earned(self):
-        return ((self.score/10) + (self.total_coins * 10) + (self.diamonds * 100) + (self.enemies_stomped * 10))
+        return ((self.score//10) + (self.total_coins * 10) + (self.diamonds * 100) + (self.enemies_stomped * 10))
 
     def check_game_over(self):
         if self.lives == 0:
@@ -228,33 +228,33 @@ class Game:
         screen.blit(self.money_text, self.money_text_rect)
         
         self.money_score_text = self.game_font.render(
-            f"Score: ${self.score/10}", False, 'white')
+            f"Score: ${self.score//10}", False, 'white')
         self.money_score_text_rect = self.money_score_text.get_rect(
-            center=(screen_width/2, screen_height/2 + 50))
+            midleft=(screen_width/2 - 150, screen_height/2 + 50))
         screen.blit(self.money_score_text, self.money_score_text_rect)
         
         self.money_coins_text = self.game_font.render(
             f"Coins: ${self.total_coins * 10}", False, 'white')
         self.money_coins_text_rect = self.money_text.get_rect(
-            center=(screen_width/2, screen_height/2 + 100))
+            midleft=(screen_width/2 - 150, screen_height/2 + 100))
         screen.blit(self.money_coins_text, self.money_coins_text_rect)
         
         self.money_diamonds_text = self.game_font.render(
             f"Diamonds: ${self.diamonds * 100}", False, 'white')
         self.money_diamonds_text_rect = self.money_text.get_rect(
-            center=(screen_width/2, screen_height/2+150))
+            midleft=(screen_width/2 - 150, screen_height/2+150))
         screen.blit(self.money_diamonds_text, self.money_diamonds_text_rect)
         
         self.money_enemies_text = self.game_font.render(
             f"Stolen From Enemies: ${self.enemies_stomped * 10}", False, 'white')
         self.money_enemies_text_rect = self.money_text.get_rect(
-            center=(screen_width/2, screen_height/2+200))
+            midleft=(screen_width/2 - 150, screen_height/2+200))
         screen.blit(self.money_enemies_text, self.money_enemies_text_rect)
         
         self.money_total_text = self.game_font.render(
             f"Total: ${self.total_money_earned()}", False, 'white')
         self.money_total_text_rect = self.money_total_text.get_rect(
-            center=(screen_width/2 - 25, screen_height/2+250))
+            midleft=(screen_width/2 - 150, screen_height/2+250))
         screen.blit(self.money_total_text, self.money_total_text_rect)
 
     def run(self):

@@ -53,6 +53,7 @@ class Level:
 
         # Death Timer
         self.death_timer = 0
+        self.play_sound = False
 
         # Win Timer
         self.win_timer = 0
@@ -289,7 +290,10 @@ class Level:
 
     def check_death(self):
         if self.player.sprite.rect.top > screen_height - 5:
-            self.death_sound.play()
+            self.play_sound = True
+            if self.play_sound:
+                self.death_sound.play()
+                self.play_sound = False
             self.level_music.stop()
             self.death_timer += 1
             if self.death_timer > 260:

@@ -48,7 +48,7 @@
 # - Coin Collect sfx
 # - Enemy Kill sfx
 # - Diamond Collect sfx
-# - Player Take Damae sfx
+# - Player Take Damage sfx
 
 # Visual
 
@@ -77,4 +77,4 @@
 # - The in-game music reflects the theme of the world, as well as whether or not
 # - The player is playing a regular,bonus or challenge level
 # - Player is playing a platformer game which is evident by the various 
-# - playforming challenges the game is based on
+# - platforming challenges the game is based on

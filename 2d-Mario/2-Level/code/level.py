@@ -291,7 +291,7 @@ class Level:
             self.dust_sprite.add(fall_dust_particle)
 
     def check_death(self):
-        if self.player.sprite.rect.bottom > screen_height:
+        if self.player.sprite.rect.bottom > screen_height + 25:
             self.play_sound = True
             if self.play_sound:
                 self.death_sound.play(loops=1)
@@ -309,15 +309,19 @@ class Level:
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
             self.player.sprite.level_won = True
             self.level_music.stop()
+            self.run_win()
             self.level_clear_sound.play(loops=1)
-            self.win_timer += 1
-            if self.win_timer > 250:
-                self.level_clear_sound.stop()
-            if self.win_timer > 350:
-                self.win_timer = 0
-                self.change_score(10000)
-                self.change_health(20)
-                self.create_overworld(self.current_level, self.new_max_level)
+    
+    def run_win(self):
+        self.win_timer += 1
+        if self.win_timer > 250:
+            self.level_clear_sound.stop()
+        if self.win_timer > 350:
+            self.win_timer = 0
+            self.change_score(10000)
+            self.change_health(20)
+            self.create_overworld(self.current_level, self.new_max_level)
+        
 
     def check_coin_collisions(self):
         collided_coins = pygame.sprite.spritecollide(

@@ -120,12 +120,14 @@ class Game:
             self.max_level = 12
         elif 18 < self.max_level:
             self.max_level = 18
-        elif self.max_level == 20:
-            self.status = "end_game"
         self.overworld_music.play(loops=-1)
         self.overworld = Overworld(
             self.max_level, self.max_level, screen, self.create_level)
         self.status = 'overworld'
+
+    def check_completion(self):
+        if self.max_level == 20:
+            self.status = "end_game"
 
     def game_over(self):
         bg = pygame.image.load(
@@ -212,6 +214,7 @@ class Game:
             self.level.run()
             self.extra_health()
             self.check_game_over()
+            self.check_completion()
             self.ui.show_health(self.current_health, self.max_health)
             self.ui.show_score(self.score)
             self.ui.display_lives(self.lives)

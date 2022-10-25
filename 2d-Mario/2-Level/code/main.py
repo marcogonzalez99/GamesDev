@@ -15,10 +15,10 @@ class Game:
         self.current_health = 100
         self.max_health = 100
         self.coins = 0
-        self.total_coins = 0
-        self.diamonds = 0
-        self.score = 0
-        self.enemies_stomped = 0
+        self.total_coins = 244
+        self.diamonds = 15
+        self.score = 750000
+        self.enemies_stomped = 300
         self.lives = 5
 
         # Audio
@@ -38,7 +38,7 @@ class Game:
         # Overworld Creation
         self.overworld = Overworld(
             0, self.max_level, screen, self.create_level)
-        self.status = 'main-menu'
+        self.status = 'end_game'
         self.main_menu_music.play(loops=-1)
         # User interface
         self.ui = UI(screen, self.lives)
@@ -89,7 +89,7 @@ class Game:
             self.current_health += amount
             
     def total_money_earned(self):
-        return ((self.score * 10) + (self.total_coins * 100) + (self.diamonds * 1000) + (self.enemies_stomped * 100))
+        return ((self.score * 10) + (self.total_coins * 10000) + (self.diamonds * 100000) + (self.enemies_stomped * 10000))
 
     def check_game_over(self):
         if self.lives == 0:
@@ -198,7 +198,7 @@ class Game:
         screen.blit(end_text, end_text_rect)
 
         score_text = self.game_font.render(
-            f"Total Score: {self.score}", False, 'white')
+            f"Total Score: {self.score:,}", False, 'white')
         score_text_rect = score_text.get_rect(
             center=(screen_width/2, screen_height/2 - 350))
         screen.blit(score_text, score_text_rect)
@@ -228,31 +228,31 @@ class Game:
         screen.blit(self.money_text, self.money_text_rect)
         
         self.money_score_text = self.game_font.render(
-            f"Score: ${self.score * 10}", False, 'white')
+            f"Score: ${self.score * 10:,}", False, 'white')
         self.money_score_text_rect = self.money_score_text.get_rect(
             midleft=(screen_width/2 - 150, screen_height/2 + 50))
         screen.blit(self.money_score_text, self.money_score_text_rect)
         
         self.money_coins_text = self.game_font.render(
-            f"Coins: ${self.total_coins * 100}", False, 'white')
+            f"Coins: ${self.total_coins * 10000:,}", False, 'white')
         self.money_coins_text_rect = self.money_text.get_rect(
             midleft=(screen_width/2 - 150, screen_height/2 + 100))
         screen.blit(self.money_coins_text, self.money_coins_text_rect)
         
         self.money_diamonds_text = self.game_font.render(
-            f"Diamonds: ${self.diamonds * 1000}", False, 'white')
+            f"Diamonds: ${self.diamonds * 100000:,}", False, 'white')
         self.money_diamonds_text_rect = self.money_text.get_rect(
             midleft=(screen_width/2 - 150, screen_height/2+150))
         screen.blit(self.money_diamonds_text, self.money_diamonds_text_rect)
         
         self.money_enemies_text = self.game_font.render(
-            f"Stolen From Enemies: ${self.enemies_stomped * 100}", False, 'white')
+            f"Stolen From Enemies: ${self.enemies_stomped * 10000:,}", False, 'white')
         self.money_enemies_text_rect = self.money_text.get_rect(
             midleft=(screen_width/2 - 150, screen_height/2+200))
         screen.blit(self.money_enemies_text, self.money_enemies_text_rect)
         
         self.money_total_text = self.game_font.render(
-            f"Total: ${self.total_money_earned()}", False, 'white')
+            f"Total: ${self.total_money_earned():,}", False, 'white')
         self.money_total_text_rect = self.money_total_text.get_rect(
             midleft=(screen_width/2 - 150, screen_height/2+250))
         screen.blit(self.money_total_text, self.money_total_text_rect)

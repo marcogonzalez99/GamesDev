@@ -12,8 +12,8 @@ class Game:
         # Game Attributes
         self.max_level = 0
         # PLayer Attributes
-        self.current_health = 1000
-        self.max_health = 1000
+        self.current_health = 100
+        self.max_health = 100
         self.coins = 0
         self.total_coins = 0
         self.diamonds = 0

@@ -226,7 +226,7 @@ class Level:
         player = self.player.sprite
         player.collision_rect.x += player.direction.x * player.speed
         collidable_sprites = self.terrain_sprites.sprites(
-        ) + self.crate_sprites.sprites() + self.fg_palm_sprites.sprites()
+        ) + self.crates_sprites.sprites() + self.fg_palm_sprites.sprites()
         for sprite in collidable_sprites:
             if sprite.rect.colliderect(player.collision_rect):
                 if player.direction.x < 0:
@@ -242,7 +242,7 @@ class Level:
         player = self.player.sprite
         player.apply_gravity()
         collidable_sprites = self.terrain_sprites.sprites(
-        ) + self.crate_sprites.sprites() + self.fg_palm_sprites.sprites()
+        ) + self.crates_sprites.sprites() + self.fg_palm_sprites.sprites()
 
         for sprite in collidable_sprites:
             if sprite.rect.colliderect(player.collision_rect):
@@ -310,9 +310,12 @@ class Level:
             self.level_music.stop()
             self.level_clear_sound.play()
             self.win_timer += 1
+            print(self.win_timer)
             if self.win_timer > 300:
                 self.level_clear_sound.stop()
             if self.win_timer > 350:
+                print(self.new_max_level)
+                print(levels['unlock'])
                 self.win_timer = 0
                 self.change_score(10000)
                 self.change_health(20)

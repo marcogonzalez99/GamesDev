@@ -309,8 +309,8 @@ class Level:
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
             self.player.sprite.level_won = True
             self.level_music.stop()
-            self.run_win()
             self.level_clear_sound.play(loops=1)
+            self.run_win()
     
     def run_win(self):
         self.win_timer += 1

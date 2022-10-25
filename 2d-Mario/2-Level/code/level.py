@@ -44,10 +44,13 @@ class Level:
         self.coin_sound.set_volume(0.1)
         self.stomp_sound = pygame.mixer.Sound('../audio/effects/stomp.wav')
         self.stomp_sound.set_volume(0.3)
-        
+        self.death_sound = pygame.mixer.Sound(
+            '../audio/effects/player_death.wav')
+        self.death_sound.set_volume(0.3)
+
         # Death Timer
         self.death_timer = 0
-        
+
         # Win Timer
         self.win_timer = 0
 
@@ -76,7 +79,7 @@ class Level:
             terrain_layout = import_csv_layout(level_data['terrain'])
             self.terrain_sprites = self.create_tile_group(
                 terrain_layout, 'terrain')
-            
+
         # Grass Setup
         grass_layout = import_csv_layout(level_data['grass'])
         self.grass_sprites = self.create_tile_group(grass_layout, 'grass')
@@ -283,9 +286,12 @@ class Level:
 
     def check_death(self):
         if self.player.sprite.rect.top > screen_height:
+            self.death_sound.play()
             self.level_music.stop()
             self.death_timer += 1
-            if self.death_timer > 150:
+            if self.death_timer > 240:
+                self.death_sound.stop()
+            if self.death_timer > 750:
                 self.death_timer = 0
                 self.change_lives(-1)
                 self.create_overworld(self.current_level, 0)

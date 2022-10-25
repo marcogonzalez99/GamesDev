@@ -64,7 +64,7 @@ class Sky:
                     '../graphics/overworld/clouds/world_1')
                 self.clouds = []
 
-                for surface in [choice(clouds_surface) for image in range(10)]:
+                for surface in [choice(clouds_surface) for image in range(15)]:
                     x = randint(0, screen_width)
                     y = randint(0, (self.horizon * tile_size) - 100)
                     rect = surface.get_rect(midbottom=(x, y))
@@ -84,7 +84,7 @@ class Sky:
                     '../graphics/overworld/clouds/world_2')
                 self.clouds = []
 
-                for surface in [choice(clouds_surface) for image in range(10)]:
+                for surface in [choice(clouds_surface) for image in range(15)]:
                     x = randint(0, screen_width)
                     y = randint(0, (self.horizon * tile_size) - 100)
                     rect = surface.get_rect(midbottom=(x, y))
@@ -104,7 +104,7 @@ class Sky:
                     '../graphics/overworld/clouds/world_3')
                 self.clouds = []
 
-                for surface in [choice(clouds_surface) for image in range(10)]:
+                for surface in [choice(clouds_surface) for image in range(15)]:
                     x = randint(0, screen_width)
                     y = randint(0, (self.horizon * tile_size) - 100)
                     rect = surface.get_rect(midbottom=(x, y))

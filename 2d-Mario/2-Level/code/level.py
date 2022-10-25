@@ -124,7 +124,7 @@ class Level:
         # Decorations
         level_width = len(terrain_layout[0]) * tile_size
         self.water = Water(screen_height - 40, level_width)
-        self.clouds = Clouds(400, level_width, 20)
+        self.clouds = Clouds(400, level_width, 50)
 
         # Different Skies
         if self.current_level < 6:
@@ -356,6 +356,11 @@ class Level:
                     enemy.kill()
                 else:
                     self.player.sprite.get_damage()
+    
+    def exit_level(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_ESCAPE]:
+            self.create_overworld(self.current_level, 0)
 
     def run(self):
         # Run the whole game
@@ -411,6 +416,7 @@ class Level:
         # Overworld Checks
         self.check_death()
         self.check_win()
+        self.exit_level()
 
         # Coins
         self.check_coin_collisions()

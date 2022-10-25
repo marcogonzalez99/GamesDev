@@ -178,7 +178,7 @@ class Game:
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
-            self.main_menu_music.stop()
+            self.main_menu_music.fadeout(100)
             self.restart_game()
 
     def end_game(self):

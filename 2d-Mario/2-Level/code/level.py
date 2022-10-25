@@ -289,10 +289,10 @@ class Level:
             self.dust_sprite.add(fall_dust_particle)
 
     def check_death(self):
-        if self.player.sprite.rect.top > screen_height - 5:
+        if self.player.sprite.rect.top > screen_height:
             self.play_sound = True
             if self.play_sound:
-                self.death_sound.play()
+                self.death_sound.play(loops=1)
                 self.play_sound = False
             self.level_music.stop()
             self.death_timer += 1

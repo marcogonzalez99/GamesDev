@@ -89,7 +89,7 @@ class Game:
             self.current_health += amount
             
     def total_money_earned(self):
-        return ((self.score * 10) + (self.total_coins * 10000) + (self.diamonds * 100000) + (self.enemies_stomped * 10000))
+        return ((self.score * 10) + (self.total_coins * 10000) + (self.diamonds * 500000) + (self.enemies_stomped * 10000))
 
     def check_game_over(self):
         if self.lives == 0:
@@ -240,7 +240,7 @@ class Game:
         screen.blit(self.money_coins_text, self.money_coins_text_rect)
         
         self.money_diamonds_text = self.game_font.render(
-            f"Diamonds: ${self.diamonds * 100000:,}", False, 'white')
+            f"Diamonds: ${self.diamonds * 500000:,}", False, 'white')
         self.money_diamonds_text_rect = self.money_text.get_rect(
             midleft=(screen_width/2 - 150, screen_height/2+150))
         screen.blit(self.money_diamonds_text, self.money_diamonds_text_rect)

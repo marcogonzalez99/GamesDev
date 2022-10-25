@@ -18,6 +18,7 @@ class Game:
         self.total_coins = 0
         self.diamonds = 0
         self.score = 0
+        self.enemies_stomped = 0
         self.lives = 5
 
         # Audio
@@ -47,7 +48,7 @@ class Game:
     def create_level(self, current_level):
         self.overworld_music.stop()
         self.level = Level(current_level, screen, self.create_overworld,
-                           self.change_coins, self.change_health, self.change_diamond, self.change_score, self.change_lives)
+                           self.change_coins, self.change_health, self.change_diamond, self.change_score, self.change_lives, self.count_stomped_enemies)
         self.status = 'level'
 
     def create_overworld(self, current_level, new_max_level):
@@ -67,6 +68,9 @@ class Game:
 
     def change_score(self, count):
         self.score += count
+
+    def count_stomped_enemies(self):
+        self.enemies_stomped += 1
 
     def change_lives(self, count):
         self.lives += count
@@ -110,13 +114,13 @@ class Game:
             self.overworld_music.play(loops=-1)
 
     def restart_game(self):
-        self.current_health = 1000
+        self.current_health = 100
         self.coins = 0
         self.diamonds = 0
         self.score = 0
         self.lives = 5
         if self.max_level < 6:
-            self.max_level = 19
+            self.max_level = 0
         elif 6 < self.max_level < 11:
             self.max_level = 6
         elif 12 < self.max_level <= 17:
@@ -186,25 +190,31 @@ class Game:
         end_text = self.game_font.render(
             "Thank You for Playing", False, 'white')
         end_text_rect = end_text.get_rect(
-            center=(screen_width/2, screen_height/2 - 150))
+            center=(screen_width/2, screen_height/2 - 250))
         screen.blit(end_text, end_text_rect)
 
         score_text = self.game_font.render(
             f"Total Score: {self.score}", False, 'white')
         score_text_rect = score_text.get_rect(
-            center=(screen_width/2, screen_height/2 - 100))
+            center=(screen_width/2, screen_height/2 - 200))
         screen.blit(score_text, score_text_rect)
 
         coin_text = self.game_font.render(
             f"Total Coins Collected: {self.total_coins}", False, 'white')
         coin_text_rect = coin_text.get_rect(
-            center=(screen_width/2, screen_height/2 - 50))
+            center=(screen_width/2, screen_height/2 - 150))
         screen.blit(coin_text, coin_text_rect)
 
         self.end_text = self.game_font.render(
             f"Total Diamonds Collected: {self.diamonds}", False, 'white')
         self.end_text_rect = self.end_text.get_rect(
-            center=(screen_width/2, screen_height/2))
+            center=(screen_width/2, screen_height/2 - 100))
+        screen.blit(self.end_text, self.end_text_rect)
+
+        self.end_text = self.game_font.render(
+            f"Total Enemies Stomped On: {self.enemies_stomped}", False, 'white')
+        self.end_text_rect = self.end_text.get_rect(
+            center=(screen_width/2, screen_height/2 - 50))
         screen.blit(self.end_text, self.end_text_rect)
 
     def run(self):

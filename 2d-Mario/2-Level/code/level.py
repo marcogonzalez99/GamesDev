@@ -10,7 +10,7 @@ from game_data import levels
 
 
 class Level:
-    def __init__(self, current_level, surface, create_overworld, change_coins, change_health, change_diamond, change_score, change_lives):
+    def __init__(self, current_level, surface, create_overworld, change_coins, change_health, change_diamond, change_score, change_lives, stomped_enemies):
         # General Setup
         self.display_surface = surface
         self.world_shift = 0
@@ -33,6 +33,7 @@ class Level:
         self.change_score = change_score
         self.change_lives = change_lives
         self.change_health = change_health
+        self.count_stomped = stomped_enemies
         # Dust
         self.dust_sprite = pygame.sprite.GroupSingle()
         self.player_on_ground = False
@@ -351,6 +352,7 @@ class Level:
                     self.explosion_sprite.add(explosion_sprite)
                     self.stomp_sound.play()
                     self.change_score(1000)
+                    self.count_stomped()
                     enemy.kill()
                 else:
                     self.player.sprite.get_damage()

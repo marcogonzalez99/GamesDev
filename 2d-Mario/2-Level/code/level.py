@@ -294,7 +294,10 @@ class Level:
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
             self.level_music.stop()
             self.win_timer += 1
-            if self.win_timer > 150:
+            print(self.win_timer)
+            if self.win_timer > 100:
+                self.player.sprite.speed = 0
+                self.win_timer = 0
                 self.change_score(10000)
                 self.change_health(20)
                 self.create_overworld(self.current_level, self.new_max_level)

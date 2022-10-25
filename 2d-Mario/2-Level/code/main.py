@@ -15,6 +15,7 @@ class Game:
         self.current_health = 100
         self.max_health = 100
         self.coins = 0
+        self.total_coins = 0
         self.diamonds = 0
         self.score = 0
         self.lives = 5
@@ -38,7 +39,7 @@ class Game:
         # User interface
         self.ui = UI(screen, self.lives)
         # Game Over Stuff
-        self.game_over_font = pygame.font.Font('../graphics/Pixeltype.ttf', 45)
+        self.game_font = pygame.font.Font('../graphics/Pixeltype.ttf', 45)
 
     def create_level(self, current_level):
         self.level = Level(current_level, screen, self.create_overworld,
@@ -55,6 +56,7 @@ class Game:
         self.overworld_music.play(loops=-1)
 
     def change_coins(self, amount):
+        self.total_coins += amount
         self.coins += amount
 
     def change_diamond(self, count):
@@ -92,6 +94,12 @@ class Game:
         elif self.current_health <= 0:
             self.level.level_music.stop()
             self.change_lives(-1)
+            if self.lives == 0:
+                self.status = 'gameover'
+                self.overworld_music.stop()
+                self.game_over_music.play()
+                self.game_over() 
+                pass
             self.current_health = 100
             self.overworld = Overworld(
                 self.max_level, self.max_level, screen, self.create_level)
@@ -105,13 +113,15 @@ class Game:
         self.score = 0
         self.lives = 5
         if self.max_level < 6:
-            self.max_level = 0
+            self.max_level = 19
         elif 6 < self.max_level < 11:
             self.max_level = 6
         elif 12 < self.max_level <= 17:
             self.max_level = 12
         elif 18 < self.max_level:
             self.max_level = 18
+        elif self.max_level == 20:
+            self.status = "end_game"
         self.overworld_music.play(loops=-1)
         self.overworld = Overworld(
             self.max_level, self.max_level, screen, self.create_level)
@@ -164,6 +174,25 @@ class Game:
         if keys[pygame.K_SPACE]:
             self.main_menu_music.stop()
             self.restart_game()
+            
+    def end_game(self):
+        screen.fill((30,30,30))
+        end_text = self.game_font.render("Thank You for Playing")
+        end_text_rect = end_text.get_rect(center = (screen_width/2,screen_height/2))
+        screen.blit(end_text,end_text_rect)
+        
+        score_text = self.game_font.render(f"Total Score: {self.score}")
+        score_text_rect = score_text.get_rect(center = (screen_width/2,screen_height/2 + 50))
+        screen.blit(score_text,score_text_rect)
+        
+        coin_text = self.game_font.render(f"Total Coins Collected: {self.total_coins}")
+        coin_text_rect = coin_text.get_rect(center = (screen_width/2,screen_height/2 + 100))
+        screen.blit(coin_text,coin_text_rect)
+        
+        self.end_text = self.game_font.render(f"Total Diamonds Collected: {self.diamonds}")
+        self.end_text_rect = self.end_text.get_rect(center = (screen_width/2,screen_height/2 + 150))
+        screen.blit(self.end_text,self.end_text_rect)
+ 
 
     def run(self):
         if self.status == 'overworld':
@@ -172,6 +201,8 @@ class Game:
             self.game_over()
         elif self.status == 'main-menu':
             self.main_menu()
+        elif self.status == 'end_game':
+            self.end_game()
         else:
             self.level.run()
             self.extra_health()

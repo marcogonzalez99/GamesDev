@@ -15,10 +15,10 @@ class Game:
         self.current_health = 100
         self.max_health = 100
         self.coins = 0
-        self.total_coins = 244
-        self.diamonds = 15
-        self.score = 750000
-        self.enemies_stomped = 300
+        self.total_coins = 0
+        self.diamonds = 0
+        self.score = 0
+        self.enemies_stomped = 0
         self.lives = 5
 
         # Audio
@@ -89,7 +89,25 @@ class Game:
             self.current_health += amount
             
     def total_money_earned(self):
-        return ((self.score * 10) + (self.total_coins * 10000) + (self.diamonds * 500000) + (self.enemies_stomped * 10000))
+        self.total_money = ((self.score * 10) + (self.total_coins * 10000) + (self.diamonds * 500000) + (self.enemies_stomped * 10000))
+        self.grade(self.total_money)
+        return self.total_money
+    
+    def grade(self,total):
+        if total < 10000000:
+            self.grade_earned = "F"
+        if 10000000 < total < 15000000:
+            self.grade_earned = "D"
+        if 1500000 < total < 20000000:
+            self.grade_earned = "C"
+        if 20000000 < total < 25000000:
+            self.grade_earned = "B"
+        if 25000000 < total < 30000000:
+            self.grade_earned = "A"
+        if 30000000 < total < 35000000:
+            self.grade_earned = "A+"
+        if 35000000 < total:
+            self.grade_earned = "S"
 
     def check_game_over(self):
         if self.lives == 0:
@@ -256,6 +274,12 @@ class Game:
         self.money_total_text_rect = self.money_total_text.get_rect(
             midleft=(screen_width/2 - 150, screen_height/2+250))
         screen.blit(self.money_total_text, self.money_total_text_rect)
+        
+        self.grade_text = self.game_font.render(
+            f"Grade: {self.grade_earned}", False, 'white')
+        self.grade_text_rect = self.grade_text.get_rect(
+            midleft=(screen_width/2 - 150, screen_height/2+350))
+        screen.blit(self.grade_text, self.grade_text_rect)
 
     def run(self):
         if self.status == 'overworld':

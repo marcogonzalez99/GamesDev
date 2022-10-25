@@ -108,7 +108,7 @@ class Game:
             self.max_level = 0
         elif 6 < self.max_level < 11:
             self.max_level = 6
-        elif 12 < self.max_level < 17:
+        elif 12 < self.max_level <= 17:
             self.max_level = 12
         elif 18 < self.max_level:
             self.max_level = 18

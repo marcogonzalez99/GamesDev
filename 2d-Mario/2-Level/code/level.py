@@ -44,6 +44,12 @@ class Level:
         self.coin_sound.set_volume(0.1)
         self.stomp_sound = pygame.mixer.Sound('../audio/effects/stomp.wav')
         self.stomp_sound.set_volume(0.3)
+        
+        # Death Timer
+        self.death_timer = 0
+        
+        # Win Timer
+        self.win_timer = 0
 
         # Music - Initialized from Game_Data
         self.level_music = pygame.mixer.Sound(level_data['music'])
@@ -278,15 +284,20 @@ class Level:
     def check_death(self):
         if self.player.sprite.rect.top > screen_height:
             self.level_music.stop()
-            self.change_lives(-1)
-            self.create_overworld(self.current_level, 0)
+            self.death_timer += 1
+            if self.death_timer > 150:
+                self.death_timer = 0
+                self.change_lives(-1)
+                self.create_overworld(self.current_level, 0)
 
     def check_win(self):
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
             self.level_music.stop()
-            self.change_score(10000)
-            self.change_health(20)
-            self.create_overworld(self.current_level, self.new_max_level)
+            self.win_timer += 1
+            if self.win_timer > 150:
+                self.change_score(10000)
+                self.change_health(20)
+                self.create_overworld(self.current_level, self.new_max_level)
 
     def check_coin_collisions(self):
         collided_coins = pygame.sprite.spritecollide(

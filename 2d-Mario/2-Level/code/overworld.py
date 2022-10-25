@@ -63,9 +63,9 @@ class Overworld():
         # Sky Setup
         if self.max_level < 6:
             self.sky = Sky(8, 0, 'overworld')
-        elif 6 <= self.max_level < 11:
+        elif 6 <= self.max_level <= 11:
             self.sky = Sky(8, 1, 'overworld')
-        elif 12 <= self.max_level < 17:
+        elif 12 <= self.max_level <= 17:
             self.sky = Sky(8, 2, 'overworld')
         else:
             self.sky = Sky(8, 3, 'overworld')

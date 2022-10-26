@@ -292,14 +292,13 @@ class Level:
 
     def check_death(self):
         # Where the detectino occurs
-        if self.player.sprite.rect.bottom > screen_height + 100: 
-            if self.player.sprite.rect.bottom == screen_height + 100:   
-                # In place to avoid playing the sound more than once
-                self.play_sound = True
-                if self.play_sound:
-                    self.death_sound.play(loops=1)
-                    self.play_sound = False
-            # Stop playing the level music, and start the timer    
+        if self.player.sprite.rect.bottom > screen_height + 100:
+            # In place to avoid playing the sound more than once
+            self.play_sound = True
+            if self.play_sound:
+                self.death_sound.play(loops=1)
+                self.play_sound = False
+            # Stop playing the level music, and start the timer
             self.level_music.stop()
             self.death_timer += 1
             # Manually stop the death sound

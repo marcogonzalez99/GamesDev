@@ -36,7 +36,7 @@ class Node(pygame.sprite.Sprite):
             tint_surface.fill('black', None, pygame.BLEND_RGB_MULT)
             self.image.blit(tint_surface, (0, 0))
 
-
+# Icon of the hat, which navigates the level select screen
 class Icon(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
@@ -60,7 +60,7 @@ class Overworld():
         self.moving = False
         self.move_direction = pygame.math.Vector2(0, 0)
         self.speed = 5
-        # Sky Setup
+        # Sky Setup depending on player's progress
         if self.max_level < 6:
             self.sky = Sky(8, 0, 'overworld')
         elif 6 <= self.max_level <= 11:

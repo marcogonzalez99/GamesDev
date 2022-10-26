@@ -145,6 +145,7 @@ class Sky:
             for cloud in self.clouds:
                 surface.blit(cloud[0], cloud[1])
 
+# This draws the water at the bottom of the screen of every level
 class Water:
     def __init__(self, top, level_width):
         water_start = -screen_width
@@ -173,6 +174,7 @@ class Clouds:
         max_y = horizon
         self.cloud_sprites = pygame.sprite.Group()
 
+        # Randomly place the clouds around the level
         for cloud in range(cloud_number):
             cloud = choice(cloud_surface_list)
             x = randint(min_x, max_x)

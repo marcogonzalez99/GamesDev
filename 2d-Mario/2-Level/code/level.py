@@ -207,8 +207,8 @@ class Level:
                 if val == '1':
                     hat_surface = pygame.image.load(
                         "../graphics/character/hat.png").convert_alpha()
-                    sprite = StaticTile(tile_size, x, y, hat_surface)
-                    self.goal.add(sprite)
+                    self.hat_sprite = StaticTile(tile_size, x, y, hat_surface)
+                    self.goal.add(self.hat_sprite)
 
     def enemy_collision_reverse(self):
         for enemy in self.enemies_sprites:
@@ -291,7 +291,7 @@ class Level:
             self.dust_sprite.add(fall_dust_particle)
 
     def check_death(self):
-        if self.player.sprite.rect.bottom > screen_height + 25:
+        if self.player.sprite.rect.bottom > screen_height + 200: 
             self.play_sound = True
             if self.play_sound:
                 self.death_sound.play(loops=1)
@@ -308,13 +308,17 @@ class Level:
     def check_win(self):
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
             self.player.sprite.level_won = True
-            self.player.sprite.invincible = True
+            if self.player_sprite.facing_right:
+                self.player_sprite.collision_rect.midbottom = self.hat_sprite.rect.midbottom
+            else:
+                self.player_sprite.collision_rect.midbottom = self.hat_sprite.rect.midbottom
             self.level_music.stop()
             self.level_clear_sound.play(loops=1)
             self.run_win()
 
     def run_win(self):
         self.win_timer += 1
+        print(self.win_timer) 
         if self.win_timer > 250:
             self.level_clear_sound.stop()
         if self.win_timer > 350:

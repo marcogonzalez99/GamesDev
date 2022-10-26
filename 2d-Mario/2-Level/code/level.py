@@ -308,10 +308,11 @@ class Level:
     def check_win(self):
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
             self.player.sprite.level_won = True
+            self.player.sprite.invincible = True
             self.level_music.stop()
             self.level_clear_sound.play(loops=1)
             self.run_win()
-    
+
     def run_win(self):
         self.win_timer += 1
         if self.win_timer > 250:
@@ -321,7 +322,6 @@ class Level:
             self.change_score(10000)
             self.change_health(20)
             self.create_overworld(self.current_level, self.new_max_level)
-        
 
     def check_coin_collisions(self):
         collided_coins = pygame.sprite.spritecollide(
@@ -360,7 +360,7 @@ class Level:
                     enemy.kill()
                 else:
                     self.player.sprite.get_damage()
-    
+
     def exit_level(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:

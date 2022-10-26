@@ -291,15 +291,21 @@ class Level:
             self.dust_sprite.add(fall_dust_particle)
 
     def check_death(self):
-        if self.player.sprite.rect.bottom > screen_height + 150: 
-            self.play_sound = True
-            if self.play_sound:
-                self.death_sound.play(loops=1)
-                self.play_sound = False
+        # Where the detectino occurs
+        if self.player.sprite.rect.bottom > screen_height + 100: 
+            if self.player.sprite.rect.bottom == screen_height + 100:   
+                # In place to avoid playing the sound more than once
+                self.play_sound = True
+                if self.play_sound:
+                    self.death_sound.play(loops=1)
+                    self.play_sound = False
+            # Stop playing the level music, and start the timer    
             self.level_music.stop()
             self.death_timer += 1
+            # Manually stop the death sound
             if self.death_timer > 260:
                 self.death_sound.stop()
+            # Reset the timer, lose a life, and create the overworld with no new levels
             if self.death_timer > 350:
                 self.death_timer = 0
                 self.change_lives(-1)
@@ -307,21 +313,23 @@ class Level:
 
     def check_win(self):
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
+            # Disables the players ability to move
             self.player.sprite.level_won = True
-            if self.player_sprite.facing_right:
-                self.player_sprite.collision_rect.midbottom = self.hat_sprite.rect.midbottom
-            else:
-                self.player_sprite.collision_rect.midbottom = self.hat_sprite.rect.midbottom
+            # Teleports the player to the flag, keeping collision to True
+            self.player_sprite.collision_rect.midbottom = self.hat_sprite.rect.midbottom
+            # Stop the music, play the level clear sound, and run the run_win()
             self.level_music.stop()
             self.level_clear_sound.play(loops=1)
             self.run_win()
 
     def run_win(self):
+        # Increment the timer
         self.win_timer += 1
-        print(self.win_timer) 
         if self.win_timer > 250:
+            # When the timer reaches 250, force stop the sound to avoid repitition
             self.level_clear_sound.stop()
         if self.win_timer > 350:
+            # When the timer reaches 350, reset it, add points to the score, and health, and rebuild the overworld with a new level
             self.win_timer = 0
             self.change_score(10000)
             self.change_health(20)

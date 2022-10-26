@@ -59,28 +59,35 @@ class Game:
         self.status = 'overworld'
         self.overworld_music.play(loops=-1)
 
+    # Keeps track of how many coins the player has collected in total and in current life
     def change_coins(self, amount):
         self.total_coins += amount
         self.coins += amount
 
+    # Keeps track of how many diamonds the player has collected
     def change_diamond(self, count):
         self.diamonds += count
 
+    # Keeps track of the player's score
     def change_score(self, count):
         self.score += count
 
+    # Keeps track of how many enemies the player has killed
     def count_stomped_enemies(self):
         self.enemies_stomped += 1
         print(self.enemies_stomped)
 
+    # Keeps track of how many lives the player has
     def change_lives(self, count):
         self.lives += count
 
+    # When the player collects 100 coins, reset the count and give the player an extra life
     def extra_health(self):
         if self.coins >= 100:
             self.lives += 1
             self.coins = 0
 
+    # Give the player health, only if their health is below 80%
     def change_health(self, amount):
         if amount > 0:
             if self.current_health <= self.max_health - 20:
@@ -88,12 +95,14 @@ class Game:
         else:
             self.current_health += amount
 
+    # Calculator for the final scene, takes all the stats and converts to dollars
     def total_money_earned(self):
         self.total_money = ((self.score * 10) + (self.total_coins * 10000) +
                             (self.diamonds * 500000) + (self.enemies_stomped * 10000))
         self.grade(self.total_money)
         return self.total_money
 
+    # Grade calculator, assigns a grade depending on how much money was earned
     def grade(self, total):
         if total < 10000000:
             self.grade_earned = "F"
@@ -110,7 +119,9 @@ class Game:
         if 35000000 < total:
             self.grade_earned = "S"
 
+    # Game over check
     def check_game_over(self):
+        # If the user has run out of lives, switch the state to gameover
         if self.lives == 0:
             self.status = 'gameover'
             self.overworld_music.stop()
@@ -137,11 +148,14 @@ class Game:
             self.overworld_music.play(loops=-1)
 
     def restart_game(self):
+        # Fresh state of the game
         self.current_health = 100
         self.coins = 0
         self.diamonds = 0
         self.score = 0
         self.lives = 5
+        # Level Checkpoints if the player gets a game over and chooses to restart
+        # Player starts at the beginning of the farthest world completed
         if self.max_level < 6:
             self.max_level = 0
         elif 6 < self.max_level < 11:
@@ -155,11 +169,13 @@ class Game:
             self.max_level, self.max_level, screen, self.create_level)
         self.status = 'overworld'
 
+    # Checks to see if the game has been completed
     def check_completion(self):
         if self.max_level == 20:
             self.status = "end_game"
             self.credits_music.play(loops=-1)
 
+    # Game Over State
     def game_over(self):
         bg = pygame.image.load(
             '../graphics/overworld/menu.png').convert_alpha()
@@ -184,6 +200,7 @@ class Game:
             self.game_over_music.stop()
             self.restart_game()
 
+    # Main Menu state
     def main_menu(self):
         bg = pygame.image.load(
             '../graphics/overworld/menu.png').convert_alpha()
@@ -208,6 +225,7 @@ class Game:
             self.main_menu_music.fadeout(100)
             self.restart_game()
 
+    # Credits State
     def end_game(self):
         screen.fill((30, 30, 30))
         end_text = self.game_font.render(
@@ -282,6 +300,7 @@ class Game:
             midleft=(screen_width/2 - 150, screen_height/2+350))
         screen.blit(self.grade_text, self.grade_text_rect)
 
+    # Run the game depending on the state
     def run(self):
         if self.status == 'overworld':
             self.overworld.run()

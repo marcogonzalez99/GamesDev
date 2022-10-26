@@ -23,22 +23,22 @@ class Game:
 
         # Audio
         self.overworld_music = pygame.mixer.Sound(
-            '../audio/main_overworld.wav')
+            '../audio/main_overworld.ogg')
         self.overworld_music.set_volume(0.4)
 
-        self.game_over_music = pygame.mixer.Sound('../audio/game_over.wav')
+        self.game_over_music = pygame.mixer.Sound('../audio/game_over.ogg')
         self.game_over_music.set_volume(1)
 
-        self.main_menu_music = pygame.mixer.Sound('../audio/main.wav')
+        self.main_menu_music = pygame.mixer.Sound('../audio/main.ogg')
         self.main_menu_music.set_volume(0.7)
 
-        self.credits_music = pygame.mixer.Sound('../audio/credits.wav')
+        self.credits_music = pygame.mixer.Sound('../audio/credits.ogg')
         self.credits_music.set_volume(0.7)
 
         # Overworld Creation
         self.overworld = Overworld(
             0, self.max_level, screen, self.create_level)
-        self.status = 'end_game'
+        self.status = 'main-menu'
         self.main_menu_music.play(loops=-1)
         # User interface
         self.ui = UI(screen, self.lives)

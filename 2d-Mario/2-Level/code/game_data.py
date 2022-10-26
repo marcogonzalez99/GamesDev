@@ -12,7 +12,7 @@ level_0 = {
     'node_pos': (200, 100),
     'unlock': 1,
     'graphics': '../graphics/overworld/0',
-    'music': '../audio/level_0.wav'}
+    'music': '../audio/level_0.ogg'}
 level_1 = {
     'terrain': '../levels/1/level_1_Terrain.csv',
     'coins': '../levels/1/level_1_Coins.csv',
@@ -42,7 +42,7 @@ level_2 = {
     'node_pos': (800, 100),
     'unlock': 3,
     'graphics': '../graphics/overworld/2',
-    'music': '../audio/level_2.wav'}
+    'music': '../audio/level_2.ogg'}
 level_3 = {
     'terrain': '../levels/3/level_3_terrain.csv',
     'coins': '../levels/3/level_3_coins.csv',
@@ -57,7 +57,7 @@ level_3 = {
     'node_pos': (1100, 100),
     'unlock': 4,
     'graphics': '../graphics/overworld/3',
-    'music': '../audio/level_3.wav'}
+    'music': '../audio/level_3.ogg'}
 level_4 = {
     'terrain': '../levels/4/level_4_terrain.csv',
     'coins': '../levels/4/level_4_coins.csv',
@@ -72,7 +72,7 @@ level_4 = {
     'node_pos': (1400, 100),
     'unlock': 5,
     'graphics': '../graphics/overworld/4',
-    'music': '../audio/level_4.wav'}
+    'music': '../audio/level_4.ogg'}
 level_5 = {
     'terrain': '../levels/5/level_5_terrain.csv',
     'coins': '../levels/5/level_5_coins.csv',
@@ -87,7 +87,7 @@ level_5 = {
     'node_pos': (1700, 100),
     'unlock': 6,
     'graphics': '../graphics/overworld/5',
-    'music': '../audio/level_5.wav'}
+    'music': '../audio/level_5.ogg'}
 level_6 = {
     'sand_terrain': '../levels/6/level_6_sand_terrain.csv',
     'coins': '../levels/6/level_6_coins.csv',
@@ -102,7 +102,7 @@ level_6 = {
     'node_pos': (1700, 400),
     'unlock': 7,
     'graphics': '../graphics/overworld/0',
-    'music': '../audio/level_6.wav'}
+    'music': '../audio/level_6.ogg'}
 level_7 = {
     'sand_terrain': '../levels/7/level_7_terrain.csv',
     'coins': '../levels/7/level_7_coins.csv',
@@ -117,7 +117,7 @@ level_7 = {
     'node_pos': (1400, 400),
     'unlock': 8,
     'graphics': '../graphics/overworld/1',
-    'music': '../audio/level_7.wav'}
+    'music': '../audio/level_7.ogg'}
 level_8 = {
     'sand_terrain': '../levels/8/level_8_terrain.csv',
     'coins': '../levels/8/level_8_coins.csv',
@@ -132,7 +132,7 @@ level_8 = {
     'node_pos': (1100, 400),
     'unlock': 9,
     'graphics': '../graphics/overworld/2',
-    'music': '../audio/level_8.wav'}
+    'music': '../audio/level_8.ogg'}
 level_9 = {
     'sand_terrain': '../levels/9/level_9_terrain.csv',
     'coins': '../levels/9/level_9_coins.csv',
@@ -147,7 +147,7 @@ level_9 = {
     'node_pos': (800, 400),
     'unlock': 10,
     'graphics': '../graphics/overworld/3',
-    'music': '../audio/level_9.wav'}
+    'music': '../audio/level_9.ogg'}
 level_10 = {
     'sand_terrain': '../levels/10/level_10_terrain.csv',
     'coins': '../levels/10/level_10_coins.csv',
@@ -162,7 +162,7 @@ level_10 = {
     'node_pos': (500, 400),
     'unlock': 11,
     'graphics': '../graphics/overworld/4',
-    'music': '../audio/level_10.wav'}
+    'music': '../audio/level_10.ogg'}
 level_11 = {
     'sand_terrain': '../levels/11/level_11_terrain.csv',
     'coins': '../levels/11/level_11_coins.csv',
@@ -177,7 +177,7 @@ level_11 = {
     'node_pos': (200, 400),
     'unlock': 12,
     'graphics': '../graphics/overworld/5',
-    'music': '../audio/level_11.wav'}
+    'music': '../audio/level_11.ogg'}
 level_12 = {
     'soft_terrain': '../levels/12/level_12_terrain.csv',
     'coins': '../levels/12/level_12_coins.csv',
@@ -192,7 +192,7 @@ level_12 = {
     'node_pos': (200, 700),
     'unlock': 13,
     'graphics': '../graphics/overworld/0',
-    'music': '../audio/level_12.wav'}
+    'music': '../audio/level_12.ogg'}
 level_13 = {
     'soft_terrain': '../levels/13/level_13_terrain.csv',
     'coins': '../levels/13/level_13_coins.csv',
@@ -207,7 +207,7 @@ level_13 = {
     'node_pos': (500, 700),
     'unlock': 14,
     'graphics': '../graphics/overworld/1',
-    'music': '../audio/level_13.wav'}
+    'music': '../audio/level_13.ogg'}
 level_14 = {
     'soft_terrain': '../levels/14/level_14_terrain.csv',
     'coins': '../levels/14/level_14_coins.csv',
@@ -222,7 +222,7 @@ level_14 = {
     'node_pos': (800, 700),
     'unlock': 15,
     'graphics': '../graphics/overworld/2',
-    'music': '../audio/level_14.wav'}
+    'music': '../audio/level_14.ogg'}
 level_15 = {
     'soft_terrain': '../levels/15/level_15_terrain.csv',
     'coins': '../levels/15/level_15_coins.csv',
@@ -237,7 +237,7 @@ level_15 = {
     'node_pos': (1100, 700),
     'unlock': 16,
     'graphics': '../graphics/overworld/3',
-    'music': '../audio/level_15.wav'}
+    'music': '../audio/level_15.ogg'}
 level_16 = {
     'soft_terrain': '../levels/16/level_16_terrain.csv',
     'coins': '../levels/16/level_16_coins.csv',
@@ -252,7 +252,7 @@ level_16 = {
     'node_pos': (1400, 700),
     'unlock': 17,
     'graphics': '../graphics/overworld/4',
-    'music': '../audio/level_16.wav'}
+    'music': '../audio/level_16.ogg'}
 level_17 = {
     'soft_terrain': '../levels/17/level_17_terrain.csv',
     'coins': '../levels/17/level_17_coins.csv',
@@ -267,7 +267,7 @@ level_17 = {
     'node_pos': (1700, 700),
     'unlock': 18,
     'graphics': '../graphics/overworld/5',
-    'music': '../audio/level_16.wav'}
+    'music': '../audio/level_16.ogg'}
 level_18 = {
     'terrain': '../levels/18/level_18_terrain.csv',
     'coins': '../levels/18/level_18_coins.csv',
@@ -282,7 +282,7 @@ level_18 = {
     'node_pos': (1400, 900),
     'unlock': 19,
     'graphics': '../graphics/overworld/0',
-    'music': '../audio/level_4.wav'}
+    'music': '../audio/level_4.ogg'}
 level_19 = {
     'terrain': '../levels/19/level_19_terrain.csv',
     'coins': '../levels/19/level_19_coins.csv',
@@ -297,7 +297,7 @@ level_19 = {
     'node_pos': (800, 900),
     'unlock': 20,
     'graphics': '../graphics/overworld/1',
-    'music': '../audio/level_4.wav'}
+    'music': '../audio/level_4.ogg'}
 
 levels = {
     0: level_0,

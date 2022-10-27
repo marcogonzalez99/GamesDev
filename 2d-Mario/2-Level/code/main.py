@@ -140,11 +140,12 @@ class Game:
                 self.game_over_music.play()
                 self.game_over()
                 pass
-            self.current_health = 100
-            self.overworld = Overworld(
-                self.max_level, self.max_level, screen, self.create_level)
-            self.status = 'overworld'
-            self.overworld_music.play(loops=-1)
+            else:
+                self.current_health = 100
+                self.overworld = Overworld(
+                    self.max_level, self.max_level, screen, self.create_level)
+                self.status = 'overworld'
+                self.overworld_music.play(loops=-1)
 
     def restart_game(self):
         # Fresh state of the game

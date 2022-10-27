@@ -47,14 +47,13 @@ class Level:
         self.stomp_sound.set_volume(0.3)
         self.death_sound = pygame.mixer.Sound(
             '../audio/effects/player_death.wav')
-        self.death_sound.set_volume(0.3)
+        self.death_sound.set_volume(0.7)
         self.level_clear_sound = pygame.mixer.Sound(
             '../audio/effects/level_clear.wav')
         self.level_clear_sound.set_volume(0.15)
 
         # Death Timer
         self.death_timer = 0
-        self.play_sound = False
 
         # Win Timer
         self.win_timer = 0
@@ -291,10 +290,9 @@ class Level:
             self.dust_sprite.add(fall_dust_particle)
 
     def check_death(self):
-        # Where the detectino occurs
-        if self.player.sprite.rect.bottom > screen_height + 100:
-            # In place to avoid playing the sound more than once
-            self.play_sound = True
+        # Where the detectino occurs   
+        self.play_sound = True
+        if self.player.sprite.rect.bottom > screen_height + 50: 
             if self.play_sound:
                 self.death_sound.play(loops=1)
                 self.play_sound = False
@@ -302,7 +300,7 @@ class Level:
             self.level_music.stop()
             self.death_timer += 1
             # Manually stop the death sound
-            if self.death_timer > 260:
+            if self.death_timer > 250:
                 self.death_sound.stop()
             # Reset the timer, lose a life, and create the overworld with no new levels
             if self.death_timer > 350:

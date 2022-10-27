@@ -80,9 +80,9 @@ class Game:
     def change_lives(self, count):
         self.lives += count
 
-    # When the player collects 100 coins, reset the count and give the player an extra life
+    # When the player collects 250 coins, reset the count and give the player an extra life
     def extra_health(self):
-        if self.coins >= 100:
+        if self.coins >= 250:
             self.lives += 1
             self.coins = 0
 

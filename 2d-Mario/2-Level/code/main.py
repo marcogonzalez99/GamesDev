@@ -153,11 +153,11 @@ class Game:
         self.coins = 0
         self.diamonds = 0
         self.score = 0
-        self.lives = 1
+        self.lives = 3
         # Level Checkpoints if the player gets a game over and chooses to restart
         # Player starts at the beginning of the farthest world completed
         if self.max_level < 6:
-            self.max_level = 19
+            self.max_level = 0
         elif 6 < self.max_level < 11:
             self.max_level = 6
         elif 12 < self.max_level <= 17:
@@ -335,6 +335,8 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+    pygame.mouse.set_visible(False)
     game.run()
 
     pygame.display.update()

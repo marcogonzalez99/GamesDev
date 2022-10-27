@@ -54,6 +54,7 @@ class Level:
 
         # Death Timer
         self.death_timer = 0
+        self.play_sound = True
 
         # Win Timer
         self.win_timer = 0
@@ -290,8 +291,7 @@ class Level:
             self.dust_sprite.add(fall_dust_particle)
 
     def check_death(self):
-        # Where the detectino occurs   
-        self.play_sound = True
+        # Where the detectino occurs  
         if self.player.sprite.rect.bottom > screen_height + 50: 
             if self.play_sound:
                 self.death_sound.play(loops=1)

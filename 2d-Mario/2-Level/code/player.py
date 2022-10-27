@@ -7,6 +7,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, pos, surface, create_jump_particles, change_health):
         super().__init__()
         self.import_character_assets()
+        # Player Animations
         self.frame_index = 0
         self.animation_speed = 0.15
         self.image = self.animations['idle'][self.frame_index]
@@ -39,7 +40,7 @@ class Player(pygame.sprite.Sprite):
         # Health Management
         self.change_health = change_health
         self.invincible = False
-        self.invincibility_duration = 800
+        self.invincibility_duration = 600
         self.hurt_time = 0
 
         # Audio

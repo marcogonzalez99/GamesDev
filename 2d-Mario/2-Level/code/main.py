@@ -42,7 +42,7 @@ class Game:
         self.main_menu_music.play(loops=-1)
         # User interface
         self.ui = UI(screen, self.lives)
-        # Game Over Stuff
+        # Game Font
         self.game_font = pygame.font.Font('../graphics/Pixeltype.ttf', 45)
 
     def create_level(self, current_level):

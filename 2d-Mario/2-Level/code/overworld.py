@@ -37,6 +37,8 @@ class Node(pygame.sprite.Sprite):
             self.image.blit(tint_surface, (0, 0))
 
 # Icon of the hat, which navigates the level select screen
+
+
 class Icon(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
@@ -76,7 +78,7 @@ class Overworld():
         # Time
         self.start_time = pygame.time.get_ticks()
         self.allow_input = False
-        self.time_length = 400
+        self.time_length = 800
         # World Images
         self.world_1 = pygame.image.load(
             "../graphics/overworld/World_1.png").convert_alpha()

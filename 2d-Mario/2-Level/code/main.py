@@ -153,11 +153,11 @@ class Game:
         self.coins = 0
         self.diamonds = 0
         self.score = 0
-        self.lives = 5
+        self.lives = 1
         # Level Checkpoints if the player gets a game over and chooses to restart
         # Player starts at the beginning of the farthest world completed
         if self.max_level < 6:
-            self.max_level = 0
+            self.max_level = 19
         elif 6 < self.max_level < 11:
             self.max_level = 6
         elif 12 < self.max_level <= 17:
@@ -178,7 +178,7 @@ class Game:
     # Game Over State
     def game_over(self):
         bg = pygame.image.load(
-            '../graphics/overworld/menu.png').convert_alpha()
+            '../graphics/overworld/main_menu.png').convert_alpha()
         screen.blit(bg, (0, 0))
 
         game_over_photo_1 = pygame.image.load(
@@ -192,7 +192,7 @@ class Game:
         screen.blit(game_over_photo_1, game_over_1_rect)
 
         game_over_2_rect = game_over_photo_2.get_rect(
-            center=(screen_width/2 - 13, screen_height/2 + 100))
+            center=(screen_width/2, screen_height/2 + 100))
         screen.blit(game_over_photo_2, game_over_2_rect)
 
         keys = pygame.key.get_pressed()
@@ -203,21 +203,21 @@ class Game:
     # Main Menu state
     def main_menu(self):
         bg = pygame.image.load(
-            '../graphics/overworld/menu.png').convert_alpha()
+            '../graphics/overworld/main_menu.png').convert_alpha()
         screen.blit(bg, (0, 0))
 
         intro_photo_1 = pygame.image.load(
-            '../graphics/overworld/Intro_1.png').convert_alpha()
+            '../graphics/overworld/main_menu_1.png').convert_alpha()
 
         intro_photo_2 = pygame.image.load(
-            '../graphics/overworld/Intro_2.png').convert_alpha()
+            '../graphics/overworld/main_menu_2.png').convert_alpha()
 
         intro_1_rect = intro_photo_1.get_rect(
-            center=(screen_width/2 + 17, screen_height/2 - 75))
+            center=(screen_width/2, screen_height/2 - 75))
         screen.blit(intro_photo_1, intro_1_rect)
 
         intro_2_rect = intro_photo_2.get_rect(
-            center=(screen_width/2 - 17, screen_height/2 + 125))
+            center=(screen_width/2, screen_height/2 + 125))
         screen.blit(intro_photo_2, intro_2_rect)
 
         keys = pygame.key.get_pressed()

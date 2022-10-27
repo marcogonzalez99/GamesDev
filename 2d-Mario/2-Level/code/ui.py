@@ -13,17 +13,20 @@ class UI:
         self.health_bar_topleft = (54, 39)
         self.bar_max_width = 152
         self.bar_height = 4
+
         # Lives
         self.lives = lives
         self.life_surface = pygame.image.load(
             "../graphics/character/hat.png").convert_alpha()
         self.life_x_start_pos = 350 - \
             (self.life_surface.get_size()[0] * 2 + 20)
+
         # Coins
         self.coin = pygame.image.load(
             '../graphics/ui/coin.png').convert_alpha()
         self.coin_rect = self.coin.get_rect(topleft=(50, 60))
         self.font = pygame.font.Font('../graphics/ui/ARCADEPI.ttf', 32)
+
         # Diamonds
         self.diamond = pygame.image.load(
             '../graphics/coins/diamond.png').convert_alpha()

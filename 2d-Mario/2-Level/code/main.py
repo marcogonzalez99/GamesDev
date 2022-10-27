@@ -75,7 +75,6 @@ class Game:
     # Keeps track of how many enemies the player has killed
     def count_stomped_enemies(self):
         self.enemies_stomped += 1
-        print(self.enemies_stomped)
 
     # Keeps track of how many lives the player has
     def change_lives(self, count):

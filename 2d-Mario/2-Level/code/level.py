@@ -293,6 +293,8 @@ class Level:
     def check_death(self):
         # Where the detectino occurs  
         if self.player.sprite.rect.bottom > screen_height + 50: 
+            self.player_sprite.speed = 0
+            self.world_shift = 0
             if self.play_sound:
                 self.death_sound.play(loops=1)
                 self.play_sound = False

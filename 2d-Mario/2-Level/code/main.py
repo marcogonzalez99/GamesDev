@@ -15,10 +15,10 @@ class Game:
         self.current_health = 100
         self.max_health = 100
         self.coins = 0
-        self.total_coins = 0
-        self.diamonds = 0
-        self.score = 0
-        self.enemies_stomped = 0
+        self.total_coins = 450
+        self.diamonds = 30
+        self.score = 800000
+        self.enemies_stomped = 300
         self.lives = 5
 
         # Audio
@@ -38,7 +38,7 @@ class Game:
         # Overworld Creation
         self.overworld = Overworld(
             0, self.max_level, screen, self.create_level)
-        self.status = 'main-menu'
+        self.status = 'end_game'
         self.main_menu_music.play(loops=-1)
         # User interface
         self.ui = UI(screen, self.lives)
@@ -267,37 +267,37 @@ class Game:
         self.money_score_text = self.game_font.render(
             f"Score: {self.score} x $10 = ${self.score * 10:,}", False, 'white')
         self.money_score_text_rect = self.money_score_text.get_rect(
-            midleft=(screen_width/2 - 150, screen_height/2 + 50))
+            center=(screen_width/2, screen_height/2 + 50))
         screen.blit(self.money_score_text, self.money_score_text_rect)
 
         self.money_coins_text = self.game_font.render(
             f"Coins: {self.total_coins} * $10,000 = ${self.total_coins * 10000:,}", False, 'white')
-        self.money_coins_text_rect = self.money_text.get_rect(
-            midleft=(screen_width/2 - 150, screen_height/2 + 100))
+        self.money_coins_text_rect = self.money_coins_text.get_rect(
+            center=(screen_width/2, screen_height/2 + 100))
         screen.blit(self.money_coins_text, self.money_coins_text_rect)
 
         self.money_diamonds_text = self.game_font.render(
             f"Diamonds: {self.diamonds} * $500,000 = ${self.diamonds * 500000:,}", False, 'white')
-        self.money_diamonds_text_rect = self.money_text.get_rect(
-            midleft=(screen_width/2 - 150, screen_height/2+150))
+        self.money_diamonds_text_rect = self.money_diamonds_text.get_rect(
+            center=(screen_width/2, screen_height/2+150))
         screen.blit(self.money_diamonds_text, self.money_diamonds_text_rect)
 
         self.money_enemies_text = self.game_font.render(
             f"Stolen From Enemies: {self.enemies_stomped} * $10,000 = ${self.enemies_stomped * 10000:,}", False, 'white')
-        self.money_enemies_text_rect = self.money_text.get_rect(
-            midleft=(screen_width/2 - 150, screen_height/2+200))
+        self.money_enemies_text_rect = self.money_enemies_text.get_rect(
+            center=(screen_width/2, screen_height/2+200))
         screen.blit(self.money_enemies_text, self.money_enemies_text_rect)
 
         self.money_total_text = self.game_font.render(
             f"Total: ${self.total_money_earned():,}", False, 'white')
         self.money_total_text_rect = self.money_total_text.get_rect(
-            midleft=(screen_width/2 - 150, screen_height/2+250))
+            center=(screen_width/2, screen_height/2+250))
         screen.blit(self.money_total_text, self.money_total_text_rect)
 
         self.grade_text = self.game_font.render(
             f"Grade: {self.grade_earned}", False, 'white')
         self.grade_text_rect = self.grade_text.get_rect(
-            midleft=(screen_width/2 - 150, screen_height/2+350))
+            center=(screen_width/2, screen_height/2+350))
         screen.blit(self.grade_text, self.grade_text_rect)
 
     # Run the game depending on the state

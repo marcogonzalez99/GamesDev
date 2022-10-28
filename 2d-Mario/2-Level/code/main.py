@@ -265,25 +265,25 @@ class Game:
         screen.blit(self.money_text, self.money_text_rect)
 
         self.money_score_text = self.game_font.render(
-            f"Score: ${self.score * 10:,}", False, 'white')
+            f"Score: {self.score} x $10 = ${self.score * 10:,}", False, 'white')
         self.money_score_text_rect = self.money_score_text.get_rect(
             midleft=(screen_width/2 - 150, screen_height/2 + 50))
         screen.blit(self.money_score_text, self.money_score_text_rect)
 
         self.money_coins_text = self.game_font.render(
-            f"Coins: ${self.total_coins * 10000:,}", False, 'white')
+            f"Coins: {self.total_coins} * $10,000 = ${self.total_coins * 10000:,}", False, 'white')
         self.money_coins_text_rect = self.money_text.get_rect(
             midleft=(screen_width/2 - 150, screen_height/2 + 100))
         screen.blit(self.money_coins_text, self.money_coins_text_rect)
 
         self.money_diamonds_text = self.game_font.render(
-            f"Diamonds: ${self.diamonds * 500000:,}", False, 'white')
+            f"Diamonds: {self.diamonds} * $500,000 = ${self.diamonds * 500000:,}", False, 'white')
         self.money_diamonds_text_rect = self.money_text.get_rect(
             midleft=(screen_width/2 - 150, screen_height/2+150))
         screen.blit(self.money_diamonds_text, self.money_diamonds_text_rect)
 
         self.money_enemies_text = self.game_font.render(
-            f"Stolen From Enemies: ${self.enemies_stomped * 10000:,}", False, 'white')
+            f"Stolen From Enemies: {self.enemies_stomped} * $10,000 = ${self.enemies_stomped * 10000:,}", False, 'white')
         self.money_enemies_text_rect = self.money_text.get_rect(
             midleft=(screen_width/2 - 150, screen_height/2+200))
         screen.blit(self.money_enemies_text, self.money_enemies_text_rect)
@@ -302,15 +302,16 @@ class Game:
 
     # Run the game depending on the state
     def run(self):
-        if self.status == 'overworld':
-            self.overworld.run()
-        elif self.status == 'gameover':
-            self.game_over()
-        elif self.status == 'main-menu':
+        if self.status == 'main-menu':
             self.main_menu()
+        elif self.status == 'overworld':
+            self.overworld.run()
         elif self.status == 'end_game':
             self.overworld_music.stop()
             self.end_game()
+        elif self.status == 'gameover':
+            self.game_over()
+        
         else:
             self.level.run()
             self.extra_health()

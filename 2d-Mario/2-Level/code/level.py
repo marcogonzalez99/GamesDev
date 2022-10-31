@@ -138,7 +138,7 @@ class Level:
 
     def create_tile_group(self, layout, type):
         sprite_group = pygame.sprite.Group()
-
+        # Iterate through the csv and determine what tile is being detected
         for row_index, row in enumerate(layout):
             for col_index, val in enumerate(row):
                 if val != '-1':
@@ -195,6 +195,7 @@ class Level:
                     sprite_group.add(sprite)
         return sprite_group
 
+    # Find on the csv layout where there is a player tile, to spanw the player and the goal
     def create_player(self, layout, change_health):
         for row_index, row in enumerate(layout):
             for col_index, val in enumerate(row):
@@ -210,11 +211,13 @@ class Level:
                     self.hat_sprite = StaticTile(tile_size, x, y, hat_surface)
                     self.goal.add(self.hat_sprite)
 
+    # Flip the enemy around when they collide with the constraints
     def enemy_collision_reverse(self):
         for enemy in self.enemies_sprites:
             if pygame.sprite.spritecollide(enemy, self.constraint_sprites, False):
                 enemy.reverse()
 
+    # Creates a jump particle whenever the player jumps
     def create_jump_particles(self, pos):
         if self.player.sprite.facing_right:
             pos -= pygame.math.Vector2(10, 5)
@@ -223,6 +226,7 @@ class Level:
         jump_particle_sprite = ParticleEffect(pos, 'jump')
         self.dust_sprite.add(jump_particle_sprite)
 
+    # Determine the collision logic for horizontal movement
     def horizontal_movement_collision(self):
         player = self.player.sprite
         player.collision_rect.x += player.direction.x * player.speed
@@ -239,6 +243,7 @@ class Level:
                     player.on_right = True
                     self.current_x = player.rect.right
 
+    # Determine the collision logic for vertical movement
     def vertical_movement_collision(self):
         player = self.player.sprite
         player.apply_gravity()
@@ -259,6 +264,7 @@ class Level:
         if player.on_ground and player.direction.y < 0 or player.direction.y > 1:
             player.on_ground = False
 
+    # Scrolling the map when the player reaches the limits
     def scroll_x(self):
         player = self.player.sprite
         player_x = player.rect.centerx
@@ -274,12 +280,14 @@ class Level:
             self.world_shift = 0
             player.speed = 8
 
+    # Determine if the player is on the ground or not
     def get_player_on_ground(self):
         if self.player.sprite.on_ground:
             self.player_on_ground = True
         else:
             self.player_on_ground = False
 
+    # Find where the player landed and generate a dist sprite
     def create_landing_dust(self):
         if not self.player_on_ground and self.player.sprite.on_ground and not self.dust_sprite.sprites():
             if self.player.sprite.facing_right:
@@ -290,8 +298,9 @@ class Level:
                 self.player.sprite.rect.midbottom - offset, 'land')
             self.dust_sprite.add(fall_dust_particle)
 
+    # Check if the player has fallen off the map
     def check_death(self):
-        # Where the detectino occurs  
+        # Where the detection occurs  
         if self.player.sprite.rect.bottom > screen_height + 50: 
             self.player_sprite.speed = 0
             self.world_shift = 0

@@ -47,13 +47,16 @@ class Game:
 
     def create_level(self, current_level):
         self.overworld_music.stop()
+        # Creates the current level, bringing in the ability to receate the overworld, manage health, coins, diamonds, score, lives and enemies stomped
         self.level = Level(current_level, screen, self.create_overworld,
                            self.change_coins, self.change_health, self.change_diamond, self.change_score, self.change_lives, self.count_stomped_enemies)
+        # Switch status to 'level'
         self.status = 'level'
 
     def create_overworld(self, current_level, new_max_level):
         if new_max_level > self.max_level:
             self.max_level = new_max_level
+        # Creates the overworld, bringing in the ability to create levels, and switch the status to 'overworld'
         self.overworld = Overworld(
             current_level, self.max_level, screen, self.create_level)
         self.status = 'overworld'
@@ -139,7 +142,6 @@ class Game:
                 self.overworld_music.stop()
                 self.game_over_music.play()
                 self.game_over()
-                pass
             else:
                 self.current_health = 100
                 self.overworld = Overworld(
@@ -177,6 +179,7 @@ class Game:
 
     # Game Over State
     def game_over(self):
+        # Display all the game over assets
         bg = pygame.image.load(
             '../graphics/overworld/main_menu.png').convert_alpha()
         screen.blit(bg, (0, 0))
@@ -195,6 +198,7 @@ class Game:
             center=(screen_width/2, screen_height/2 + 100))
         screen.blit(game_over_photo_2, game_over_2_rect)
 
+        # Restart the game when the player gets a game over
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
             self.game_over_music.stop()
@@ -220,9 +224,10 @@ class Game:
             center=(screen_width/2, screen_height/2 + 125))
         screen.blit(intro_photo_2, intro_2_rect)
 
+        # Launch the game from the main menu
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
-            self.main_menu_music.fadeout(100)
+            self.main_menu_music.stop()
             self.restart_game()
 
     # Credits State
@@ -352,7 +357,7 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
+    # Hide the mouse, run the whole game
     pygame.mouse.set_visible(False)
     game.run()
 

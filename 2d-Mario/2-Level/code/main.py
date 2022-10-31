@@ -15,10 +15,10 @@ class Game:
         self.current_health = 100
         self.max_health = 100
         self.coins = 0
-        self.total_coins = 0
-        self.diamonds = 0
-        self.score = 0
-        self.enemies_stomped = 0
+        self.total_coins = 100
+        self.diamonds = 10
+        self.score = 100000
+        self.enemies_stomped = 10
         self.lives = 5
 
         # Audio
@@ -38,7 +38,7 @@ class Game:
         # Overworld Creation
         self.overworld = Overworld(
             0, self.max_level, screen, self.create_level)
-        self.status = 'main-menu'
+        self.status = 'end_game'
         self.main_menu_music.play(loops=-1)
         # User interface
         self.ui = UI(screen, self.lives)
@@ -228,72 +228,84 @@ class Game:
     # Credits State
     def end_game(self):
         screen.fill((30, 30, 30))
+        # Thank you Font
         end_text = self.game_font.render(
             "Thank You for Playing", False, 'white')
         end_text_rect = end_text.get_rect(
             center=(screen_width/2, screen_height/2 - 400))
         screen.blit(end_text, end_text_rect)
 
+        # Display the final score
         score_text = self.game_font.render(
             f"Total Score: {self.score:,}", False, 'white')
         score_text_rect = score_text.get_rect(
             center=(screen_width/2, screen_height/2 - 350))
         screen.blit(score_text, score_text_rect)
 
+        # Display Total Coins Collected
         coin_text = self.game_font.render(
             f"Total Coins Collected: {self.total_coins}", False, 'white')
         coin_text_rect = coin_text.get_rect(
             center=(screen_width/2, screen_height/2 - 300))
         screen.blit(coin_text, coin_text_rect)
 
+        # Display Total Diamonds Collected
         self.end_text = self.game_font.render(
             f"Total Diamonds Collected: {self.diamonds}", False, 'white')
         self.end_text_rect = self.end_text.get_rect(
             center=(screen_width/2, screen_height/2 - 250))
         screen.blit(self.end_text, self.end_text_rect)
 
+        # Display Total NUmver of Enemies Stomped On
         self.end_text = self.game_font.render(
             f"Total Enemies Stomped On: {self.enemies_stomped}", False, 'white')
         self.end_text_rect = self.end_text.get_rect(
             center=(screen_width/2, screen_height/2 - 200))
         screen.blit(self.end_text, self.end_text_rect)
 
+        # Display the Title for Money Stolen
         self.money_text = self.game_font.render(
             f"Money Stolen", False, 'white')
         self.money_text_rect = self.money_text.get_rect(
             center=(screen_width/2, screen_height/2))
         screen.blit(self.money_text, self.money_text_rect)
 
+        # Calculate and display how much money the SCORE awarded the player
         self.money_score_text = self.game_font.render(
             f"Score: {self.score} x $10 = ${self.score * 10:,}", False, 'white')
         self.money_score_text_rect = self.money_score_text.get_rect(
             center=(screen_width/2, screen_height/2 + 50))
         screen.blit(self.money_score_text, self.money_score_text_rect)
 
+        # Calculate and display how much money the COINS awarded the player
         self.money_coins_text = self.game_font.render(
             f"Coins: {self.total_coins} x $10,000 = ${self.total_coins * 10000:,}", False, 'white')
         self.money_coins_text_rect = self.money_coins_text.get_rect(
             center=(screen_width/2, screen_height/2 + 100))
         screen.blit(self.money_coins_text, self.money_coins_text_rect)
 
+        # Calculate and display how much money the DIAMONDS awarded the player
         self.money_diamonds_text = self.game_font.render(
             f"Diamonds: {self.diamonds} x $500,000 = ${self.diamonds * 500000:,}", False, 'white')
         self.money_diamonds_text_rect = self.money_diamonds_text.get_rect(
             center=(screen_width/2, screen_height/2+150))
         screen.blit(self.money_diamonds_text, self.money_diamonds_text_rect)
 
+        # Calculate and display how much money the ENEMIES awarded the player
         self.money_enemies_text = self.game_font.render(
             f"Stolen From Enemies: {self.enemies_stomped} x $10,000 = ${self.enemies_stomped * 10000:,}", False, 'white')
         self.money_enemies_text_rect = self.money_enemies_text.get_rect(
             center=(screen_width/2, screen_height/2+200))
         screen.blit(self.money_enemies_text, self.money_enemies_text_rect)
 
+        # Calculate and display the total amount of money earned
         self.money_total_text = self.game_font.render(
             f"Total: ${self.total_money_earned():,}", False, 'white')
         self.money_total_text_rect = self.money_total_text.get_rect(
             center=(screen_width/2, screen_height/2+250))
         screen.blit(self.money_total_text, self.money_total_text_rect)
 
+        # Calculate and display the grade awarded to the player
         self.grade_text = self.game_font.render(
             f"Grade: {self.grade_earned}", False, 'white')
         self.grade_text_rect = self.grade_text.get_rect(
@@ -302,16 +314,20 @@ class Game:
 
     # Run the game depending on the state
     def run(self):
+        # Running the main menu
         if self.status == 'main-menu':
             self.main_menu()
+        # Running the overworld
         elif self.status == 'overworld':
             self.overworld.run()
+        # Running the Final Scene of the Game
         elif self.status == 'end_game':
             self.overworld_music.stop()
             self.end_game()
+        # Running the Game Over Screen
         elif self.status == 'gameover':
             self.game_over()
-        
+        # Running the Level
         else:
             self.level.run()
             self.extra_health()
@@ -327,7 +343,7 @@ class Game:
 pygame.mixer.pre_init(44100, -16, 2, 4096)
 pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Pirates")
+pygame.display.set_caption("Pirate's Cove")
 clock = pygame.time.Clock()
 game = Game()
 

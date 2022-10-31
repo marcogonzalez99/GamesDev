@@ -15,10 +15,10 @@ class Game:
         self.current_health = 100
         self.max_health = 100
         self.coins = 0
-        self.total_coins = 100
-        self.diamonds = 10
-        self.score = 100000
-        self.enemies_stomped = 10
+        self.total_coins = 0
+        self.diamonds = 0
+        self.score = 0
+        self.enemies_stomped = 0
         self.lives = 5
 
         # Audio
@@ -38,7 +38,7 @@ class Game:
         # Overworld Creation
         self.overworld = Overworld(
             0, self.max_level, screen, self.create_level)
-        self.status = 'end_game'
+        self.status = 'main_menu'
         self.main_menu_music.play(loops=-1)
         # User interface
         self.ui = UI(screen, self.lives)
@@ -154,8 +154,10 @@ class Game:
         # Fresh state of the game
         self.current_health = 100
         self.coins = 0
+        self.total_coins = 0
         self.diamonds = 0
         self.score = 0
+        self.enemies_stomped = 0
         self.lives = 5
         # Level Checkpoints if the player gets a game over and chooses to restart
         # Player starts at the beginning of the farthest world completed
@@ -321,7 +323,7 @@ class Game:
     # Run the game depending on the state
     def run(self):
         # Running the main menu
-        if self.status == 'main-menu':
+        if self.status == 'main_menu':
             self.main_menu()
         # Running the overworld
         elif self.status == 'overworld':

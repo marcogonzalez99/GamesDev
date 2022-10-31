@@ -45,18 +45,18 @@ class Game:
         # Game Font
         self.game_font = pygame.font.Font('../graphics/Pixeltype.ttf', 45)
 
+    # Creates the current level, bringing in the ability to receate the overworld, manage health, coins, diamonds, score, lives and enemies stomped
     def create_level(self, current_level):
         self.overworld_music.stop()
-        # Creates the current level, bringing in the ability to receate the overworld, manage health, coins, diamonds, score, lives and enemies stomped
         self.level = Level(current_level, screen, self.create_overworld,
                            self.change_coins, self.change_health, self.change_diamond, self.change_score, self.change_lives, self.count_stomped_enemies)
         # Switch status to 'level'
         self.status = 'level'
 
+    # Creates the overworld, bringing in the ability to create levels, and switch the status to 'overworld'
     def create_overworld(self, current_level, new_max_level):
         if new_max_level > self.max_level:
             self.max_level = new_max_level
-        # Creates the overworld, bringing in the ability to create levels, and switch the status to 'overworld'
         self.overworld = Overworld(
             current_level, self.max_level, screen, self.create_level)
         self.status = 'overworld'
@@ -149,6 +149,7 @@ class Game:
                 self.status = 'overworld'
                 self.overworld_music.play(loops=-1)
 
+    # Restarts the game from scratch
     def restart_game(self):
         # Fresh state of the game
         self.current_health = 100

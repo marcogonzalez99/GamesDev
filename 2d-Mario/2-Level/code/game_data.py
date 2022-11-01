@@ -267,7 +267,7 @@ level_17 = {
     'node_pos': (1700, 700),
     'unlock': 18,
     'graphics': '../graphics/overworld/5',
-    'music': '../audio/level_16.ogg'}
+    'music': '../audio/level_17.ogg'}
 level_18 = {
     'terrain': '../levels/18/level_18_terrain.csv',
     'coins': '../levels/18/level_18_coins.csv',
@@ -282,7 +282,7 @@ level_18 = {
     'node_pos': (1400, 900),
     'unlock': 19,
     'graphics': '../graphics/overworld/0',
-    'music': '../audio/level_4.ogg'}
+    'music': '../audio/level_18.ogg'}
 level_19 = {
     'terrain': '../levels/19/level_19_terrain.csv',
     'coins': '../levels/19/level_19_coins.csv',
@@ -297,7 +297,7 @@ level_19 = {
     'node_pos': (800, 900),
     'unlock': 20,
     'graphics': '../graphics/overworld/1',
-    'music': '../audio/level_4.ogg'}
+    'music': '../audio/level_19.ogg'}
 
 levels = {
     0: level_0,

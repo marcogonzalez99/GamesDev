@@ -3,15 +3,17 @@ from laser import Laser
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, constraint, speed,level):
+    def __init__(self, pos, constraint, speed, level):
         super().__init__()
         self.level = level
         if self.level == 1:
-            self.image = pygame.image.load("Images/player.png")
+            self.image = pygame.image.load("Images/player.png").convert_alpha()
         elif self.level == 2:
-            self.image = pygame.image.load("Images/player_2.png")
+            self.image = pygame.image.load(
+                "Images/player_2.png").convert_alpha()
         elif self.level == 3:
-            self.image = pygame.image.load("Images/player_3.png")
+            self.image = pygame.image.load(
+                "Images/player_3.png").convert_alpha()
         self.rect = self.image.get_rect(midbottom=pos)
         self.speed = speed
         self.max_x = constraint

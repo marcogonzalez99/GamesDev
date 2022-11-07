@@ -10,10 +10,10 @@ from laser import Laser
 class Game:
     def __init__(self):
         # Grab the state of the game and switch it to level 1
-        self.state = "level_1"   
+        self.state = "level_1"
         # Player Setup
         self.player_sprite = Player(
-                (screen_width/2, screen_height), screen_width, 5,1)
+            (screen_width/2, screen_height), screen_width, 5, 1)
         self.player = pygame.sprite.GroupSingle(self.player_sprite)
 
         # Health and Score setup
@@ -81,30 +81,30 @@ class Game:
 
                 if self.state == "level_1":
                     if 0 <= row_index <= 3:
-                        alien_sprite = Alien('green', x, y,1)
+                        alien_sprite = Alien('green', x, y, 1)
                     else:
-                        alien_sprite = Alien('red', x, y,1)
+                        alien_sprite = Alien('red', x, y, 1)
                 elif self.state == "level_2":
                     if row_index == 0:
-                        alien_sprite = Alien('yellow', x, y,2)
+                        alien_sprite = Alien('yellow', x, y, 2)
                     elif 1 <= row_index <= 3:
-                        alien_sprite = Alien('green', x, y,2)
+                        alien_sprite = Alien('green', x, y, 2)
                     else:
-                        alien_sprite = Alien('red', x, y,2)
+                        alien_sprite = Alien('red', x, y, 2)
                 elif self.state == "level_3":
                     if row_index == 0:
-                        alien_sprite = Alien('orange', x, y,3)
+                        alien_sprite = Alien('orange', x, y, 3)
                     elif 1 <= row_index <= 1:
-                        alien_sprite = Alien('white', x, y,3)
+                        alien_sprite = Alien('white', x, y, 3)
                     elif 2 <= row_index <= 3:
-                        alien_sprite = Alien('yellow', x, y,3)
+                        alien_sprite = Alien('yellow', x, y, 3)
                     elif 4 <= row_index <= 6:
-                        alien_sprite = Alien('green', x, y,3)
+                        alien_sprite = Alien('green', x, y, 3)
                     else:
-                        alien_sprite = Alien('red', x, y,3)
+                        alien_sprite = Alien('red', x, y, 3)
                 self.aliens.add(alien_sprite)
 
-    def alien_position_checker(self,lvl):
+    def alien_position_checker(self, lvl):
         all_aliens = self.aliens.sprites()
         if lvl == 1:
             for alien in all_aliens:
@@ -130,7 +130,6 @@ class Game:
                 elif alien.rect.left <= 0:
                     self.alien_direction = 3
                     self.alien_move_down(1)
-        
 
     def alien_move_down(self, distance):
         if self.aliens:
@@ -220,7 +219,7 @@ class Game:
             # Remove the old sprite and add the new one
             self.player.remove(self.player_sprite)
             level_2_sprite = Player(
-                (screen_width/2, screen_height), screen_width, 5,2)
+                (screen_width/2, screen_height), screen_width, 5, 2)
             self.player = pygame.sprite.GroupSingle(level_2_sprite)
             self.alien_setup(rows=7, cols=9)
             # Add points for winning
@@ -231,7 +230,7 @@ class Game:
             # Remove the old sprite and add the new one
             self.player.remove(self.player_sprite)
             level_3_sprite = Player(
-                (screen_width/2, screen_height), screen_width, 5,3)
+                (screen_width/2, screen_height), screen_width, 5, 3)
             self.player = pygame.sprite.GroupSingle(level_3_sprite)
             self.alien_setup(rows=8, cols=10)
             # Add points for winning
@@ -338,7 +337,7 @@ class GameState():
         level_rect = level_message.get_rect(
             center=(screen_width/2, 25))
 
-        screen.blit(level_1_map,(0,0))
+        screen.blit(level_1_map, (0, 0))
         screen.blit(level_message, level_rect)
         game.run()
         crt.draw()
@@ -358,7 +357,7 @@ class GameState():
         level_rect = level_message.get_rect(
             center=(screen_width/2, 25))
 
-        screen.blit(level_2_map,(0,0))
+        screen.blit(level_2_map, (0, 0))
         screen.blit(level_message, level_rect)
         game.run()
         crt.draw()
@@ -378,7 +377,7 @@ class GameState():
         level_rect = level_message.get_rect(
             center=(screen_width/2, 25))
 
-        screen.blit(level_3_map,(0,0))
+        screen.blit(level_3_map, (0, 0))
         screen.blit(level_message, level_rect)
         game.run()
         crt.draw()
@@ -402,7 +401,7 @@ class GameState():
             center=(screen_width/2, screen_height/2 + 125))
 
         screen.fill((30, 30, 30))
-        screen.blit(game_logo,game_logo_rect)
+        screen.blit(game_logo, game_logo_rect)
         screen.blit(outro_message, outro_rect)
         screen.blit(outro_message_1, outro_rect_1)
         crt.draw()
@@ -434,13 +433,13 @@ if __name__ == '__main__':
     pygame.display.set_caption("Space Invaders")
 
     # Images
-    game_logo = pygame.image.load('Images/game_logo.png')
+    game_logo = pygame.image.load('Images/game_logo.png').convert_alpha()
     game_logo_rect = game_logo.get_rect(
         center=(screen_width/2, screen_height/2 - 100))
-    
-    level_1_map = pygame.image.load("Images/level_1_image.png")
-    level_2_map = pygame.image.load("Images/level_2_image.png")
-    level_3_map = pygame.image.load("Images/level_3_image.png")
+
+    level_1_map = pygame.image.load("Images/level_1_image.png").convert_alpha()
+    level_2_map = pygame.image.load("Images/level_2_image.png").convert_alpha()
+    level_3_map = pygame.image.load("Images/level_3_image.png").convert_alpha()
 
     # Font
     game_font = pygame.font.Font('Pixeltype.ttf', 40)

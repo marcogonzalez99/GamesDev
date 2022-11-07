@@ -55,7 +55,7 @@ class UI:
 
     def show_score(self, amount):
         score_amount_surface = self.font.render(
-            f"Score:" + str(amount), False, ('black'))
+            f"Score: {amount:,}", False, ('black'))
         score_amount_rect = score_amount_surface.get_rect(
             topleft=(1600, 50))
         self.display_surface.blit(score_amount_surface, score_amount_rect)

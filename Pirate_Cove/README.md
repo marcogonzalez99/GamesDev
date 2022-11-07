@@ -78,3 +78,13 @@
 # - The player is playing a regular,bonus or challenge level
 # - Player is playing a platformer game which is evident by the various 
 # - platforming challenges the game is based on
+
+# Game Assets
+# Graphics - 
+# Graphics obtained from Itch.io 
+# Pirates, Enemies, Coins and Rock Tiles obtained from:
+# https://pixelfrog-assets.itch.io/treasure-hunters
+# Diamonds, Hard Sand and Soft Sand obtained from:
+# https://crusenho.itch.io/beriesadventureseaside
+# Music
+# All Music Grabbed from Various Nintendo Games. Ranging from the NES to the Switch

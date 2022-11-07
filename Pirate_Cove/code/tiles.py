@@ -1,7 +1,7 @@
 import pygame
 from support import import_folder
 
-
+# Standard Tile Parameters
 class Tile(pygame.sprite.Sprite):
     def __init__(self, size, x, y):
         super().__init__()
@@ -12,12 +12,13 @@ class Tile(pygame.sprite.Sprite):
         self.rect.x += shift
 
 
+# For tiles that wont move
 class StaticTile(Tile):
     def __init__(self, size, x, y, surface):
         super().__init__(size, x, y)
         self.image = surface
 
-
+# Specifically for crate tiles
 class Crate(StaticTile):
     def __init__(self, size, x, y):
         super().__init__(size, x, y, pygame.image.load(
@@ -25,7 +26,7 @@ class Crate(StaticTile):
         offset_y = y + size
         self.rect = self.image.get_rect(bottomleft=(x, offset_y))
 
-
+# For animated tiles, standard animation function runs
 class AnimatedTile(Tile):
     def __init__(self, size, x, y, path):
         super().__init__(size, x, y)
@@ -43,7 +44,7 @@ class AnimatedTile(Tile):
         self.animate()
         self.rect.x += shift
 
-
+# For coins, to center them on the tile and assign a value
 class Coin(AnimatedTile):
     def __init__(self, size, x, y, path, value):
         super().__init__(size, x, y, path)
@@ -52,7 +53,7 @@ class Coin(AnimatedTile):
         self.rect = self.image.get_rect(center=(center_x, center_y))
         self.value = value
 
-
+# For Diamonds, center them and give them a values
 class Diamond(AnimatedTile):
     def __init__(self, size, x, y, path, count):
         super().__init__(size, x, y, path)
@@ -61,7 +62,7 @@ class Diamond(AnimatedTile):
         self.rect = self.image.get_rect(center=(center_x, center_y))
         self.count = count
 
-
+# Animated background and foreground palm trees
 class Palm(AnimatedTile):
     def __init__(self, size, x, y, path, offset):
         super().__init__(size, x, y, path)

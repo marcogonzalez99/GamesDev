@@ -8,6 +8,7 @@ class Enemy(AnimatedTile):
         self.rect.y += size - self.image.get_size()[1]
         self.speed = randint(3,5)
         
+    # Move the enemies in the map at a select speed
     def move(self):
         self.rect.x += self.speed
     

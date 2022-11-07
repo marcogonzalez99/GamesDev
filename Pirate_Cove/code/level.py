@@ -126,7 +126,7 @@ class Level:
         self.water = Water(screen_height - 40, level_width)
         self.clouds = Clouds(400, level_width, 50)
 
-        # Different Skies
+        # Different Skies depending on the level 
         if self.current_level < 6:
             self.sky = Sky(8, 0)
         elif 6 <= self.current_level <= 11:
@@ -145,6 +145,7 @@ class Level:
                     x = col_index * tile_size
                     y = row_index * tile_size
 
+                    # Terrain Manager
                     if type == 'terrain':
                         terrain_tile_list = import_cut_graphics(
                             "../graphics/terrain/terrain_tiles.png")
@@ -160,13 +161,16 @@ class Level:
                             "../graphics/terrain/soft_sand_tiles.png")
                         tile_surface = (terrain_tile_list[int(val)])
                         sprite = StaticTile(tile_size, x, y, tile_surface)
+                    # Grass Manager
                     if type == 'grass':
                         grass_tile_list = import_cut_graphics(
                             "../graphics/decoration/grass/grass.png")
                         tile_surface = grass_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
+                    # Crate Manager                   
                     if type == 'crates':
                         sprite = Crate(tile_size, x, y)
+                    # Coin Manager
                     if type == 'coins':
                         if val == '0':
                             sprite = Coin(tile_size, x, y,
@@ -174,10 +178,12 @@ class Level:
                         if val == '1':
                             sprite = Coin(tile_size, x, y,
                                           '../graphics/coins/silver', 1)
+                    # Diamond Manager                   
                     if type == 'diamond':
                         if val == '0':
                             sprite = Diamond(
                                 tile_size, x, y, '../graphics/coins/diamond', 1)
+                    # Palm Tree Manager
                     if type == 'fg palms':
                         if val == '0':
                             sprite = Palm(tile_size, x, y,
@@ -188,6 +194,7 @@ class Level:
                     if type == 'bg palms':
                         sprite = Palm(tile_size, x, y,
                                       '../graphics/terrain/palm_bg', 62)
+                    # Enemy Manager
                     if type == 'enemies':
                         sprite = Enemy(tile_size, x, y)
                     if type == 'constraints':
@@ -201,10 +208,12 @@ class Level:
             for col_index, val in enumerate(row):
                 x = col_index * tile_size
                 y = row_index * tile_size
+                # Where to spawn the player
                 if val == '0':
                     self.player_sprite = Player((x, y), self.display_surface,
                                                 self.create_jump_particles, change_health)
                     self.player.add(self.player_sprite)
+                # Where to spawn the end goal
                 if val == '1':
                     hat_surface = pygame.image.load(
                         "../graphics/character/hat.png").convert_alpha()
@@ -341,34 +350,44 @@ class Level:
             self.win_timer = 0
             self.change_score(10000)
             self.change_health(20)
+            # Rebuilds the overworld, placing the player on the level they just completed and incrementing the new max level by 1
             self.create_overworld(self.current_level, self.new_max_level)
 
     def check_coin_collisions(self):
+        # Check for and destroy any coins the player comes into contact with
         collided_coins = pygame.sprite.spritecollide(
             self.player.sprite, self.coin_sprites, True)
+        # If a coin has been collided with, play a sound
         if collided_coins:
             self.coin_sound.play()
+            # Every coin, adds to total coin count as well as to the score
             for coin in collided_coins:
                 self.change_coins(coin.value)
                 self.change_score(coin.value * 200)
 
     def check_diamond_collisions(self):
+        # Check for ans destroy any diamond the player comes into contact with
         collided_diamond = pygame.sprite.spritecollide(
             self.player.sprite, self.diamond_sprites, True)
         if collided_diamond:
+            # If a diamond has been collided with, play a sound
             self.coin_sound.play()
             for diamond in collided_diamond:
+                # Every diamond, adds to total diamonds as well as awards 5000 points to the player
                 self.change_diamond(diamond.count)
                 self.change_score(diamond.count * 5000)
 
     def check_enemy_collisions(self):
+        # Checks for and destroys any enemy the player defeats
         enemy_collisions = pygame.sprite.spritecollide(
             self.player.sprite, self.enemies_sprites, False)
         if enemy_collisions:
             for enemy in enemy_collisions:
+                # Set a few checks
                 enemy_center = enemy.rect.centery
                 enemy_top = enemy.rect.top
                 player_bottom = self.player.sprite.rect.bottom
+                # Detect if a proper collision has been made2
                 if enemy_top < player_bottom < enemy_center and self.player.sprite.direction.y >= 0:
                     self.player.sprite.direction.y = -20
                     explosion_sprite = ParticleEffect(
@@ -382,6 +401,7 @@ class Level:
                     self.player.sprite.get_damage()
 
     def exit_level(self):
+        # Check for is the Escape key is hit, if it is, remake the overworld, without making a new level avaialable
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
             self.level_music.stop()

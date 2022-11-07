@@ -8,6 +8,8 @@ from random import choice, randint
 class Sky:
     def __init__(self, horizon, world, style='level'):
         self.world = world
+        # Based on the current world the player is on, the sky will be a different
+        # color
         if world == 0:
             self.top = pygame.image.load(
                 '../graphics/decoration/sky/world_1_sky_top.png').convert_alpha()
@@ -47,7 +49,7 @@ class Sky:
             self.middle, (screen_width, tile_size))
 
         self.style = style
-        # Setting the sky for the overworld
+        # Setting the sky for the overworld, randomly placing palm trees and clouds around
         if self.style == 'overworld':
             if self.world == 0:
                 palm_surface = import_folder(
@@ -131,6 +133,7 @@ class Sky:
                     self.clouds.append((surface, rect))
 
     def draw(self, surface):
+        # Drawing the sky
         for row in range(vertical_tile_number):
             y = row * tile_size
             if row < self.horizon:

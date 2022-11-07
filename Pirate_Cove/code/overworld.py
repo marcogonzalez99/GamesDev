@@ -23,6 +23,7 @@ class Node(pygame.sprite.Sprite):
             self.rect.centerx - (icon_speed/2), self.rect.centery - (icon_speed/2), icon_speed, icon_speed)
 
     def animate(self):
+        # Logic for the animation frames
         self.frame_index += 0.15
         if self.frame_index >= len(self.frames):
             self.frame_index = 0
@@ -37,8 +38,6 @@ class Node(pygame.sprite.Sprite):
             self.image.blit(tint_surface, (0, 0))
 
 # Icon of the hat, which navigates the level select screen
-
-
 class Icon(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
@@ -101,6 +100,7 @@ class Overworld():
             center=(1550, 925))
 
     def setup_stages(self):
+        # Each individual level nodes
         self.nodes = pygame.sprite.Group()
         for index, node_data in enumerate(levels.values()):
             if index <= self.max_level:
@@ -113,12 +113,14 @@ class Overworld():
             self.nodes.add(node_sprite)
 
     def setup_icon(self):
+        # Make the icon of the hat
         self.icon = pygame.sprite.GroupSingle()
         icon_sprite = Icon(self.nodes.sprites()
                            [self.current_level].rect.center)
         self.icon.add(icon_sprite)
 
     def draw_paths(self):
+        # Drawing paths between the levels
         if self.max_level > 0:
             points = [node['node_pos'] for index, node in enumerate(
                 levels.values()) if index <= self.max_level]
@@ -127,6 +129,7 @@ class Overworld():
                               '#a04f45', False, points, 6)
 
     def draw_worlds(self):
+        # Drawing the world icons
         self.display_surface.blit(self.world_1, self.world_1_rect)
         self.display_surface.blit(self.world_2, self.world_2_rect)
         self.display_surface.blit(self.world_3, self.world_3_rect)
@@ -167,6 +170,7 @@ class Overworld():
                 self.move_direction = pygame.math.Vector2(0, 0)
 
     def input_timer(self):
+        # Time before the player can move again
         if not self.allow_input:
             current_time = pygame.time.get_ticks()
             if current_time - self.start_time >= self.time_length:

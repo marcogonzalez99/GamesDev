@@ -50,6 +50,7 @@ class Player(pygame.sprite.Sprite):
         self.hit_sound.set_volume(0.2)
 
     def import_character_assets(self):
+        # Import the graphics for the player
         character_path = '../graphics/character/'
         self.animations = {'idle': [], 'run': [], 'jump': [], 'fall': []}
 
@@ -58,6 +59,7 @@ class Player(pygame.sprite.Sprite):
             self.animations[animation] = import_folder(full_path)
 
     def import_dust_run_particles(self):
+        # Import dust particles for the player
         self.dust_run_particles = import_folder(
             '../graphics/character/dust_particles/run')
 
@@ -102,6 +104,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(midbottom=self.rect.midbottom)
 
     def get_input(self):
+        # Move the payer based on input
         keys = pygame.key.get_pressed()
         if not self.level_won:
             if keys[pygame.K_d]:
@@ -121,6 +124,7 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = 0
 
     def get_status(self):
+        # Determine what state the player is in, to run different player animations
         if self.direction.y < 0:
             self.status = 'jump'
         elif self.direction.y > 1:
@@ -132,14 +136,17 @@ class Player(pygame.sprite.Sprite):
                 self.status = 'idle'
 
     def apply_gravity(self):
+        # Move character based on gravity
         self.direction.y += self.gravity
         self.collision_rect.y += self.direction.y
 
     def jump(self):
+        # Jumping
         self.direction.y = self.jump_speed
         self.jump_sound.play()
 
     def get_damage(self):
+        # If the player takes damage, reduce health,make invincible and play a sound
         if not self.invincible:
             self.hit_sound.play()
             self.change_health(-20)
@@ -147,9 +154,11 @@ class Player(pygame.sprite.Sprite):
             self.hurt_time = pygame.time.get_ticks()
 
     def get_health(self):
+        # Earn health upon level competion
         self.change_health(20)
 
     def invinciblity_timer(self):
+        # Set invincibility frames so the player can't take damage
         if self.invincible:
             current_time = pygame.time.get_ticks()
             if current_time - self.hurt_time >= self.invincibility_duration:

@@ -1,3 +1,5 @@
+# Manages the level data for each level
+
 level_0 = {
     'terrain': '../levels/0/level_0_Terrain.csv',
     'coins': '../levels/0/level_0_Coins.csv',

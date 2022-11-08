@@ -18,7 +18,8 @@ def create_pipe():
 def move_pipes(pipes):
     for pipe in pipes:
         pipe.centerx -= 5
-    return pipes
+    visible_pipes = [pipe for pipe in pipes if pipe.right > -50]
+    return visible_pipes
 
 
 def draw_pipes(pipes):
@@ -31,12 +32,15 @@ def draw_pipes(pipes):
 
 
 def check_collision(pipes):
+    global can_score
     for pipe in pipes:
         if bird_rect.colliderect(pipe):
             death_sound.play()
+            can_score = True
             return False
 
     if bird_rect.top <= -100 or bird_rect.bottom >= 900:
+        can_score = True
         return False
 
     return True
@@ -77,8 +81,20 @@ def update_score(score, high_score):
     return high_score
 
 
+def pipe_score_check():
+    global score, can_score
+    if pipe_list:
+        for pipe in pipe_list:
+            if 95 < pipe.centerx < 105 and can_score:
+                score += 1
+                score_sound.play()
+                can_score = False
+            if pipe.centerx < 0:
+                can_score = True
+
+
 # General Setup
-pygame.mixer.pre_init(frequency=44100, size=16, channels=1, buffer=512)
+# pygame.mixer.pre_init(frequency=44100, size=16, channels=1, buffer=512)
 pygame.init()
 clock = pygame.time.Clock()
 game_font = pygame.font.Font('04B_19.TTF', 40)
@@ -89,6 +105,7 @@ bird_movement = 0
 game_active = False
 score = 0
 high_score = 0
+can_score = True
 
 
 screen_width, screen_height = 576, 1024
@@ -96,7 +113,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption(("Flappy Bird"))
 
 # Background Surface
-bg_surface = pygame.image.load('images/background-day.png').convert_alpha()
+bg_surface = pygame.image.load('images/background-night.png').convert_alpha()
 bg_surface = pygame.transform.scale2x(bg_surface)
 
 # Floor Surface
@@ -136,6 +153,9 @@ game_over_rect = game_over_surface.get_rect(center=(288, 512))
 flap_sound = pygame.mixer.Sound('audio/sound_sfx_wing.wav')
 death_sound = pygame.mixer.Sound('audio/sound_sfx_hit.wav')
 score_sound = pygame.mixer.Sound('audio/sound_sfx_point.wav')
+bg_music = pygame.mixer.Sound('audio/stay.wav')
+bg_music.play()
+bg_music.set_volume(0.4)
 score_sound_countdown = 100
 
 # Game Loop
@@ -147,7 +167,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 bird_movement = 0
-                bird_movement -= 10
+                bird_movement -= 8
                 flap_sound.play()
             if event.key == pygame.K_SPACE and game_active == False:
                 game_active = True
@@ -172,16 +192,12 @@ while True:
         bird_rect.centery += bird_movement
         screen.blit(rotated_bird, bird_rect)
         game_active = check_collision(pipe_list)
-
         # Pipes
         pipe_list = move_pipes(pipe_list)
         draw_pipes(pipe_list)
-        score += 0.01
+        # Score
+        pipe_score_check()
         score_display('main_game')
-        score_sound_countdown -= 1
-        if score_sound_countdown >= 0:
-            score_sound.play()
-            score_sound_countdown = 100
     else:
         screen.blit(game_over_surface, game_over_rect)
         high_score = update_score(score, high_score)

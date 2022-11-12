@@ -148,6 +148,9 @@ class Overworld():
                 self.moving = True
             elif keys[pygame.K_SPACE]:
                 self.create_level(self.current_level)
+            elif keys[pygame.K_UP]:
+                if self.max_level < 19:
+                    self.max_level += 1
 
     def get_movement_data(self, target):
         start = pygame.math.Vector2(

@@ -141,7 +141,7 @@ pipe_surface = pygame.image.load('images/pipe-red.png').convert_alpha()
 pipe_surface = pygame.transform.scale2x(pipe_surface)
 pipe_list = []
 SPAWNPIPE = pygame.USEREVENT
-pygame.time.set_timer(SPAWNPIPE, 2000)
+pygame.time.set_timer(SPAWNPIPE, 1200)
 pipe_height = [400, 600, 800]
 
 # Game Over
@@ -154,8 +154,8 @@ flap_sound = pygame.mixer.Sound('audio/sound_sfx_wing.wav')
 death_sound = pygame.mixer.Sound('audio/sound_sfx_hit.wav')
 score_sound = pygame.mixer.Sound('audio/sound_sfx_point.wav')
 bg_music = pygame.mixer.Sound('audio/stay.wav')
-bg_music.play()
-bg_music.set_volume(0.4)
+# bg_music.play()
+# bg_music.set_volume(0.4)
 score_sound_countdown = 100
 
 # Game Loop

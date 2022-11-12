@@ -335,7 +335,7 @@ class Level:
             self.player_sprite.collision_rect.midbottom = self.hat_sprite.rect.midbottom
             # Stop the music, play the level clear sound, and run the run_win()
             self.level_music.stop()
-            self.level_clear_sound.play(loops=1)
+            self.level_clear_sound.play(loops=-1)
             self.run_win()
 
     def run_win(self):
@@ -344,7 +344,7 @@ class Level:
         if self.win_timer > 250:
             # When the timer reaches 250, force stop the sound to avoid repitition
             self.level_clear_sound.stop()
-        if self.win_timer > 350:
+        if self.win_timer > 300:
             # When the timer reaches 350, reset it, add points to the score, and health, and rebuild the overworld with a new level
             self.win_timer = 0
             self.change_score(10000)

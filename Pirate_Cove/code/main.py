@@ -1,4 +1,3 @@
-from asyncore import loop
 import pygame
 import sys
 from settings import *
@@ -306,12 +305,23 @@ class Game:
         # Coin Image
         coin_image = pygame.image.load(f'../graphics/coins/silver/{int(self.silver_coin_frame)}.png')
         coin_image_rect = coin_image.get_rect(
-            center=(screen_width/4 + 25, 475))
+            center=(screen_width/4 + 100, 475))
         screen.blit(coin_image, coin_image_rect)
         coin_2_image = pygame.image.load(f'../graphics/coins/gold/{int(self.gold_coin_frame)}.png')
         coin_2_image_rect = coin_2_image.get_rect(
-            center=(screen_width/4 - 25, 475))
+            center=(screen_width/4 - 100, 475))
         screen.blit(coin_2_image, coin_2_image_rect)
+        # Coin Value Texts
+        silver_value_text = self.game_font.render(
+            "+200 Points", False, 'white')
+        silver_value_text_rect = silver_value_text.get_rect(
+            center=(screen_width/4 + 100, 525))
+        screen.blit(silver_value_text, silver_value_text_rect)
+        gold_value_text = self.game_font.render(
+            "+1000 Points ", False, 'white')
+        gold_value_text_rect = gold_value_text.get_rect(
+            center=(screen_width/4 - 100, 525))
+        screen.blit(gold_value_text, gold_value_text_rect)
         
         # Diamonds
         diamond_tut_text = self.game_font.render(
@@ -324,6 +334,12 @@ class Game:
         diamond_image_rect = diamond_image.get_rect(
             center=(screen_width - screen_width/4, 475))
         screen.blit(diamond_image, diamond_image_rect)
+        # Diamond Value Text
+        diamond_value_text = self.game_font.render(
+            "+5000 Points ", False, 'white')
+        diamond_value_text_rect = diamond_value_text.get_rect(
+            center=(screen_width - screen_width/4, 525))
+        screen.blit(diamond_value_text, diamond_value_text_rect)
         
         # Hat
         hat_text = self.game_font.render(
@@ -337,6 +353,13 @@ class Game:
             center=(screen_width/4, 675))
         screen.blit(hat_image, hat_image_rect)
         
+        # Objective Text
+        obj_text = self.game_font.render(
+            "Earn the Most Money, by collecting as many points as possible", False, 'white')
+        obj_text_rect = obj_text.get_rect(
+            center=(screen_width/2, 800))
+        screen.blit(obj_text, obj_text_rect)
+        
         # Enemies
         enemy_text = self.game_font.render(
             "Stomp on Enemies to Kill Them", False, 'white')
@@ -348,6 +371,12 @@ class Game:
         enemy_image_rect = enemy_image.get_rect(
             center=(screen_width - screen_width/4, 675))
         screen.blit(enemy_image, enemy_image_rect)
+        # Enemy Value Text
+        enemy_value_text = self.game_font.render(
+            "+1000 Points ", False, 'white')
+        enemy_value_text_rect = enemy_value_text.get_rect(
+            center=(screen_width - screen_width/4, 725))
+        screen.blit(enemy_value_text, enemy_value_text_rect)
         
         # Tell the player how to continue
         continue_text = self.tutorial_font.render(

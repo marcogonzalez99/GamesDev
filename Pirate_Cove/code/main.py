@@ -168,6 +168,7 @@ class Game:
                 self.change_lives(-1)
                 self.death_sound.stop()
                 self.current_health = 100
+                self.zero_health_timer = 0
                 self.overworld = Overworld(
                     self.max_level, self.max_level, screen, self.create_level)
                 self.status = 'overworld'

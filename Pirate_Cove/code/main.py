@@ -11,7 +11,7 @@ class Game:
     def __init__(self):
         # Game Attributes
         self.max_level = 0
-        # PLayer Attributes
+        # Player Attributes
         self.current_health = 100
         self.max_health = 100
         self.coins = 0
@@ -21,6 +21,8 @@ class Game:
         self.enemies_stomped = 0
         self.lives = 5
 
+        # Tutorial Logic
+        self.can_press = True
         # Audio
         self.overworld_music = pygame.mixer.Sound(
             '../audio/main_overworld.ogg')
@@ -44,6 +46,7 @@ class Game:
         self.ui = UI(screen, self.lives)
         # Game Font
         self.game_font = pygame.font.Font('../graphics/Pixeltype.ttf', 45)
+        self.tutorial_font = pygame.font.Font('../graphics/Pixeltype.ttf', 75)
 
     # Creates the current level, bringing in the ability to receate the overworld, manage health, coins, diamonds, score, lives and enemies stomped
     def create_level(self, current_level):
@@ -227,12 +230,112 @@ class Game:
             center=(screen_width/2, screen_height/2 + 125))
         screen.blit(intro_photo_2, intro_2_rect)
 
+        # Launch the tutorial from the main menu
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE] and self.can_press:
+            self.status = 'tutorial'
+            self.can_press = False
+
+    def tutorial(self):
+        # To Prevent the player from accidentally Advancing
+        self.can_press = True
+        # Fill the Screen
+        screen.fill((30,30,30))
+        # Tutorial Info Here
+        tut_text = self.tutorial_font.render(
+            "How to Play", False, 'white')
+        tut_text_rect = tut_text.get_rect(
+            center=(screen_width/2, 100))
+        screen.blit(tut_text, tut_text_rect)
+        
+        # Move
+        move_text = self.game_font.render(
+            "Press D/Right and A/Left To Move", False, 'white')
+        move_text_rect = move_text.get_rect(
+            center=(screen_width/4, 200))
+        screen.blit(move_text, move_text_rect)
+        # Move Image
+        move_image = pygame.image.load('../graphics/character/run/1.png')
+        move_image_rect = move_image.get_rect(
+            center=(screen_width/4, 275))
+        screen.blit(move_image, move_image_rect)
+        
+        # Jump
+        jump_text = self.game_font.render(
+            "Press W/Space/Up to Jump", False, 'white')
+        jump_text_rect = jump_text.get_rect(
+            center=(screen_width - screen_width/4, 200))
+        screen.blit(jump_text, jump_text_rect)
+        # Jump Image
+        jump_image = pygame.image.load('../graphics/character/jump/3.png')
+        jump_image_rect = jump_image.get_rect(
+            center=(screen_width - screen_width/4, 275))
+        screen.blit(jump_image, jump_image_rect)
+        
+        # Coins
+        coin_tut_text = self.game_font.render(
+            "Collect Coins for Points ", False, 'white')
+        coin_tut_text_rect = coin_tut_text.get_rect(
+            center=(screen_width/4, 400))
+        screen.blit(coin_tut_text, coin_tut_text_rect)
+        # Coin Image
+        coin_image = pygame.image.load('../graphics/coins/silver/0.png')
+        coin_image_rect = coin_image.get_rect(
+            center=(screen_width/4 + 25, 475))
+        screen.blit(coin_image, coin_image_rect)
+        coin_2_image = pygame.image.load('../graphics/coins/gold/0.png')
+        coin_2_image_rect = coin_2_image.get_rect(
+            center=(screen_width/4 - 25, 475))
+        screen.blit(coin_2_image, coin_2_image_rect)
+        
+        # Diamonds
+        diamond_tut_text = self.game_font.render(
+            "Collect Diamonds for Points", False, 'white')
+        diamond_tut_text_rect = diamond_tut_text.get_rect(
+            center=(screen_width - screen_width/4, 400))
+        screen.blit(diamond_tut_text, diamond_tut_text_rect)
+        # Diamond Image
+        diamond_image = pygame.image.load('../graphics/coins/diamond/1.png')
+        diamond_image_rect = diamond_image.get_rect(
+            center=(screen_width - screen_width/4, 475))
+        screen.blit(diamond_image, diamond_image_rect)
+        
+        # Hat
+        hat_text = self.game_font.render(
+            "Reach the Hat to Beat Complete The Level", False, 'white')
+        hat_text_rect = hat_text.get_rect(
+            center=(screen_width/4, 600))
+        screen.blit(hat_text, hat_text_rect)
+        # Hat Image
+        hat_image = pygame.image.load('../graphics/overworld/hat.png')
+        hat_image_rect = hat_image.get_rect(
+            center=(screen_width/4, 675))
+        screen.blit(hat_image, hat_image_rect)
+        
+        # Enemies
+        enemy_text = self.game_font.render(
+            "Stomp on Enemies to Kill Them", False, 'white')
+        enemy_text_rect = enemy_text.get_rect(
+            center=(screen_width - screen_width/4, 600))
+        screen.blit(enemy_text, enemy_text_rect)
+        # Enemy Image
+        enemy_image = pygame.image.load('../graphics/enemy/run/1.png')
+        enemy_image_rect = enemy_image.get_rect(
+            center=(screen_width - screen_width/4, 675))
+        screen.blit(enemy_image, enemy_image_rect)
+        
+        # Tell the player how to continue
+        continue_text = self.tutorial_font.render(
+            "Press W to Start", False, 'white')
+        continue_text_rect = continue_text.get_rect(
+            center=(screen_width/2, 900))
+        screen.blit(continue_text, continue_text_rect)
         # Launch the game from the main menu
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_w] and self.can_press:
+            self.can_press = False
             self.main_menu_music.stop()
             self.restart_game()
-
     # Credits State
     def end_game(self):
         screen.fill((30, 30, 30))
@@ -325,6 +428,8 @@ class Game:
         # Running the main menu
         if self.status == 'main_menu':
             self.main_menu()
+        elif self.status == 'tutorial':
+            self.tutorial()
         # Running the overworld
         elif self.status == 'overworld':
             self.overworld.run()

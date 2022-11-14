@@ -23,6 +23,12 @@ class Game:
 
         # Tutorial Logic
         self.can_press = True
+        self.run_frame = 1
+        self.jump_frame = 1
+        self.silver_coin_frame = 0
+        self.gold_coin_frame = 0
+        self.diamond_frame = 1
+        self.enemy_frame = 1
         # Audio
         self.overworld_music = pygame.mixer.Sound(
             '../audio/main_overworld.ogg')
@@ -241,6 +247,25 @@ class Game:
         self.can_press = True
         # Fill the Screen
         screen.fill((30,30,30))
+        # Increment Frames
+        self.run_frame += 0.15
+        if self.run_frame > 6:
+            self.run_frame = 1
+        self.jump_frame += 0.15
+        if self.jump_frame > 3:
+            self.jump_frame = 1
+        self.silver_coin_frame += 0.15
+        if self.silver_coin_frame > 3:
+            self.silver_coin_frame = 0
+        self.gold_coin_frame += 0.15
+        if self.gold_coin_frame > 3:
+            self.gold_coin_frame = 0
+        self.diamond_frame += 0.15
+        if self.diamond_frame > 5:
+            self.diamond_frame = 1
+        self.enemy_frame += 0.15
+        if self.enemy_frame > 6:
+            self.enemy_frame = 1
         # Tutorial Info Here
         tut_text = self.tutorial_font.render(
             "How to Play", False, 'white')
@@ -255,7 +280,7 @@ class Game:
             center=(screen_width/4, 200))
         screen.blit(move_text, move_text_rect)
         # Move Image
-        move_image = pygame.image.load('../graphics/character/run/1.png')
+        move_image = pygame.image.load(f'../graphics/character/run/{int(self.run_frame)}.png')
         move_image_rect = move_image.get_rect(
             center=(screen_width/4, 275))
         screen.blit(move_image, move_image_rect)
@@ -267,7 +292,7 @@ class Game:
             center=(screen_width - screen_width/4, 200))
         screen.blit(jump_text, jump_text_rect)
         # Jump Image
-        jump_image = pygame.image.load('../graphics/character/jump/3.png')
+        jump_image = pygame.image.load(f'../graphics/character/jump/{int(self.jump_frame)}.png')
         jump_image_rect = jump_image.get_rect(
             center=(screen_width - screen_width/4, 275))
         screen.blit(jump_image, jump_image_rect)
@@ -279,11 +304,11 @@ class Game:
             center=(screen_width/4, 400))
         screen.blit(coin_tut_text, coin_tut_text_rect)
         # Coin Image
-        coin_image = pygame.image.load('../graphics/coins/silver/0.png')
+        coin_image = pygame.image.load(f'../graphics/coins/silver/{int(self.silver_coin_frame)}.png')
         coin_image_rect = coin_image.get_rect(
             center=(screen_width/4 + 25, 475))
         screen.blit(coin_image, coin_image_rect)
-        coin_2_image = pygame.image.load('../graphics/coins/gold/0.png')
+        coin_2_image = pygame.image.load(f'../graphics/coins/gold/{int(self.gold_coin_frame)}.png')
         coin_2_image_rect = coin_2_image.get_rect(
             center=(screen_width/4 - 25, 475))
         screen.blit(coin_2_image, coin_2_image_rect)
@@ -295,7 +320,7 @@ class Game:
             center=(screen_width - screen_width/4, 400))
         screen.blit(diamond_tut_text, diamond_tut_text_rect)
         # Diamond Image
-        diamond_image = pygame.image.load('../graphics/coins/diamond/1.png')
+        diamond_image = pygame.image.load(f'../graphics/coins/diamond/{int(self.diamond_frame)}.png')
         diamond_image_rect = diamond_image.get_rect(
             center=(screen_width - screen_width/4, 475))
         screen.blit(diamond_image, diamond_image_rect)
@@ -319,7 +344,7 @@ class Game:
             center=(screen_width - screen_width/4, 600))
         screen.blit(enemy_text, enemy_text_rect)
         # Enemy Image
-        enemy_image = pygame.image.load('../graphics/enemy/run/1.png')
+        enemy_image = pygame.image.load(f'../graphics/enemy/run/{int(self.enemy_frame)}.png')
         enemy_image_rect = enemy_image.get_rect(
             center=(screen_width - screen_width/4, 675))
         screen.blit(enemy_image, enemy_image_rect)

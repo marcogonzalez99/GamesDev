@@ -18,7 +18,7 @@ class Game:
         self.diamonds = 0
         self.score = 0
         self.enemies_stomped = 0
-        self.lives = 5
+        self.lives = 4
 
         # Tutorial Logic
         self.can_press = True
@@ -165,9 +165,9 @@ class Game:
                 self.play_sound = False
             self.zero_health_timer += 1
             if self.zero_health_timer > 225:
+                self.change_lives(-1)
                 self.death_sound.stop()
                 self.current_health = 100
-                self.change_lives(-1)
                 self.overworld = Overworld(
                     self.max_level, self.max_level, screen, self.create_level)
                 self.status = 'overworld'
@@ -184,7 +184,7 @@ class Game:
         self.diamonds = 0
         self.score = 0
         self.enemies_stomped = 0
-        self.lives = 5
+        self.lives = 4
         # Level Checkpoints if the player gets a game over and chooses to restart
         # Player starts at the beginning of the farthest world completed
         if self.max_level < 6:
@@ -518,9 +518,9 @@ class Game:
         else:
             self.level.run()
             self.extra_health()
+            self.check_zero_health()
             self.check_game_over()
             self.check_completion()
-            self.check_zero_health()
             self.ui.show_health(self.current_health, self.max_health)
             self.ui.show_score(self.score)
             self.ui.display_lives(self.lives)

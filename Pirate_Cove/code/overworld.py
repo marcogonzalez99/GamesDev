@@ -19,6 +19,7 @@ class Node(pygame.sprite.Sprite):
             self.status = 'locked'
         self.rect = self.image.get_rect(center=pos)
 
+        # This is to prevent the icon from flying off the screen, keeping the center of the rect the same size as the speed the hat moves
         self.detection_zone = pygame.Rect(
             self.rect.centerx - (icon_speed/2), self.rect.centery - (icon_speed/2), icon_speed, icon_speed)
 
@@ -30,6 +31,7 @@ class Node(pygame.sprite.Sprite):
         self.image = self.frames[int(self.frame_index)]
 
     def update(self):
+        # Animate the available level nodes
         if self.status == 'available':
             self.animate()
         else:
@@ -42,6 +44,7 @@ class Icon(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
         self.pos = pos
+        # Actual Hat Image
         self.image = pygame.image.load(
             '../graphics/overworld/hat.png').convert_alpha()
         self.rect = self.image.get_rect(center=pos)
@@ -103,6 +106,7 @@ class Overworld():
         # Each individual level nodes
         self.nodes = pygame.sprite.Group()
         for index, node_data in enumerate(levels.values()):
+            # Checks if the level has been unlocked or not
             if index <= self.max_level:
                 node_sprite = Node(
                     node_data['node_pos'], 'available', self.speed + 2, node_data['graphics'])
@@ -136,6 +140,7 @@ class Overworld():
         self.display_surface.blit(self.world_4, self.world_4_rect)
 
     def input(self):
+        # Gets the keys the user is pressing and depending on whether we are going up or down a level, the hat moves to the target location
         keys = pygame.key.get_pressed()
         if not self.moving and self.allow_input:
             if keys[pygame.K_d] and self.current_level < self.max_level or keys[pygame.K_RIGHT] and self.current_level < self.max_level:
@@ -146,15 +151,18 @@ class Overworld():
                 self.move_direction = self.get_movement_data('previous')
                 self.current_level -= 1
                 self.moving = True
-            elif keys[pygame.K_SPACE]:
+            elif keys[pygame.K_SPACE] or keys[pygame.K_UP] or keys[pygame.K_w]:
                 self.create_level(self.current_level)
 
     def get_movement_data(self, target):
+        # Get where the player currently is
         start = pygame.math.Vector2(
             self.nodes.sprites()[self.current_level].rect.center)
+        # Get the location of the next level
         if target == 'next':
             end = pygame.math.Vector2(
                 self.nodes.sprites()[self.current_level + 1].rect.center)
+        # Get the location of the previous level
         else:
             end = pygame.math.Vector2(
                 self.nodes.sprites()[self.current_level - 1].rect.center)
@@ -162,6 +170,7 @@ class Overworld():
         return (end - start).normalize()
 
     def update_icon_pos(self):
+        # Updates the location of the hat
         if self.moving and self.move_direction:
             self.icon.sprite.pos += self.move_direction * self.speed
             target_node = self.nodes.sprites()[self.current_level]
@@ -177,6 +186,8 @@ class Overworld():
                 self.allow_input = True
 
     def run(self):
+        # Function to run the overworld
+        # Get the input, delay the input, update where the hat is, update the level nodes, draw the sky, draw the paths, draw the world icons
         self.input()
         self.input_timer()
         self.update_icon_pos()

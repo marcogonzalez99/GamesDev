@@ -373,8 +373,8 @@ class Level:
             self.coin_sound.play()
             for diamond in collided_diamond:
                 # Every diamond, adds to total diamonds as well as awards 5000 points to the player
-                self.change_diamond(diamond.count)
-                self.change_score(diamond.count * 5000)
+                self.change_diamond(diamond.value)
+                self.change_score(diamond.value * 5000)
 
     def check_enemy_collisions(self):
         # Checks for and destroys any enemy the player defeats

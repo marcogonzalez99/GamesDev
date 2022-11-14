@@ -53,14 +53,14 @@ class Coin(AnimatedTile):
         self.rect = self.image.get_rect(center=(center_x, center_y))
         self.value = value
 
-# For Diamonds, center them and give them a values
+# For Diamonds, center them and give them a value
 class Diamond(AnimatedTile):
-    def __init__(self, size, x, y, path, count):
+    def __init__(self, size, x, y, path, value):
         super().__init__(size, x, y, path)
         center_x = x + int(size/2)
         center_y = y + int(size/2)
         self.rect = self.image.get_rect(center=(center_x, center_y))
-        self.count = count
+        self.value = value
 
 # Animated background and foreground palm trees
 class Palm(AnimatedTile):

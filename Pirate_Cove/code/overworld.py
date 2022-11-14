@@ -138,19 +138,16 @@ class Overworld():
     def input(self):
         keys = pygame.key.get_pressed()
         if not self.moving and self.allow_input:
-            if keys[pygame.K_d] and self.current_level < self.max_level:
+            if keys[pygame.K_d] and self.current_level < self.max_level or keys[pygame.K_RIGHT] and self.current_level < self.max_level:
                 self.move_direction = self.get_movement_data('next')
                 self.current_level += 1
                 self.moving = True
-            elif keys[pygame.K_a] and self.current_level > 0:
+            elif keys[pygame.K_a] and self.current_level > 0 or keys[pygame.K_LEFT] and self.current_level > 0:
                 self.move_direction = self.get_movement_data('previous')
                 self.current_level -= 1
                 self.moving = True
             elif keys[pygame.K_SPACE]:
                 self.create_level(self.current_level)
-            elif keys[pygame.K_UP]:
-                if self.max_level < 19:
-                    self.max_level += 1
 
     def get_movement_data(self, target):
         start = pygame.math.Vector2(

@@ -107,16 +107,16 @@ class Player(pygame.sprite.Sprite):
         # Move the payer based on input
         keys = pygame.key.get_pressed()
         if not self.level_won:
-            if keys[pygame.K_d]:
+            if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
                 self.direction.x = 1
                 self.facing_right = True
-            elif keys[pygame.K_a]:
+            elif keys[pygame.K_a] or keys[pygame.K_LEFT]:
                 self.direction.x = -1
                 self.facing_right = False
             else:
                 self.direction.x = 0
 
-            if keys[pygame.K_w] and self.on_ground:
+            if keys[pygame.K_w] and self.on_ground or keys[pygame.K_SPACE] and self.on_ground or keys[pygame.K_UP] and self.on_ground:
                 self.jump()
                 self.create_jump_particles(self.rect.midbottom)
         else:

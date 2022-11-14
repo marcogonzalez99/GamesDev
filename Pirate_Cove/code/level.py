@@ -320,7 +320,7 @@ class Level:
             self.level_music.stop()
             self.death_timer += 1
             # Manually stop the death sound
-            if self.death_timer > 200:
+            if self.death_timer > 215:
                 self.death_sound.stop()
             # Reset the timer, lose a life, and create the overworld with no new levels
                 self.death_timer = 0

@@ -42,6 +42,13 @@ class Game:
         self.credits_music = pygame.mixer.Sound('../audio/credits.ogg')
         self.credits_music.set_volume(0.7)
 
+        # Zero Health Variables
+        self.zero_health_timer = 0
+        self.death_sound = pygame.mixer.Sound(
+            '../audio/effects/player_death.wav')
+        self.death_sound.set_volume(0.7)
+        self.play_sound = True
+        
         # Overworld Creation
         self.overworld = Overworld(
             0, self.max_level, screen, self.create_level)
@@ -142,20 +149,31 @@ class Game:
             self.overworld_music.stop()
             self.game_over_music.play()
             self.game_over()
-        elif self.current_health <= 0:
-            self.level.level_music.stop()
-            self.change_lives(-1)
-            if self.lives == 0:
+
+    def check_zero_health(self):
+        if self.lives == 0:
                 self.status = 'gameover'
                 self.overworld_music.stop()
                 self.game_over_music.play()
                 self.game_over()
-            else:
+        if self.current_health <= 0:
+            self.level.level_music.stop()
+            self.level.player_sprite.collision_rect.bottom = self.level.hat_sprite.rect.top - 100
+            self.level.player_sprite.gravity = 0
+            if self.play_sound:
+                self.death_sound.play(loops=1)
+                self.play_sound = False
+            self.zero_health_timer += 1
+            if self.zero_health_timer > 225:
+                self.death_sound.stop()
                 self.current_health = 100
+                self.change_lives(-1)
                 self.overworld = Overworld(
                     self.max_level, self.max_level, screen, self.create_level)
                 self.status = 'overworld'
                 self.overworld_music.play(loops=-1)
+                self.play_sound = True
+                
 
     # Restarts the game from scratch
     def restart_game(self):
@@ -240,7 +258,8 @@ class Game:
         if keys[pygame.K_SPACE] and self.can_press:
             self.status = 'tutorial'
             self.can_press = False
-
+   
+    # Tutorial State
     def tutorial(self):
         # To Prevent the player from accidentally Advancing
         self.can_press = True
@@ -390,6 +409,7 @@ class Game:
             self.can_press = False
             self.main_menu_music.stop()
             self.restart_game()
+    
     # Credits State
     def end_game(self):
         screen.fill((30, 30, 30))
@@ -500,6 +520,7 @@ class Game:
             self.extra_health()
             self.check_game_over()
             self.check_completion()
+            self.check_zero_health()
             self.ui.show_health(self.current_health, self.max_health)
             self.ui.show_score(self.score)
             self.ui.display_lives(self.lives)

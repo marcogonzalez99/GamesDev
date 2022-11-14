@@ -61,7 +61,7 @@ class UI:
         score_amount_surface = self.font.render(
             f"Score: {amount:,}", False, ('black'))
         score_amount_rect = score_amount_surface.get_rect(
-            topleft=(1600, 50))
+            topright=(1900, 50))
         self.display_surface.blit(score_amount_surface, score_amount_rect)
 
     # Displaying how many lives the player has, to the right of the health bar

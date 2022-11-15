@@ -402,7 +402,7 @@ class Level:
     def exit_level(self):
         # Check for is the Escape key is hit, if it is, remake the overworld, without making a new level avaialable
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_ESCAPE]:
+        if keys[pygame.K_ESCAPE] and self.player_on_ground:
             self.level_music.stop()
             self.create_overworld(self.current_level, 0)
 

@@ -37,13 +37,13 @@ class Game:
         self.game_over_music.set_volume(1)
 
         self.main_menu_music = pygame.mixer.Sound('../audio/main.ogg')
-        self.main_menu_music.set_volume(0.7)
+        self.main_menu_music.set_volume(0.5)
 
         self.credits_music = pygame.mixer.Sound('../audio/credits.ogg')
         self.credits_music.set_volume(0.7)
         
         self.tutorial_music = pygame.mixer.Sound('../audio/tutorial.ogg')
-        self.tutorial_music.set_volume(0.5)
+        self.tutorial_music.set_volume(0.2)
 
         # Zero Health Variables
         self.zero_health_timer = 0
@@ -161,7 +161,7 @@ class Game:
                 self.game_over()
         if self.current_health <= 0:
             self.level.level_music.stop()
-            self.level.player_sprite.collision_rect.bottom = self.level.hat_sprite.rect.top - 100
+            self.level.player_sprite.collision_rect.bottom = self.level.hat_sprite.rect.top - screen_height
             self.level.player_sprite.gravity = 0
             if self.play_sound:
                 self.death_sound.play(loops=1)

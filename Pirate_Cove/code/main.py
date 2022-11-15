@@ -368,7 +368,7 @@ class Game:
         
         # Hat
         hat_text = self.game_font.render(
-            "Reach the Hat to Beat Complete The Level", False, 'white')
+            "Reach the Hat to Complete The Level", False, 'white')
         hat_text_rect = hat_text.get_rect(
             center=(screen_width/4, 600))
         screen.blit(hat_text, hat_text_rect)
@@ -377,6 +377,12 @@ class Game:
         hat_image_rect = hat_image.get_rect(
             center=(screen_width/4, 675))
         screen.blit(hat_image, hat_image_rect)
+        # Hat Value Text
+        hat_value_text = self.game_font.render(
+            "+10000 Points ", False, 'white')
+        hat_value_text_rect = hat_value_text.get_rect(
+            center=(screen_width/4, 725))
+        screen.blit(hat_value_text, hat_value_text_rect)
         
         # Objective Text
         obj_text = self.game_font.render(

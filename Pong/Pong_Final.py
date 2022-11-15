@@ -99,7 +99,6 @@ class Opponent(Block):
     def __init__(self, path, x_pos, y_pos, speed):
         super().__init__(path, x_pos, y_pos)
         self.speed = speed
-        self.speed = speed
 
     def constrain(self):
         if self.rect.top <= 0:

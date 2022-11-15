@@ -41,6 +41,9 @@ class Game:
 
         self.credits_music = pygame.mixer.Sound('../audio/credits.ogg')
         self.credits_music.set_volume(0.7)
+        
+        self.tutorial_music = pygame.mixer.Sound('../audio/tutorial.ogg')
+        self.tutorial_music.set_volume(0.5)
 
         # Zero Health Variables
         self.zero_health_timer = 0
@@ -164,7 +167,7 @@ class Game:
                 self.death_sound.play(loops=1)
                 self.play_sound = False
             self.zero_health_timer += 1
-            if self.zero_health_timer > 225:
+            if self.zero_health_timer > 245:
                 self.change_lives(-1)
                 self.death_sound.stop()
                 self.current_health = 100
@@ -257,6 +260,8 @@ class Game:
         # Launch the tutorial from the main menu
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and self.can_press:
+            self.main_menu_music.stop()
+            self.tutorial_music.play()
             self.status = 'tutorial'
             self.can_press = False
    
@@ -408,7 +413,7 @@ class Game:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w] and self.can_press:
             self.can_press = False
-            self.main_menu_music.stop()
+            self.tutorial_music.stop()
             self.restart_game()
     
     # Credits State

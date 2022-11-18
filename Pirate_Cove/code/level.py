@@ -411,6 +411,7 @@ class Level:
             # Check for if the F, T, and L key are being pressed while on the ground, if so, remake the overworld with the next level available
             keys = pygame.key.get_pressed()
             if keys[pygame.K_f] and keys[pygame.K_t] and keys[pygame.K_l] and self.player_on_ground:
+                self.change_score(-100000)
                 self.level_music.stop()
                 self.create_overworld(self.current_level, self.new_max_level)
 

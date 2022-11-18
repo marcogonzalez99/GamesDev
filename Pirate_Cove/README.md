@@ -135,4 +135,5 @@
 # ----------------------------------------------------------------------------------------- #
 # If a level is too hard, try pressing F, T and L at the same time while in a level         #
 # (P.S - Make sure you're on the ground :] )                                                #
+# (P.P.S - This isn't free! So use it wisely)
 # ----------------------------------------------------------------------------------------- #

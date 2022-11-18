@@ -131,3 +131,8 @@
 # Music                                                                                     #
 # All Music Grabbed from Various Nintendo Games. Ranging from the NES to the Switch         #
 # ----------------------------------------------------------------------------------------- #
+# | Easter Egg |                                                                            #
+# ----------------------------------------------------------------------------------------- #
+# If a level is too hard, try pressing F, T and L at the same time while in a level         #
+# (P.S - Make sure you're on the ground :] )                                                #
+# ----------------------------------------------------------------------------------------- #

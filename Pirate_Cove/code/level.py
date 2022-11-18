@@ -400,11 +400,19 @@ class Level:
                     self.player.sprite.get_damage()
 
     def exit_level(self):
-        # Check for is the Escape key is hit, if it is, remake the overworld, without making a new level avaialable
+        # Check for if the Escape key is hit, if it is, remake the overworld, without making a new level avaialable
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE] and self.player_on_ground:
             self.level_music.stop()
             self.create_overworld(self.current_level, 0)
+
+    def skip_level(self):
+        # F This Level Easter Egg
+            # Check for if the F, T, and L key are being pressed while on the ground, if so, remake the overworld with the next level available
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_f] and keys[pygame.K_t] and keys[pygame.K_l] and self.player_on_ground:
+                self.level_music.stop()
+                self.create_overworld(self.current_level, self.new_max_level)
 
     def run(self):
         # Run the whole game
@@ -461,6 +469,7 @@ class Level:
         self.check_death()
         self.check_win()
         self.exit_level()
+        self.skip_level()
 
         # Coins
         self.check_coin_collisions()

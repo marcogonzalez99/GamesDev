@@ -259,7 +259,7 @@ class Game:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and self.can_press:
             self.main_menu_music.stop()
-            self.tutorial_music.play()
+            self.tutorial_music.play(loops=-1)
             self.status = 'tutorial'
             self.can_press = False
    

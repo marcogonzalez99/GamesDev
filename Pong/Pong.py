@@ -70,13 +70,13 @@ def ball_start():
 
     if current_time - score_time < 700:
         number_three = game_font.render("3", False, light_grey)
-        screen.blit(number_three, (screen_width/2-5, screen_height/2 + 20))
+        screen.blit(number_three, (screen_width/2-7, screen_height/2 + 20))
     if 700 < current_time - score_time < 1400:
         number_two = game_font.render("2", False, light_grey)
-        screen.blit(number_two, (screen_width/2-5, screen_height/2 + 20))
+        screen.blit(number_two, (screen_width/2-7, screen_height/2 + 20))
     if 1400 < current_time - score_time < 2100:
         number_one = game_font.render("1", False, light_grey)
-        screen.blit(number_one, (screen_width/2-5, screen_height/2 + 20))
+        screen.blit(number_one, (screen_width/2-7, screen_height/2 + 20))
 
     if current_time - score_time < 2100:
         ball_speed_x, ball_speed_y = 0, 0

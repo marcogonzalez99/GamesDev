@@ -1,21 +1,43 @@
 # ----------------------------------------------------------------------------------------- #
+#                                   | Pirate's Cove |                                       #
+# ----------------------------------------------------------------------------------------- #
 # Pirate Cove - A 2d Platformer Game                                                        #
-# Pitch: Take Back What's Yours                                                             #
+# Pitch: Take Back What Has Been Taken From You                                             #
 # Audience: Everyone (Due to difficulty)                                                    #
 # Genre: 2d Platformer                                                                      #
-#                                                                                           #
-# Synopsis -                                                                                #
+# ----------------------------------------------------------------------------------------- #
+# | Synopsis |                                                                              #
+# ----------------------------------------------------------------------------------------- #
 # Theme: Pirate Bay in the year 1550                                                        #
-#                                                                                           #
-# Goals: Get to the Pirate Hat at the end of every stage                                    #
+# ----------------------------------------------------------------------------------------- #
+# | Goal |                                                                                  #
+# ----------------------------------------------------------------------------------------- #
+# Get to the Pirate Hat at the end of every stage                                           #
 # Stomp on enemies, collect coins, collect the diamond in each level                        # 
 # to attain the highest score, stealing back as much money as possible                      #
-#                                                                                           #
-# Mechanics: Jump, Kill enemies, navigate various platforms                                 #
-#                                                                                           #
-# Uniqueness: Everything the player does in this game, contributes to stealing              #
-# more money, allowing the player to steal more money by playing the game                   #
-# differently                                                                               #
+# ----------------------------------------------------------------------------------------- #
+# | Mechanics |                                                                             # 
+# ----------------------------------------------------------------------------------------- #
+# | Jump | Allows the player to navigate platforms that are otherwise out of reach.         #
+# | Coins | The player can collect coins to contribute to their score, which affects        #
+# how much money is collected at the end of the game. The coins also will grant the player  #
+# an extra life after collecting 100.                                                       #
+# | Diamonds | Diamonds are available for the player to collect that contributes to their   #
+# score and greatly contributes to the total amount of money collected at the end of the    #
+# game.                                                                                     #
+# | Lives | The player starts the game with 4 lives. Each time the player dies a life is    #
+# taken away. Once the player reaches 0 lives, they get a game over and have to start       #
+# over from the first level of the most recent world they completed.                        #
+# | Score | Everything the player does will add a set amount of points to their score       #
+# this score at the end of the game will be converted into money.                           #
+# | Rank | At the end of the game, the player's score converts into money and that money    #
+# will award the player with a rank. The ranks are F,D,C,B,A,A+,S                           #
+# ----------------------------------------------------------------------------------------- #
+# | Uniqueness |                                                                            #
+# ----------------------------------------------------------------------------------------- #
+# Everything the player does in this game, contributes to stealing                          #
+# more money, allowing the player to retry levels in order to gain a higher score           #
+# and in turn earning more money, which affects the players score at the end of the game    #
 # ----------------------------------------------------------------------------------------- #
 # The game comes in 6 states - Main_Menu, Tutorial, Overworld, Level, Game_Over, End_Game   #
 # ----------------------------------------------------------------------------------------- #
@@ -73,6 +95,7 @@
 # - 20 Levels in the game                                                                   #
 # - Scrolling Background                                                                    #
 # - Randomized Clouds in every level                                                        #
+# - Different Colored Backrground for World 1, World 2, World 3 and World X                 #
 # ----------------------------------------------------------------------------------------- #
 # | Sound |                                                                                 #
 # ----------------------------------------------------------------------------------------- #
@@ -85,6 +108,7 @@
 # - Different Background Music per Level                                                    #
 # - Level Complete Music                                                                    #
 # - Player Fall Off Course Music                                                            #
+# - Player Died from Damage Music                                                           #
 # - Jump Sound sfx                                                                          #
 # - Coin Collect sfx                                                                        #
 # - Enemy Kill sfx                                                                          #
@@ -138,4 +162,5 @@
 # (P.P.S - This isn't free! So use it wisely)                                               #
 # There is a 100,000 point fee for using this easter egg, which reduces your final score    #
 # and total money collected by $1,000,000                                                   #
+# Be careful as this could lower your rank from an A to a B :]                              #
 # ----------------------------------------------------------------------------------------- #

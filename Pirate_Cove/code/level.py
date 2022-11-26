@@ -1,6 +1,6 @@
 import pygame
 from support import import_csv_layout, import_cut_graphics
-from settings import tile_size, screen_height, screen_width
+from settings import tile_size, screen_height, screen_width, screen
 from tiles import Tile, StaticTile, Crate, AnimatedTile, Coin, Palm, Diamond
 from enemy import Enemy
 from decoration import Sky, Water, Clouds
@@ -399,6 +399,14 @@ class Level:
                 else:
                     self.player.sprite.get_damage()
 
+    def draw_arrow(self):
+        if self.player.sprite.rect.bottom < 0:
+            arrow_drawing = pygame.image.load(
+                "../graphics/overworld/arrow.png").convert_alpha()
+            arrow_rect = arrow_drawing.get_rect(
+                center=(self.player.sprite.rect.x + 10, 10))
+            screen.blit(arrow_drawing, arrow_rect)
+
     def exit_level(self):
         # Check for if the Escape key is hit, if it is, remake the overworld, without making a new level avaialable
         keys = pygame.key.get_pressed()
@@ -462,6 +470,7 @@ class Level:
 
         self.player.draw(self.display_surface)
         self.scroll_x()
+        self.draw_arrow()
         # Player Goal
         self.goal.update(self.world_shift)
         self.goal.draw(self.display_surface)

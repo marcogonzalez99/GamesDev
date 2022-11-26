@@ -126,7 +126,7 @@ class Level:
         self.water = Water(screen_height - 40, level_width)
         self.clouds = Clouds(400, level_width, 50)
 
-        # Different Skies depending on the level 
+        # Different Skies depending on the level
         if self.current_level < 6:
             self.sky = Sky(8, 0)
         elif 6 <= self.current_level <= 11:
@@ -167,7 +167,7 @@ class Level:
                             "../graphics/decoration/grass/grass.png")
                         tile_surface = grass_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
-                    # Crate Manager                   
+                    # Crate Manager
                     if type == 'crates':
                         sprite = Crate(tile_size, x, y)
                     # Coin Manager
@@ -178,7 +178,7 @@ class Level:
                         if val == '1':
                             sprite = Coin(tile_size, x, y,
                                           '../graphics/coins/silver', 1)
-                    # Diamond Manager                   
+                    # Diamond Manager
                     if type == 'diamond':
                         if val == '0':
                             sprite = Diamond(
@@ -309,8 +309,8 @@ class Level:
 
     # Check if the player has fallen off the map
     def check_death(self):
-        # Where the detection occurs  
-        if self.player.sprite.rect.bottom > screen_height + 50: 
+        # Where the detection occurs
+        if self.player.sprite.rect.bottom > screen_height + 50:
             self.player_sprite.speed = 0
             self.world_shift = 0
             if self.play_sound:
@@ -408,12 +408,12 @@ class Level:
 
     def skip_level(self):
         # F This Level Easter Egg
-            # Check for if the F, T, and L key are being pressed while on the ground, if so, remake the overworld with the next level available
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_f] and keys[pygame.K_t] and keys[pygame.K_l] and self.player_on_ground:
-                self.change_score(-100000)
-                self.level_music.stop()
-                self.create_overworld(self.current_level, self.new_max_level)
+        # Check for if the F, T, and L key are being pressed while on the ground, if so, remake the overworld with the next level available
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_f] and keys[pygame.K_t] and keys[pygame.K_l] and self.player_on_ground:
+            self.change_score(-100000)
+            self.level_music.stop()
+            self.create_overworld(self.current_level, self.new_max_level)
 
     def run(self):
         # Run the whole game

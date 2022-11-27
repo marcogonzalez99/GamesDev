@@ -404,7 +404,7 @@ class Level:
             arrow_drawing = pygame.image.load(
                 "../graphics/overworld/arrow.png").convert_alpha()
             arrow_rect = arrow_drawing.get_rect(
-                center=(self.player.sprite.rect.x + 10, 10))
+                center=(self.player.sprite.rect.centerx + 10, 15))
             screen.blit(arrow_drawing, arrow_rect)
 
     def exit_level(self):

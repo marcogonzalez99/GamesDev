@@ -191,7 +191,7 @@ class Game:
         # Level Checkpoints if the player gets a game over and chooses to restart
         # Player starts at the beginning of the farthest world completed
         if self.max_level < 6:
-            self.max_level = 6
+            self.max_level = 9
         elif 6 < self.max_level < 11:
             self.max_level = 6
         elif 12 < self.max_level <= 17:

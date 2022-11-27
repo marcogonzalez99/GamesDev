@@ -164,3 +164,6 @@
 # and total money collected by $1,000,000                                                   #
 # Be careful as this could lower your rank from an A to a B :]                              #
 # ----------------------------------------------------------------------------------------- #
+# If you find yourself above the screen, look out for the grey arrow as it can help you     #
+# find yourself                                                                             #
+# ----------------------------------------------------------------------------------------- #

@@ -160,7 +160,8 @@ class Game:
                 self.game_over()
         if self.current_health <= 0:
             self.level.level_music.stop()
-            self.level.player_sprite.collision_rect.bottom = self.level.hat_sprite.rect.top - screen_height
+            self.level.player_sprite.collision_rect.left = self.level.hat_sprite.rect.top + screen_width
+            self.level.player_sprite.speed = 0
             self.level.player_sprite.gravity = 0
             if self.play_sound:
                 self.death_sound.play(loops=1)
@@ -554,4 +555,4 @@ while True:
     game.run()
 
     pygame.display.update()
-    clock.tick(75)
+    clock.tick(60)

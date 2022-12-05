@@ -5,6 +5,7 @@ from level import Level
 from overworld import Overworld
 from ui import UI
 
+
 class Game:
     def __init__(self):
         # Game Attributes
@@ -40,7 +41,7 @@ class Game:
 
         self.credits_music = pygame.mixer.Sound('../audio/credits.ogg')
         self.credits_music.set_volume(0.7)
-        
+
         self.tutorial_music = pygame.mixer.Sound('../audio/tutorial.ogg')
         self.tutorial_music.set_volume(0.2)
 
@@ -50,7 +51,7 @@ class Game:
             '../audio/effects/player_death.wav')
         self.death_sound.set_volume(0.7)
         self.play_sound = True
-        
+
         # Overworld Creation
         self.overworld = Overworld(
             0, self.max_level, screen, self.create_level)
@@ -154,10 +155,10 @@ class Game:
 
     def check_zero_health(self):
         if self.lives == 0:
-                self.status = 'gameover'
-                self.overworld_music.stop()
-                self.game_over_music.play()
-                self.game_over()
+            self.status = 'gameover'
+            self.overworld_music.stop()
+            self.game_over_music.play()
+            self.game_over()
         if self.current_health <= 0:
             self.level.level_music.stop()
             self.level.player_sprite.collision_rect.bottom = self.level.hat_sprite.rect.top - screen_height
@@ -176,9 +177,9 @@ class Game:
                 self.status = 'overworld'
                 self.overworld_music.play(loops=-1)
                 self.play_sound = True
-                
 
     # Restarts the game from scratch
+
     def restart_game(self):
         # Fresh state of the game
         self.current_health = 100
@@ -191,7 +192,7 @@ class Game:
         # Level Checkpoints if the player gets a game over and chooses to restart
         # Player starts at the beginning of the farthest world completed
         if self.max_level < 6:
-            self.max_level = 9
+            self.max_level = 0
         elif 6 < self.max_level < 11:
             self.max_level = 6
         elif 12 < self.max_level <= 17:
@@ -263,13 +264,13 @@ class Game:
             self.tutorial_music.play(loops=-1)
             self.status = 'tutorial'
             self.can_press = False
-   
+
     # Tutorial State
     def tutorial(self):
         # To Prevent the player from accidentally Advancing
         self.can_press = True
         # Fill the Screen
-        screen.fill((30,30,30))
+        screen.fill((30, 30, 30))
         # Increment Frames
         self.run_frame += 0.15
         if self.run_frame > 6:
@@ -295,7 +296,7 @@ class Game:
         tut_text_rect = tut_text.get_rect(
             center=(screen_width/2, 100))
         screen.blit(tut_text, tut_text_rect)
-        
+
         # Move
         move_text = self.game_font.render(
             "Press D/Right and A/Left To Move", False, 'white')
@@ -303,11 +304,12 @@ class Game:
             center=(screen_width/4, 200))
         screen.blit(move_text, move_text_rect)
         # Move Image
-        move_image = pygame.image.load(f'../graphics/character/run/{int(self.run_frame)}.png')
+        move_image = pygame.image.load(
+            f'../graphics/character/run/{int(self.run_frame)}.png')
         move_image_rect = move_image.get_rect(
             center=(screen_width/4, 275))
         screen.blit(move_image, move_image_rect)
-        
+
         # Jump
         jump_text = self.game_font.render(
             "Press W/Space/Up to Jump", False, 'white')
@@ -315,11 +317,12 @@ class Game:
             center=(screen_width - screen_width/4, 200))
         screen.blit(jump_text, jump_text_rect)
         # Jump Image
-        jump_image = pygame.image.load(f'../graphics/character/jump/{int(self.jump_frame)}.png')
+        jump_image = pygame.image.load(
+            f'../graphics/character/jump/{int(self.jump_frame)}.png')
         jump_image_rect = jump_image.get_rect(
             center=(screen_width - screen_width/4, 275))
         screen.blit(jump_image, jump_image_rect)
-        
+
         # Coins
         coin_tut_text = self.game_font.render(
             "Collect Coins for Points ", False, 'white')
@@ -327,11 +330,13 @@ class Game:
             center=(screen_width/4, 400))
         screen.blit(coin_tut_text, coin_tut_text_rect)
         # Coin Image
-        coin_image = pygame.image.load(f'../graphics/coins/silver/{int(self.silver_coin_frame)}.png')
+        coin_image = pygame.image.load(
+            f'../graphics/coins/silver/{int(self.silver_coin_frame)}.png')
         coin_image_rect = coin_image.get_rect(
             center=(screen_width/4 + 100, 475))
         screen.blit(coin_image, coin_image_rect)
-        coin_2_image = pygame.image.load(f'../graphics/coins/gold/{int(self.gold_coin_frame)}.png')
+        coin_2_image = pygame.image.load(
+            f'../graphics/coins/gold/{int(self.gold_coin_frame)}.png')
         coin_2_image_rect = coin_2_image.get_rect(
             center=(screen_width/4 - 100, 475))
         screen.blit(coin_2_image, coin_2_image_rect)
@@ -346,7 +351,7 @@ class Game:
         gold_value_text_rect = gold_value_text.get_rect(
             center=(screen_width/4 - 100, 525))
         screen.blit(gold_value_text, gold_value_text_rect)
-        
+
         # Diamonds
         diamond_tut_text = self.game_font.render(
             "Collect Diamonds for Points", False, 'white')
@@ -354,7 +359,8 @@ class Game:
             center=(screen_width - screen_width/4, 400))
         screen.blit(diamond_tut_text, diamond_tut_text_rect)
         # Diamond Image
-        diamond_image = pygame.image.load(f'../graphics/coins/diamond/{int(self.diamond_frame)}.png')
+        diamond_image = pygame.image.load(
+            f'../graphics/coins/diamond/{int(self.diamond_frame)}.png')
         diamond_image_rect = diamond_image.get_rect(
             center=(screen_width - screen_width/4, 475))
         screen.blit(diamond_image, diamond_image_rect)
@@ -364,7 +370,7 @@ class Game:
         diamond_value_text_rect = diamond_value_text.get_rect(
             center=(screen_width - screen_width/4, 525))
         screen.blit(diamond_value_text, diamond_value_text_rect)
-        
+
         # Hat
         hat_text = self.game_font.render(
             "Reach the Hat to Complete The Level", False, 'white')
@@ -382,14 +388,14 @@ class Game:
         hat_value_text_rect = hat_value_text.get_rect(
             center=(screen_width/4, 725))
         screen.blit(hat_value_text, hat_value_text_rect)
-        
+
         # Objective Text
         obj_text = self.game_font.render(
             "Earn the Most Money, by collecting as many points as possible", False, 'white')
         obj_text_rect = obj_text.get_rect(
             center=(screen_width/2, 800))
         screen.blit(obj_text, obj_text_rect)
-        
+
         # Enemies
         enemy_text = self.game_font.render(
             "Stomp on Enemies to Kill Them", False, 'white')
@@ -397,7 +403,8 @@ class Game:
             center=(screen_width - screen_width/4, 600))
         screen.blit(enemy_text, enemy_text_rect)
         # Enemy Image
-        enemy_image = pygame.image.load(f'../graphics/enemy/run/{int(self.enemy_frame)}.png')
+        enemy_image = pygame.image.load(
+            f'../graphics/enemy/run/{int(self.enemy_frame)}.png')
         enemy_image_rect = enemy_image.get_rect(
             center=(screen_width - screen_width/4, 675))
         screen.blit(enemy_image, enemy_image_rect)
@@ -407,7 +414,7 @@ class Game:
         enemy_value_text_rect = enemy_value_text.get_rect(
             center=(screen_width - screen_width/4, 725))
         screen.blit(enemy_value_text, enemy_value_text_rect)
-        
+
         # Tell the player how to continue
         continue_text = self.tutorial_font.render(
             "Press W to Start", False, 'white')
@@ -420,7 +427,7 @@ class Game:
             self.can_press = False
             self.tutorial_music.stop()
             self.restart_game()
-    
+
     # Credits State
     def end_game(self):
         screen.fill((30, 30, 30))
@@ -537,6 +544,7 @@ class Game:
             self.ui.display_lives(self.lives)
             self.ui.show_coins(self.coins)
             self.ui.show_diamonds(self.diamonds)
+
 
 pygame.mixer.pre_init(44100, -16, 2, 4096)
 pygame.init()

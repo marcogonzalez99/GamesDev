@@ -549,6 +549,7 @@ class Game:
 
 pygame.mixer.pre_init(44100, -16, 2, 4096)
 pygame.init()
+screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Pirate's Cove")
 clock = pygame.time.Clock()
 game = Game()

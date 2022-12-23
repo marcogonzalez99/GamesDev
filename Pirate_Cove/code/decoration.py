@@ -149,6 +149,8 @@ class Sky:
                 surface.blit(cloud[0], cloud[1])
 
 # This draws the water at the bottom of the screen of every level
+
+
 class Water:
     def __init__(self, top, level_width):
         water_start = -screen_width

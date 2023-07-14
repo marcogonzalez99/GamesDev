@@ -24,7 +24,9 @@ class Game:
         self.create_stage()
         self.ball = Ball(self.all_sprites, self.player, self.block_sprites)
         
-    
+        # Hearts
+        self.hearts_surface = pygame.image.load('../graphics/other/heart.png').convert_alpha()
+        
     def create_bg(self):
         bg_original = pygame.image.load('../graphics/other/bg.png').convert()
         scale_factor = WINDOW_HEIGHT / bg_original.get_height()
@@ -39,11 +41,15 @@ class Game:
             for col_index, col in enumerate(row):
                 if col != ' ':
                     x = col_index * (BLOCK_WIDTH + GAP_SIZE) + GAP_SIZE // 2
-                    y = row_index * (BLOCK_HEIGHT + GAP_SIZE) + GAP_SIZE // 2
+                    y = TOP_OFFSET + row_index * (BLOCK_HEIGHT + GAP_SIZE) + GAP_SIZE // 2
                     Block(col,(x,y),[self.all_sprites, self.block_sprites], self.surface_maker)
         # Find the x and y position
         
-        
+    def display_hearts(self):
+        for i in range(self.player.hearts):
+            x = 2+ i * (self.hearts_surface.get_width() + 2)
+            self.display_surface.blit(self.hearts_surface, (x,4))
+               
     def run(self):
         last_time = time.time()
         while True:
@@ -54,12 +60,13 @@ class Game:
             
             # Event Loop
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                if event.type == pygame.QUIT or self.player.hearts:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        self.ball.active = True
+                        self.ball.active = True        
+                
                     
             # Update the game
             self.all_sprites.update(dt)        
@@ -69,6 +76,7 @@ class Game:
             
             # Draw all Sprites
             self.all_sprites.draw(self.display_surface) 
+            self.display_hearts()
                     
             # Update Window
             pygame.display.update()

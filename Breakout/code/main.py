@@ -1,6 +1,7 @@
 import pygame,sys,time
 from settings import *
-from sprites import Player, Ball
+from sprites import Player, Ball, Block
+from surface_maker import SurfaceMaker
 
 class Game:
     def __init__(self):
@@ -15,11 +16,14 @@ class Game:
         
         # Sprite Group Setup
         self.all_sprites = pygame.sprite.Group()
+        self.block_sprites = pygame.sprite.Group()
         
         # Setup
-        self.player = Player(self.all_sprites)
-        self.ball = Ball(self.all_sprites, self.player)
+        self.surface_maker = SurfaceMaker()
+        self.player = Player(self.all_sprites, self.surface_maker)
         self.create_stage()
+        self.ball = Ball(self.all_sprites, self.player, self.block_sprites)
+        
     
     def create_bg(self):
         bg_original = pygame.image.load('../graphics/other/bg.png').convert()
@@ -33,8 +37,10 @@ class Game:
         # Cycle through all the rows and columns of the BLOCK MAP
         for row_index,row in enumerate(BLOCK_MAP):
             for col_index, col in enumerate(row):
-                x = col_index * (BLOCK_WIDTH + GAP_SIZE) + GAP_SIZE // 2
-                y = row_index * (BLOCK_HEIGHT + GAP_SIZE) + GAP_SIZE // 2
+                if col != ' ':
+                    x = col_index * (BLOCK_WIDTH + GAP_SIZE) + GAP_SIZE // 2
+                    y = row_index * (BLOCK_HEIGHT + GAP_SIZE) + GAP_SIZE // 2
+                    Block(col,(x,y),[self.all_sprites, self.block_sprites], self.surface_maker)
         # Find the x and y position
         
         

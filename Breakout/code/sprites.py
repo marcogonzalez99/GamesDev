@@ -9,7 +9,6 @@ class Player(pygame.sprite.Sprite):
         # Setup
         self.surface_maker = surface_maker
         self.image = surface_maker.get_surface('player',(WINDOW_WIDTH // 10, WINDOW_HEIGHT // 20))
-        self.image.fill('red')
         
         # Position
         self.rect = self.image.get_rect(midbottom = (WINDOW_WIDTH // 2, WINDOW_HEIGHT - 20))
@@ -154,7 +153,7 @@ class Block(pygame.sprite.Sprite):
     def __init__(self,block_type,pos,groups,surface_maker):
         super().__init__(groups)
         self.surface_maker = surface_maker
-        self.image = self.surface_maker.get_surface('red',(BLOCK_WIDTH, BLOCK_HEIGHT))
+        self.image = self.surface_maker.get_surface(COLOR_LEGEND[block_type],(BLOCK_WIDTH, BLOCK_HEIGHT))
         self.rect = self.image.get_rect(topleft = pos)
         self.old_rect = self.rect.copy()
         
@@ -165,8 +164,7 @@ class Block(pygame.sprite.Sprite):
         self.health -= amount
 
         if self.health > 0:
-            # Update image
-            pass
+            self.image = self.surface_maker.get_surface(COLOR_LEGEND[str(self.health)], (BLOCK_WIDTH,BLOCK_HEIGHT))
         else:
             self.kill()
             

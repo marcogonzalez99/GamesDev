@@ -19,6 +19,7 @@ class SurfaceMaker:
         
         # Create one surface with the graphics at any size
         image = pygame.Surface(size)
+        image.set_colorkey((0,0,0))
         sides = self.assets[block_type]
         
         
@@ -34,16 +35,25 @@ class SurfaceMaker:
         image.blit(scaled_top_surface, (sides['topleft'].get_width(),0))
         
         # Left Side
-        top_height = size[1] - (sides['topleft'].get_height() + sides['bottomleft'].get_height())
-        scaled_top_surface = pygame.transform.scale(sides['top'], (top_width, sides['top'].get_height()))
-        image.blit(scaled_top_surface, (sides['topleft'].get_width(),0))
+        left_height = size[1] - (sides['topleft'].get_height() + sides['bottomleft'].get_height())
+        scaled_left_surface = pygame.transform.scale(sides['left'],(sides['left'].get_width(),left_height))
+        image.blit(scaled_left_surface, (0,sides['topleft'].get_height()))
         
         # Right Side
+        right_height = size[1] - (sides['topright'].get_height() + sides['bottomright'].get_height())
+        scaled_right_surface = pygame.transform.scale(sides['right'],(sides['right'].get_width(),right_height))
+        image.blit(scaled_right_surface, (size[0] - sides['right'].get_width(),sides['topright'].get_height()))
         
         # Bottom Side
+        bottom_width = size[0] - (sides['bottomleft'].get_width() + sides['bottomright'].get_width())
+        scaled_bottom_surface = pygame.transform.scale(sides['bottom'], (bottom_width, sides['bottom'].get_height()))
+        image.blit(scaled_bottom_surface, (sides['topleft'].get_width(), size[1] - sides['bottom'].get_height()))
         
         # Center Color
-        
+        center_height = size[1] - (sides['top'].get_height() + sides['bottom'].get_height())
+        center_width = size[0] - (sides['left'].get_width() + sides['right'].get_width())
+        scaled_center = pygame.transform.scale(sides['center'], (center_width, center_height))
+        image.blit(scaled_center,sides['topleft'].get_size())
         
         
         return image

@@ -154,7 +154,7 @@ class Block(pygame.sprite.Sprite):
     def __init__(self,block_type,pos,groups,surface_maker):
         super().__init__(groups)
         self.surface_maker = surface_maker
-        self.image = self.surface_maker.get_surface(block_type,(BLOCK_WIDTH, BLOCK_HEIGHT))
+        self.image = self.surface_maker.get_surface('red',(BLOCK_WIDTH, BLOCK_HEIGHT))
         self.rect = self.image.get_rect(topleft = pos)
         self.old_rect = self.rect.copy()
         

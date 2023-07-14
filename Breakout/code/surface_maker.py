@@ -16,6 +16,34 @@ class SurfaceMaker:
                     self.assets[color_type][image_name.split('.')[0]] = surface
     
     def get_surface(self,block_type,size):
+        
+        # Create one surface with the graphics at any size
         image = pygame.Surface(size)
-        image.fill('red')
+        sides = self.assets[block_type]
+        
+        
+        # 4 Corners
+        image.blit(sides['topleft'],(0,0))
+        image.blit(sides['topright'],(size[0] - sides['topright'].get_width(),0))
+        image.blit(sides['bottomleft'],(0,size[1] - sides['bottomleft'].get_height()))
+        image.blit(sides['bottomright'],(size[0] - sides['topright'].get_width(),size[1] - sides['bottomleft'].get_height()))
+        
+        # Top Side
+        top_width = size[0] - (sides['topleft'].get_width() + sides['topright'].get_width())
+        scaled_top_surface = pygame.transform.scale(sides['top'], (top_width, sides['top'].get_height()))
+        image.blit(scaled_top_surface, (sides['topleft'].get_width(),0))
+        
+        # Left Side
+        top_height = size[1] - (sides['topleft'].get_height() + sides['bottomleft'].get_height())
+        scaled_top_surface = pygame.transform.scale(sides['top'], (top_width, sides['top'].get_height()))
+        image.blit(scaled_top_surface, (sides['topleft'].get_width(),0))
+        
+        # Right Side
+        
+        # Bottom Side
+        
+        # Center Color
+        
+        
+        
         return image

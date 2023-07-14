@@ -19,6 +19,7 @@ class Game:
         # Setup
         self.player = Player(self.all_sprites)
         self.ball = Ball(self.all_sprites, self.player)
+        self.create_stage()
     
     def create_bg(self):
         bg_original = pygame.image.load('../graphics/other/bg.png').convert()
@@ -27,6 +28,14 @@ class Game:
         scaled_height = bg_original.get_height() * scale_factor
         scaled_bg = pygame.transform.scale(bg_original, (scaled_width,scaled_height))
         return scaled_bg
+    
+    def create_stage(self):
+        # Cycle through all the rows and columns of the BLOCK MAP
+        for row_index,row in enumerate(BLOCK_MAP):
+            for col_index, col in enumerate(row):
+                x = col_index * (BLOCK_WIDTH + GAP_SIZE) + GAP_SIZE // 2
+                y = row_index * (BLOCK_HEIGHT + GAP_SIZE) + GAP_SIZE // 2
+        # Find the x and y position
         
         
     def run(self):

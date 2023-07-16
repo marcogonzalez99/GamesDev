@@ -18,12 +18,30 @@ class Upgrade(pygame.sprite.Sprite):
         
         if self.rect.top > WINDOW_HEIGHT + 100:
             self.kill()
+  
+class Projectile (pygame.sprite.Sprite):
+    def __init__(self,pos,surface,groups):
+        super().__init__(groups)
+        
+        self.image = surface
+        self.rect = self.image.get_rect(midbottom = pos)
+        self.pos = pygame.math.Vector2(self.rect.topleft)
+        self.speed = 300
+        
+    def update(self,dt):
+        self.pos.y -= self.speed * dt
+        self.rect.y = round(self.pos.y)
+        
+        if self.rect.bottom <= -100:
+            self.kill
+        
         
 class Player(pygame.sprite.Sprite):
     def __init__(self,groups,surface_maker):
         super().__init__(groups)
         
         # Setup
+        self.display_surface = pygame.display.get_surface()
         self.surface_maker = surface_maker
         self.image = surface_maker.get_surface('player',(WINDOW_WIDTH // 10, WINDOW_HEIGHT // 20))
         
@@ -36,6 +54,11 @@ class Player(pygame.sprite.Sprite):
         self.pos = pygame.math.Vector2(self.rect.topleft)
         
         self.hearts = 3
+        
+        # Laser
+        self.laser_amount = 0
+        self.laser_surface = pygame.image.load('../graphics/other/laser.png').convert_alpha()
+        self.laser_rects= []
         
     def input(self):
         keys = pygame.key.get_pressed()
@@ -54,15 +77,42 @@ class Player(pygame.sprite.Sprite):
             self.rect.left = 0      
             self.pos.x = self.rect.x  
             
+    def upgrade(self,upgrade_type):
+        if upgrade_type == 'speed':
+            self.speed += 50
+        if upgrade_type == 'heart':
+            self.hearts += 1
+        if upgrade_type == 'size':
+            new_width = self.rect.width * 1.1
+            self.image = self.surface_maker.get_surface('player', (new_width, self.rect.height))
+            self.rect = self.image.get_rect(center = self.rect.center)
+            self.pos.x = self.rect.x
+            
+        if upgrade_type == 'laser':
+            self.laser_amount += 1  
+         
+    def display_laser(self):
+        self.laser_rects = []
+        if self.laser_amount > 0:
+            divider_length = self.rect.width / (self.laser_amount + 1)
+            for i in range(self.laser_amount):
+                x = self.rect.left + divider_length * (i + 1)
+                laser_rect = self.laser_surface.get_rect(midbottom = (x,self.rect.top))  
+                self.laser_rects.append(laser_rect)
+                
+            for laser_rect in self.laser_rects:
+                self.display_surface.blit(self.laser_surface, laser_rect)
+            
     def update(self, dt):
         self.old_rect = self.rect.copy()
         self.input()
         
-        # Checks for screen constraint
-        self.screen_constraint()
-        
         self.pos.x += self.direction.x * self.speed * dt
         self.rect.x = round(self.pos.x)
+        
+        # Checks for screen constraint
+        self.screen_constraint()
+        self.display_laser()
         
 class Ball(pygame.sprite.Sprite):
     def __init__(self,groups, player, blocks):
@@ -84,6 +134,13 @@ class Ball(pygame.sprite.Sprite):
         
         # Active
         self.active = False
+        
+        # Sounds
+        self.impact_sound = pygame.mixer.Sound('../sounds/impact.wav')
+        self.impact_sound.set_volume(0.1)
+        
+        self.fail_sound = pygame.mixer.Sound('../sounds/fail.wav')
+        self.fail_sound.set_volume(0.1)
     
     def window_collision(self,direction):
         if direction == 'horizontal':
@@ -106,6 +163,7 @@ class Ball(pygame.sprite.Sprite):
                 self.active = False
                 self.direction.y = -1
                 self.player.hearts -= 1
+                self.fail_sound.play()
         
     
     def collision(self,direction):
@@ -121,11 +179,13 @@ class Ball(pygame.sprite.Sprite):
                         self.rect.right = sprite.rect.left - 1
                         self.pos.x = self.rect.x
                         self.direction.x *= -1
+                        self.impact_sound.play()
  
                     if self.rect.left <= sprite.rect.right and self.old_rect.left >= sprite.old_rect.right:
                         self.rect.left = sprite.rect.right + 1
                         self.pos.x = self.rect.x
                         self.direction.x *= -1
+                        self.impact_sound.play()
                 
                 if getattr(sprite, 'health',None):
                     sprite.get_damage(1)
@@ -136,11 +196,13 @@ class Ball(pygame.sprite.Sprite):
                         self.rect.bottom = sprite.rect.top - 1
                         self.pos.y = self.rect.y
                         self.direction.y *= -1
+                        self.impact_sound.play()
  
                     if self.rect.top <= sprite.rect.bottom and self.old_rect.top >= sprite.old_rect.bottom:
                         self.rect.top = sprite.rect.bottom + 1
                         self.pos.y = self.rect.y
                         self.direction.y *= -1
+                        self.impact_sound.play()
                 
                 if getattr(sprite, 'health',None):
                     sprite.get_damage(1)
@@ -189,7 +251,7 @@ class Block(pygame.sprite.Sprite):
         if self.health > 0:
             self.image = self.surface_maker.get_surface(COLOR_LEGEND[str(self.health)], (BLOCK_WIDTH,BLOCK_HEIGHT))
         else:
-            if randint(0,10) < 3:
+            if randint(0,10) < 9:
                 self.create_upgrade(self.rect.center)
             self.kill()
             

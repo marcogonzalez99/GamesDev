@@ -1,7 +1,24 @@
 import pygame
 from settings import *
-from random import choice
+from random import choice, randint
 
+class Upgrade(pygame.sprite.Sprite):
+    def __init__(self,pos,upgrade_type,groups):
+        super().__init__(groups)
+        self.upgrade_type = upgrade_type
+        self.image = pygame.image.load(f'../graphics/upgrades/{upgrade_type}.png')
+        self.rect = self.image.get_rect(midtop = pos)
+        
+        self.pos = pygame.math.Vector2(self.rect.topleft)
+        self.speed = 300
+        
+    def update(self,dt):
+        self.pos.y += self.speed * dt
+        self.rect.y = round(self.pos.y)
+        
+        if self.rect.top > WINDOW_HEIGHT + 100:
+            self.kill()
+        
 class Player(pygame.sprite.Sprite):
     def __init__(self,groups,surface_maker):
         super().__init__(groups)
@@ -18,7 +35,7 @@ class Player(pygame.sprite.Sprite):
         self.speed = 300
         self.pos = pygame.math.Vector2(self.rect.topleft)
         
-        self.hearts = 1
+        self.hearts = 3
         
     def input(self):
         keys = pygame.key.get_pressed()
@@ -153,7 +170,7 @@ class Ball(pygame.sprite.Sprite):
             self.pos = pygame.math.Vector2(self.rect.topleft)
         
 class Block(pygame.sprite.Sprite):
-    def __init__(self,block_type,pos,groups,surface_maker):
+    def __init__(self,block_type,pos,groups,surface_maker,create_upgrade):
         super().__init__(groups)
         self.surface_maker = surface_maker
         self.image = self.surface_maker.get_surface(COLOR_LEGEND[block_type],(BLOCK_WIDTH, BLOCK_HEIGHT))
@@ -163,11 +180,16 @@ class Block(pygame.sprite.Sprite):
         # Damage information
         self.health = int(block_type)
         
+        # Upgrade
+        self.create_upgrade = create_upgrade
+        
     def get_damage(self,amount):
         self.health -= amount
 
         if self.health > 0:
             self.image = self.surface_maker.get_surface(COLOR_LEGEND[str(self.health)], (BLOCK_WIDTH,BLOCK_HEIGHT))
         else:
+            if randint(0,10) < 3:
+                self.create_upgrade(self.rect.center)
             self.kill()
             

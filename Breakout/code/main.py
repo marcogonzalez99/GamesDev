@@ -1,7 +1,8 @@
 import pygame,sys,time
 from settings import *
-from sprites import Player, Ball, Block
+from sprites import Player, Ball, Block, Upgrade
 from surface_maker import SurfaceMaker
+from random import choice
 
 class Game:
     def __init__(self):
@@ -17,6 +18,7 @@ class Game:
         # Sprite Group Setup
         self.all_sprites = pygame.sprite.Group()
         self.block_sprites = pygame.sprite.Group()
+        self.upgrade_sprites = pygame.sprite.Group()
         
         # Setup
         self.surface_maker = SurfaceMaker()
@@ -26,6 +28,10 @@ class Game:
         
         # Hearts
         self.hearts_surface = pygame.image.load('../graphics/other/heart.png').convert_alpha()
+    
+    def create_upgrade(self,pos):
+        upgrade_type = choice(UPGRADES)
+        Upgrade(pos,upgrade_type,[self.all_sprites,self.upgrade_sprites])
         
     def create_bg(self):
         bg_original = pygame.image.load('../graphics/other/bg.png').convert()
@@ -42,13 +48,18 @@ class Game:
                 if col != ' ':
                     x = col_index * (BLOCK_WIDTH + GAP_SIZE) + GAP_SIZE // 2
                     y = TOP_OFFSET + row_index * (BLOCK_HEIGHT + GAP_SIZE) + GAP_SIZE // 2
-                    Block(col,(x,y),[self.all_sprites, self.block_sprites], self.surface_maker)
+                    Block(col,(x,y),[self.all_sprites, self.block_sprites], self.surface_maker,self.create_upgrade)
         # Find the x and y position
         
     def display_hearts(self):
         for i in range(self.player.hearts):
             x = 2+ i * (self.hearts_surface.get_width() + 2)
             self.display_surface.blit(self.hearts_surface, (x,4))
+            
+    def upgrade_collision(self):
+        overlap_sprites = pygame.sprite.spritecollide(self.player, self.upgrade_sprites, True)
+        for sprite in overlap_sprites:
+            self.player.upgrade(sprite.upgrade_type)
                
     def run(self):
         last_time = time.time()
@@ -60,7 +71,7 @@ class Game:
             
             # Event Loop
             for event in pygame.event.get():
-                if event.type == pygame.QUIT or self.player.hearts:
+                if event.type == pygame.QUIT or self.player.hearts <= 0:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
